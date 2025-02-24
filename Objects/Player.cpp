@@ -17,6 +17,12 @@ using namespace DirectX;
 /// コンストラクト
 /// </summary>
 Player::Player() noexcept
+	: m_position(0.0f, 0.0f, 0.0f)
+	, m_rotate  (0.0f, 0.0f, 0.0f)
+	, m_scale   (1.0f, 1.0f, 1.0f)
+	, mp_DeviceResources{ nullptr }
+	, mp_Proj           { nullptr }
+	, mp_States         { nullptr }
 {
 }
 
@@ -119,13 +125,13 @@ void Player::Draw(const SimpleMath::Matrix& view)
 	// 拡大する行列を作成する
 	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(m_scale);
 
-	world = trans * rotX * rotY * rotZ * scale;
+	// ワールド行列へ統合
+	world = trans * rotZ * rotY * rotX * scale;
 
 	// モデルの描画
-	if (m_model)
-		m_model->Draw(
-			mp_DeviceResources->GetD3DDeviceContext(),
-			*mp_States, world, view, *mp_Proj);
+	m_model->Draw(
+		mp_DeviceResources->GetD3DDeviceContext(),
+		*mp_States, world, view, *mp_Proj);
 }
 
 

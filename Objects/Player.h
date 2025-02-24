@@ -46,9 +46,9 @@ public:
 
 	Player
 	(
-		DX::DeviceResources* pDeviceResources,
+		        DX::DeviceResources* pDeviceResources,
 		DirectX::SimpleMath::Matrix* pProj,
-		DirectX::CommonStates* pStates
+		      DirectX::CommonStates* pStates
 	);
 
 	void Initialize();

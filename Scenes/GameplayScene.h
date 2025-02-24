@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/12
+ * @date   2025/02/24
  */
 
 #pragma once
@@ -16,6 +16,8 @@
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
 #include "ImaseLib/DebugCamera.h"
+
+class Player;
 
 /// <summary>
 /// ゲームプレイシーン
@@ -34,14 +36,8 @@ private:
     // デバッグカメラ
     std::unique_ptr<Imase::DebugCamera> m_debugCamera;
 
-    // モデル
-    std::unique_ptr<DirectX::Model> m_model;
-
-    // プレイヤーの座標
-    DirectX::SimpleMath::Vector3 m_position;
-
-    // プレイヤーの向き（Y軸回転：ラジアン）
-    float m_rotateY;
+    // プレイヤー
+    std::unique_ptr<Player> m_player;
 
 public:
 	// Main System
