@@ -78,25 +78,25 @@ void Player::Update(float elapsedTime)
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		m_position.x += 3.0f * elapsedTime;
+		m_position.x -= 1.5f * elapsedTime;
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		m_position.x -= 3.0f * elapsedTime;
+		m_position.x += 1.5f * elapsedTime;
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		m_position.z += 3.0f * elapsedTime;
+		m_position.z -= 1.5f * elapsedTime;
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		m_position.z -= 3.0f * elapsedTime;
+		m_position.z += 1.5f * elapsedTime;
 	}
 
 	//m_position += v * 3.0f * elapsedTime;
@@ -159,6 +159,11 @@ void Player::SetRotate(const DirectX::SimpleMath::Vector3& rotate)
 void Player::SetScale(const DirectX::SimpleMath::Vector3& scale)
 {
 	m_scale = scale;
+}
+
+void Player::SetScale(float scale)
+{
+	m_scale = SimpleMath::Vector3(scale, scale, scale);
 }
 
 void Player::SetPositionX(float x)

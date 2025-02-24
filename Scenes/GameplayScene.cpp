@@ -41,6 +41,9 @@ GameplayScene::GameplayScene
 
     // プレイヤーの作成
     m_player = std::make_unique<Player>(mp_DeviceResources, mp_Proj, mp_States);
+
+    // ToDo : トランスフォームの実装
+    // ToDo : オブジェクトマネージャの導入
 }
 
 /// <summary>
@@ -61,6 +64,7 @@ void GameplayScene::Initialize()
 
     // プレイヤーの初期化処理
     m_player->Initialize();
+    m_player->SetScale(0.35f);
 }
 
 /// <summary>

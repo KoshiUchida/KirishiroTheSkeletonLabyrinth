@@ -61,6 +61,8 @@ public:
 	void SetRotate  (const DirectX::SimpleMath::Vector3& rotate);
 	void SetScale   (const DirectX::SimpleMath::Vector3& scale);
 
+	void SetScale(float scale);
+
 	void SetPositionX(float x);
 	void SetPositionY(float y);
 	void SetPositionZ(float z);
