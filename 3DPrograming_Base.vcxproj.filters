@@ -17,6 +17,9 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{7982a27a-609c-4776-8155-530dac0ec3d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Componerts">
+      <UniqueIdentifier>{c30310b8-7b4e-4f07-9a82-d96fcd5264e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -49,7 +52,12 @@
     <ClInclude Include="Objects\Player.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Transform.h" />
+    <ClInclude Include="Objects\Transform.h">
+      <Filter>Componerts</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Renderer3D.h">
+      <Filter>Componerts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -80,7 +88,12 @@
     <ClCompile Include="Objects\Player.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Transform.cpp" />
+    <ClCompile Include="Objects\Transform.cpp">
+      <Filter>Componerts</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Renderer3D.cpp">
+      <Filter>Componerts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

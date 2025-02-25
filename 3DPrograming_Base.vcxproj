@@ -189,6 +189,7 @@
     <ClInclude Include="Managers\SceneManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Objects\Player.h" />
+    <ClInclude Include="Objects\Renderer3D.h" />
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="StepTimer.h" />
@@ -210,6 +211,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Objects\Player.cpp" />
+    <ClCompile Include="Objects\Renderer3D.cpp" />
     <ClCompile Include="Scenes\GameplayScene.cpp" />
     <ClCompile Include="Scenes\SceneBace.cpp" />
     <ClCompile Include="Objects\Transform.cpp" />

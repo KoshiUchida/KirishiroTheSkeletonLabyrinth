@@ -40,7 +40,7 @@ GameplayScene::GameplayScene
     m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States );
 
     // プレイヤーの作成
-    m_player = std::make_unique<Player>(mp_DeviceResources, mp_Proj, mp_States);
+    m_player = std::make_unique<Player>(this);
 
     // ToDo : トランスフォームの実装
     // ToDo : オブジェクトマネージャの導入
