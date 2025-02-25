@@ -90,7 +90,7 @@ void GameplayScene::Render()
     SimpleMath::Matrix view = m_debugCamera->GetCameraMatrix();
 
     // プレイヤーの描画処理
-    m_player->Draw(view);
+    m_player->GetRenderer3DPointer()->Draw(view);
 
     // グリッドの床の描画
     m_gridFloor->Render(context, view, *mp_Proj);
@@ -111,7 +111,6 @@ void GameplayScene::Render()
 void GameplayScene::Finalize()
 {
     // オブジェクトの終了処理
-    m_player->Finalize();
     m_player.reset();
 
     m_debugFont.reset();

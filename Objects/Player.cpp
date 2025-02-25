@@ -17,11 +17,9 @@ using namespace DirectX;
 /// <summary>
 /// コンストラクト
 /// </summary>
-Player::Player() noexcept
+Player::Player(SceneBace* pScene) noexcept(false)
 	: m_Transform{}
-	, mp_DeviceResources{ nullptr }
-	, mp_Proj{ nullptr }
-	, mp_States{ nullptr }
+	, m_Renderer(pScene, &m_Transform, L"Resources\\Models\\Kirishiro.sdkmesh")
 {
 }
 
@@ -29,26 +27,6 @@ Player::Player() noexcept
 /// デストラクタ
 /// </summary>
 Player::~Player() noexcept = default;
-
-/// <summary>
-/// コンストラクト
-/// </summary>
-Player::Player(
-	DX::DeviceResources* pDeviceResources,
-	DirectX::SimpleMath::Matrix* pProj,
-	DirectX::CommonStates* pStates) noexcept(false)
-	: Player()
-{
-	mp_DeviceResources = pDeviceResources;
-	mp_Proj = pProj;
-	mp_States = pStates;
-
-	// モデルの読み込み
-	auto device = mp_DeviceResources->GetD3DDevice();
-	EffectFactory fx(device);
-	m_Model = Model::CreateFromSDKMESH(
-		device, L"Resources\\Models\\Kirishiro.sdkmesh", fx);
-}
 
 /// <summary>
 /// 初期化処理
@@ -101,46 +79,6 @@ void Player::Update(float elapsedTime)
 	//m_position += v * 3.0f * elapsedTime;
 }
 
-/// <summary>
-/// 描画処理
-/// </summary>
-void Player::Draw(const SimpleMath::Matrix& view)
-{
-	// ワールド行列
-	SimpleMath::Matrix world;
-
-	// 平行移動する行列を作成する
-	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(m_Transform.GetPosition());
-
-	// X軸で回転する行列を作成する
-	SimpleMath::Matrix rotX = SimpleMath::Matrix::CreateRotationX(m_Transform.GetRotateX());
-
-	// Y軸で回転する行列を作成する
-	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(m_Transform.GetRotateY());
-
-	// Z軸で回転する行列を作成する
-	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationY(m_Transform.GetRotateZ());
-
-	// 拡大する行列を作成する
-	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(m_Transform.GetScale());
-
-	// ワールド行列へ統合
-	world = trans * rotZ * rotY * rotX * scale;
-
-	// モデルの描画
-	m_Model->Draw(
-		mp_DeviceResources->GetD3DDeviceContext(),
-		*mp_States, world, view, *mp_Proj);
-}
-
-
-/// <summary>
-/// 終了処理
-/// </summary>
-void Player::Finalize()
-{
-	m_Model.reset();
-}
 
 Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false)
 	: mp_Transform      { pTransform }
