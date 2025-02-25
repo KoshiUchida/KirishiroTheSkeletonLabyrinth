@@ -1,5 +1,5 @@
 /**
- * @file   Player.cpp
+ * @file   Transform.cpp
  *
  * @brief  プレイヤーのソースファイル
  *
@@ -17,12 +17,10 @@ using namespace DirectX;
 /// コンストラクト
 /// </summary>
 Player::Player() noexcept
-	: m_position(0.0f, 0.0f, 0.0f)
-	, m_rotate  (0.0f, 0.0f, 0.0f)
-	, m_scale   (1.0f, 1.0f, 1.0f)
+	: m_Transform{}
 	, mp_DeviceResources{ nullptr }
-	, mp_Proj           { nullptr }
-	, mp_States         { nullptr }
+	, mp_Proj{ nullptr }
+	, mp_States{ nullptr }
 {
 }
 
@@ -35,19 +33,19 @@ Player::~Player() noexcept = default;
 /// コンストラクト
 /// </summary>
 Player::Player(
-	        DX::DeviceResources* pDeviceResources,
+	DX::DeviceResources* pDeviceResources,
 	DirectX::SimpleMath::Matrix* pProj,
-	      DirectX::CommonStates* pStates)
+	DirectX::CommonStates* pStates) noexcept(false)
 	: Player()
 {
 	mp_DeviceResources = pDeviceResources;
-	mp_Proj            = pProj;
-	mp_States          = pStates;
+	mp_Proj = pProj;
+	mp_States = pStates;
 
 	// モデルの読み込み
 	auto device = mp_DeviceResources->GetD3DDevice();
 	EffectFactory fx(device);
-	m_model = Model::CreateFromSDKMESH(
+	m_Model = Model::CreateFromSDKMESH(
 		device, L"Resources\\Models\\Kirishiro.sdkmesh", fx);
 }
 
@@ -78,25 +76,25 @@ void Player::Update(float elapsedTime)
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		m_position.x -= 1.5f * elapsedTime;
+		m_Transform.AddPositionX(-1.5f * elapsedTime);
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		m_position.x += 1.5f * elapsedTime;
+		m_Transform.AddPositionX(1.5f * elapsedTime);
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		m_position.z -= 1.5f * elapsedTime;
+		m_Transform.AddPositionZ(-1.5f * elapsedTime);
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		m_position.z += 1.5f * elapsedTime;
+		m_Transform.AddPositionZ(1.5f * elapsedTime);
 	}
 
 	//m_position += v * 3.0f * elapsedTime;
@@ -111,25 +109,25 @@ void Player::Draw(const SimpleMath::Matrix& view)
 	SimpleMath::Matrix world;
 
 	// 平行移動する行列を作成する
-	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(m_position);
+	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(m_Transform.GetPosition());
 
 	// X軸で回転する行列を作成する
-	SimpleMath::Matrix rotX = SimpleMath::Matrix::CreateRotationX(m_rotate.x);
+	SimpleMath::Matrix rotX = SimpleMath::Matrix::CreateRotationX(m_Transform.GetRotateX());
 
 	// Y軸で回転する行列を作成する
-	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(m_rotate.y);
+	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(m_Transform.GetRotateY());
 
 	// Z軸で回転する行列を作成する
-	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationY(m_rotate.z);
+	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationY(m_Transform.GetRotateZ());
 
 	// 拡大する行列を作成する
-	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(m_scale);
+	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(m_Transform.GetScale());
 
 	// ワールド行列へ統合
 	world = trans * rotZ * rotY * rotX * scale;
 
 	// モデルの描画
-	m_model->Draw(
+	m_Model->Draw(
 		mp_DeviceResources->GetD3DDeviceContext(),
 		*mp_States, world, view, *mp_Proj);
 }
@@ -140,136 +138,195 @@ void Player::Draw(const SimpleMath::Matrix& view)
 /// </summary>
 void Player::Finalize()
 {
-	m_model.reset();
+	m_Model.reset();
 }
 
+
+
+
+Transform::Transform() noexcept
+	: m_Position{}
+	, m_Rotate{}
+	, m_Scale(1.0f, 1.0f, 1.0f)
+{
+}
+
+Transform::~Transform() noexcept = default;
 
 /*Setter Functions*/
 
-void Player::SetPosition(const DirectX::SimpleMath::Vector3& position)
+void Transform::SetPosition(const DirectX::SimpleMath::Vector3& position)
 {
-	m_position = position;
+	m_Position = position;
 }
 
-void Player::SetRotate(const DirectX::SimpleMath::Vector3& rotate)
+void Transform::SetRotate(const DirectX::SimpleMath::Vector3& rotate)
 {
-	m_rotate = rotate;
+	m_Rotate = rotate;
 }
 
-void Player::SetScale(const DirectX::SimpleMath::Vector3& scale)
+void Transform::SetScale(const DirectX::SimpleMath::Vector3& scale)
 {
-	m_scale = scale;
+	m_Scale = scale;
 }
 
-void Player::SetScale(float scale)
+void Transform::SetScale(float scale)
 {
-	m_scale = SimpleMath::Vector3(scale, scale, scale);
+	m_Scale = SimpleMath::Vector3(scale, scale, scale);
 }
 
-void Player::SetPositionX(float x)
+void Transform::SetPositionX(float x)
 {
-	m_position.x = x;
+	m_Position.x = x;
 }
 
-void Player::SetPositionY(float y)
+void Transform::SetPositionY(float y)
 {
-	m_position.y = y;
+	m_Position.y = y;
 }
 
-void Player::SetPositionZ(float z)
+void Transform::SetPositionZ(float z)
 {
-	m_position.z = z;
+	m_Position.z = z;
 }
 
-void Player::SetRotateX(float x)
+void Transform::SetRotateX(float x)
 {
-	m_rotate.x = x;
+	m_Rotate.x = x;
 }
 
-void Player::SetRotateY(float y)
+void Transform::SetRotateY(float y)
 {
-	m_rotate.y = y;
+	m_Rotate.y = y;
 }
 
-void Player::SetRotateZ(float z)
+void Transform::SetRotateZ(float z)
 {
-	m_rotate.z = z;
+	m_Rotate.z = z;
 }
 
-void Player::SetScaleX(float x)
+void Transform::SetScaleX(float x)
 {
-	m_scale.x = x;
+	m_Scale.x = x;
 }
 
-void Player::SetScaleY(float y)
+void Transform::SetScaleY(float y)
 {
-	m_scale.y = y;
+	m_Scale.y = y;
 }
 
-void Player::SetScaleZ(float z)
+void Transform::SetScaleZ(float z)
 {
-	m_scale.z = z;
+	m_Scale.z = z;
 }
 
 
 /*Getter Functions*/
 
-DirectX::SimpleMath::Vector3 Player::GetPosition() const
+DirectX::SimpleMath::Vector3 Transform::GetPosition() const
 {
-	return m_position;
+	return m_Position;
 }
 
-DirectX::SimpleMath::Vector3 Player::GetRotate() const
+DirectX::SimpleMath::Vector3 Transform::GetRotate() const
 {
-	return m_rotate;
+	return m_Rotate;
 }
 
-DirectX::SimpleMath::Vector3 Player::GetScale() const
+DirectX::SimpleMath::Vector3 Transform::GetScale() const
 {
-	return m_scale;
+	return m_Scale;
 }
 
-float Player::GetPositionX() const
+float Transform::GetPositionX() const
 {
-	return m_position.x;
+	return m_Position.x;
 }
 
-float Player::GetPositionY() const
+float Transform::GetPositionY() const
 {
-	return m_position.y;
+	return m_Position.y;
 }
 
-float Player::GetPositionZ() const
+float Transform::GetPositionZ() const
 {
-	return m_position.z;
+	return m_Position.z;
 }
 
-float Player::GetRotateX() const
+float Transform::GetRotateX() const
 {
-	return m_rotate.x;
+	return m_Rotate.x;
 }
 
-float Player::GetRotateY() const
+float Transform::GetRotateY() const
 {
-	return m_rotate.y;
+	return m_Rotate.y;
 }
 
-float Player::GetRotateZ() const
+float Transform::GetRotateZ() const
 {
-	return m_rotate.z;
+	return m_Rotate.z;
 }
 
-float Player::GetScaleX() const
+float Transform::GetScaleX() const
 {
-	return m_scale.x;
+	return m_Scale.x;
 }
 
-float Player::GetScaleY() const
+float Transform::GetScaleY() const
 {
-	return m_scale.y;
+	return m_Scale.y;
 }
 
-float Player::GetScaleZ() const
+float Transform::GetScaleZ() const
 {
-	return m_scale.z;
+	return m_Scale.z;
+}
+
+
+/*Addition*/
+
+void Transform::AddPositionX(float x)
+{
+	m_Position.x += x;
+}
+
+void Transform::AddPositionY(float y)
+{
+	m_Position.y += y;
+}
+
+void Transform::AddPositionZ(float z)
+{
+	m_Position.z += z;
+}
+
+void Transform::AddRotateX(float x)
+{
+	m_Rotate.x += x;
+}
+
+void Transform::AddRotateY(float y)
+{
+	m_Rotate.y += y;
+}
+
+void Transform::AddRotateZ(float z)
+{
+	m_Rotate.z += z;
+}
+
+void Transform::AddScaleX(float x)
+{
+	m_Scale.x += x;
+}
+
+void Transform::AddScaleY(float y)
+{
+	m_Scale.y += y;
+}
+
+void Transform::AddScaleZ(float z)
+{
+	m_Scale.z += z;
 }

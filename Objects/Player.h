@@ -13,53 +13,28 @@
 #include "DeviceResources.h"
 
 /// <summary>
-/// プレイヤークラス
+/// トランスフォームクラス
 /// </summary>
-class Player
+class Transform
 {
 private:
 	// 座標
-	DirectX::SimpleMath::Vector3 m_position;
+	DirectX::SimpleMath::Vector3 m_Position;
 
 	// 向き（ラジアン値）
-	DirectX::SimpleMath::Vector3 m_rotate;
+	DirectX::SimpleMath::Vector3 m_Rotate;
 
 	// 大きさ
-	DirectX::SimpleMath::Vector3 m_scale;
-
-	// モデル
-	std::unique_ptr<DirectX::Model> m_model;
-
-	// デバイスリソースへのポインタ
-	DX::DeviceResources* mp_DeviceResources;
-
-	// 射影行列
-	DirectX::SimpleMath::Matrix* mp_Proj;
-
-	// 共通ステート
-	DirectX::CommonStates* mp_States;
+	DirectX::SimpleMath::Vector3 m_Scale;
 
 public:
-	// Main System
-	Player() noexcept;
-	~Player() noexcept;
-
-	Player
-	(
-		        DX::DeviceResources* pDeviceResources,
-		DirectX::SimpleMath::Matrix* pProj,
-		      DirectX::CommonStates* pStates
-	);
-
-	void Initialize();
-	void Update(float elapsedTime);
-	void Draw(const DirectX::SimpleMath::Matrix& view);
-	void Finalize();
+	Transform() noexcept;
+	~Transform() noexcept;
 
 	// Setter
 	void SetPosition(const DirectX::SimpleMath::Vector3& position);
-	void SetRotate  (const DirectX::SimpleMath::Vector3& rotate);
-	void SetScale   (const DirectX::SimpleMath::Vector3& scale);
+	void SetRotate(const DirectX::SimpleMath::Vector3& rotate);
+	void SetScale(const DirectX::SimpleMath::Vector3& scale);
 
 	void SetScale(float scale);
 
@@ -91,5 +66,64 @@ public:
 	float GetScaleX() const;
 	float GetScaleY() const;
 	float GetScaleZ() const;
+
+	// Addition
+	void AddPositionX(float x);
+	void AddPositionY(float y);
+	void AddPositionZ(float z);
+	void AddRotateX(float x);
+	void AddRotateY(float y);
+	void AddRotateZ(float z);
+	void AddScaleX(float x);
+	void AddScaleY(float y);
+	void AddScaleZ(float z);
+};
+
+/// <summary>
+/// 3Dモデル描画クラス
+/// </summary>
+class Renderer3D
+{
+};
+
+/// <summary>
+/// プレイヤークラス
+/// </summary>
+class Player
+{
+private:
+	// トランスフォーム
+	Transform m_Transform;
+
+	// モデル
+	std::unique_ptr<DirectX::Model> m_Model;
+
+	// デバイスリソースへのポインタ
+	DX::DeviceResources* mp_DeviceResources;
+
+	// 射影行列
+	DirectX::SimpleMath::Matrix* mp_Proj;
+
+	// 共通ステート
+	DirectX::CommonStates* mp_States;
+
+public:
+	// Main System
+	Player() noexcept;
+	~Player() noexcept;
+
+	Player
+	(
+		        DX::DeviceResources* pDeviceResources,
+		DirectX::SimpleMath::Matrix* pProj,
+		      DirectX::CommonStates* pStates
+	) noexcept(false);
+
+	void Initialize();
+	void Update(float elapsedTime);
+	void Draw(const DirectX::SimpleMath::Matrix& view);
+	void Finalize();
+
+	Transform* GetTransformPointer() { return &m_Transform; }
 };
 

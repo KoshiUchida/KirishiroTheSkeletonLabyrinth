@@ -14,6 +14,9 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{e35fd8e4-b5d2-4f8a-af7d-b9342bc500b8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{7982a27a-609c-4776-8155-530dac0ec3d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -43,7 +46,9 @@
     <ClInclude Include="Scenes\SceneBace.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Player.h" />
+    <ClInclude Include="Objects\Player.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -71,7 +76,9 @@
     <ClCompile Include="Managers\SceneManager.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Player.cpp" />
+    <ClCompile Include="Objects\Player.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

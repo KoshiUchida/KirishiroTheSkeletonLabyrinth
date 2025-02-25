@@ -64,7 +64,7 @@ void GameplayScene::Initialize()
 
     // ƒvƒŒƒCƒ„[‚Ì‰Šú‰»ˆ—
     m_player->Initialize();
-    m_player->SetScale(0.35f);
+    m_player->GetTransformPointer()->SetScale(0.35f);
 }
 
 /// <summary>
