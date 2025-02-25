@@ -48,6 +48,11 @@ public:
 	virtual void Render     (                       ) = 0;
 	virtual void Finalize   (                       ) = 0;
 
+	/*æ“¾*/
+	DX::DeviceResources* GetDeviceResourcesPointer() { return mp_DeviceResources; }
+	DirectX::SimpleMath::Matrix* GetProjPointer() { return mp_Proj; }
+	DirectX::CommonStates* GetCommonStatesPointer() { return mp_States; }
+
 protected:
 	/*“à•”À‘•*/
 	// ƒV[ƒ“‚Ì•ÏX

@@ -5,85 +5,41 @@
  *
  * @author CatCode
  *
- * @date   2025/02/24
+ * @date   2025/02/25
  */
 
 #pragma once
 #include <memory>
 #include "DeviceResources.h"
+#include "Transform.h"
 
-/// <summary>
-/// トランスフォームクラス
-/// </summary>
-class Transform
-{
-private:
-	// 座標
-	DirectX::SimpleMath::Vector3 m_Position;
-
-	// 向き（ラジアン値）
-	DirectX::SimpleMath::Vector3 m_Rotate;
-
-	// 大きさ
-	DirectX::SimpleMath::Vector3 m_Scale;
-
-public:
-	Transform() noexcept;
-	~Transform() noexcept;
-
-	// Setter
-	void SetPosition(const DirectX::SimpleMath::Vector3& position);
-	void SetRotate(const DirectX::SimpleMath::Vector3& rotate);
-	void SetScale(const DirectX::SimpleMath::Vector3& scale);
-
-	void SetScale(float scale);
-
-	void SetPositionX(float x);
-	void SetPositionY(float y);
-	void SetPositionZ(float z);
-
-	void SetRotateX(float x);
-	void SetRotateY(float y);
-	void SetRotateZ(float z);
-
-	void SetScaleX(float x);
-	void SetScaleY(float y);
-	void SetScaleZ(float z);
-
-	// Getter
-	DirectX::SimpleMath::Vector3 GetPosition() const;
-	DirectX::SimpleMath::Vector3 GetRotate()   const;
-	DirectX::SimpleMath::Vector3 GetScale()    const;
-
-	float GetPositionX() const;
-	float GetPositionY() const;
-	float GetPositionZ() const;
-
-	float GetRotateX() const;
-	float GetRotateY() const;
-	float GetRotateZ() const;
-
-	float GetScaleX() const;
-	float GetScaleY() const;
-	float GetScaleZ() const;
-
-	// Addition
-	void AddPositionX(float x);
-	void AddPositionY(float y);
-	void AddPositionZ(float z);
-	void AddRotateX(float x);
-	void AddRotateY(float y);
-	void AddRotateZ(float z);
-	void AddScaleX(float x);
-	void AddScaleY(float y);
-	void AddScaleZ(float z);
-};
+class SceneBace;
 
 /// <summary>
 /// 3Dモデル描画クラス
 /// </summary>
 class Renderer3D
 {
+private:
+	// トランスフォームへのポインタ
+	Transform* mp_Transform;
+
+	// モデル
+	std::unique_ptr<DirectX::Model> m_Model;
+
+	// デバイスリソースへのポインタ
+	DX::DeviceResources* mp_DeviceResources;
+
+	// 射影行列
+	DirectX::SimpleMath::Matrix* mp_Proj;
+
+	// 共通ステート
+	DirectX::CommonStates* mp_States;
+
+public:
+	Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false);
+	~Renderer3D() noexcept;
+	void Draw(const DirectX::SimpleMath::Matrix& view);
 };
 
 /// <summary>

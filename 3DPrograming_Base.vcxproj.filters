@@ -49,6 +49,7 @@
     <ClInclude Include="Objects\Player.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -79,6 +80,7 @@
     <ClCompile Include="Objects\Player.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

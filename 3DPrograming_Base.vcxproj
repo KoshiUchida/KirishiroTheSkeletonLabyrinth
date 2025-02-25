@@ -192,6 +192,7 @@
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="StepTimer.h" />
+    <ClInclude Include="Objects\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DebugDraw.cpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="Objects\Player.cpp" />
     <ClCompile Include="Scenes\GameplayScene.cpp" />
     <ClCompile Include="Scenes\SceneBace.cpp" />
+    <ClCompile Include="Objects\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

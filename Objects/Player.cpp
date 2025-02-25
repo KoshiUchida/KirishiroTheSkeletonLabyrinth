@@ -10,6 +10,7 @@
 
 #include "pch.h"
 #include "Player.h"
+#include "../Scenes/SceneBace.h"
 
 using namespace DirectX;
 
@@ -141,192 +142,49 @@ void Player::Finalize()
 	m_Model.reset();
 }
 
-
-
-
-Transform::Transform() noexcept
-	: m_Position{}
-	, m_Rotate{}
-	, m_Scale(1.0f, 1.0f, 1.0f)
+Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false)
+	: mp_Transform      { pTransform }
+	, mp_DeviceResources{ pScene->GetDeviceResourcesPointer() }
+	, mp_Proj           { pScene->GetProjPointer() }
+	, mp_States         { pScene->GetCommonStatesPointer() }
 {
+	// モデルの読み込み
+	auto device = mp_DeviceResources->GetD3DDevice();
+	EffectFactory fx(device);
+	m_Model = Model::CreateFromSDKMESH(
+		device, modelPath, fx);
 }
 
-Transform::~Transform() noexcept = default;
-
-/*Setter Functions*/
-
-void Transform::SetPosition(const DirectX::SimpleMath::Vector3& position)
+Renderer3D::~Renderer3D() noexcept
 {
-	m_Position = position;
+	m_Model.reset();
 }
 
-void Transform::SetRotate(const DirectX::SimpleMath::Vector3& rotate)
+void Renderer3D::Draw(const DirectX::SimpleMath::Matrix& view)
 {
-	m_Rotate = rotate;
-}
+	// ワールド行列
+	SimpleMath::Matrix world;
 
-void Transform::SetScale(const DirectX::SimpleMath::Vector3& scale)
-{
-	m_Scale = scale;
-}
+	// 平行移動する行列を作成する
+	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(mp_Transform->GetPosition());
 
-void Transform::SetScale(float scale)
-{
-	m_Scale = SimpleMath::Vector3(scale, scale, scale);
-}
+	// X軸で回転する行列を作成する
+	SimpleMath::Matrix rotX = SimpleMath::Matrix::CreateRotationX(mp_Transform->GetRotateX());
 
-void Transform::SetPositionX(float x)
-{
-	m_Position.x = x;
-}
+	// Y軸で回転する行列を作成する
+	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(mp_Transform->GetRotateY());
 
-void Transform::SetPositionY(float y)
-{
-	m_Position.y = y;
-}
+	// Z軸で回転する行列を作成する
+	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationY(mp_Transform->GetRotateZ());
 
-void Transform::SetPositionZ(float z)
-{
-	m_Position.z = z;
-}
+	// 拡大する行列を作成する
+	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(mp_Transform->GetScale());
 
-void Transform::SetRotateX(float x)
-{
-	m_Rotate.x = x;
-}
+	// ワールド行列へ統合
+	world = trans * rotZ * rotY * rotX * scale;
 
-void Transform::SetRotateY(float y)
-{
-	m_Rotate.y = y;
-}
-
-void Transform::SetRotateZ(float z)
-{
-	m_Rotate.z = z;
-}
-
-void Transform::SetScaleX(float x)
-{
-	m_Scale.x = x;
-}
-
-void Transform::SetScaleY(float y)
-{
-	m_Scale.y = y;
-}
-
-void Transform::SetScaleZ(float z)
-{
-	m_Scale.z = z;
-}
-
-
-/*Getter Functions*/
-
-DirectX::SimpleMath::Vector3 Transform::GetPosition() const
-{
-	return m_Position;
-}
-
-DirectX::SimpleMath::Vector3 Transform::GetRotate() const
-{
-	return m_Rotate;
-}
-
-DirectX::SimpleMath::Vector3 Transform::GetScale() const
-{
-	return m_Scale;
-}
-
-float Transform::GetPositionX() const
-{
-	return m_Position.x;
-}
-
-float Transform::GetPositionY() const
-{
-	return m_Position.y;
-}
-
-float Transform::GetPositionZ() const
-{
-	return m_Position.z;
-}
-
-float Transform::GetRotateX() const
-{
-	return m_Rotate.x;
-}
-
-float Transform::GetRotateY() const
-{
-	return m_Rotate.y;
-}
-
-float Transform::GetRotateZ() const
-{
-	return m_Rotate.z;
-}
-
-float Transform::GetScaleX() const
-{
-	return m_Scale.x;
-}
-
-float Transform::GetScaleY() const
-{
-	return m_Scale.y;
-}
-
-float Transform::GetScaleZ() const
-{
-	return m_Scale.z;
-}
-
-
-/*Addition*/
-
-void Transform::AddPositionX(float x)
-{
-	m_Position.x += x;
-}
-
-void Transform::AddPositionY(float y)
-{
-	m_Position.y += y;
-}
-
-void Transform::AddPositionZ(float z)
-{
-	m_Position.z += z;
-}
-
-void Transform::AddRotateX(float x)
-{
-	m_Rotate.x += x;
-}
-
-void Transform::AddRotateY(float y)
-{
-	m_Rotate.y += y;
-}
-
-void Transform::AddRotateZ(float z)
-{
-	m_Rotate.z += z;
-}
-
-void Transform::AddScaleX(float x)
-{
-	m_Scale.x += x;
-}
-
-void Transform::AddScaleY(float y)
-{
-	m_Scale.y += y;
-}
-
-void Transform::AddScaleZ(float z)
-{
-	m_Scale.z += z;
+	// モデルの描画
+	m_Model->Draw(
+		mp_DeviceResources->GetD3DDeviceContext(),
+		*mp_States, world, view, *mp_Proj);
 }
