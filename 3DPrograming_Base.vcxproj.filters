@@ -59,6 +59,7 @@
       <Filter>Componerts</Filter>
     </ClInclude>
     <ClInclude Include="Objects\ObjectBace.h" />
+    <ClInclude Include="Managers\ObjectManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -96,6 +97,7 @@
       <Filter>Componerts</Filter>
     </ClCompile>
     <ClCompile Include="Objects\ObjectBace.cpp" />
+    <ClCompile Include="Managers\ObjectManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

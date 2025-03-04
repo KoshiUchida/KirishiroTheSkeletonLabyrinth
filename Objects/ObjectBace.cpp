@@ -1,3 +1,13 @@
+/**
+ * @file   ObjectBace.cpp
+ *
+ * @brief  オブジェクト基底クラスのソースファイル
+ *
+ * @author CatCode
+ *
+ * @date   2025/03/04
+ */
+
 #include "pch.h"
 #include "ObjectBace.h"
 
