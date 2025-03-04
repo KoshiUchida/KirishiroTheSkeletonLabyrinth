@@ -58,6 +58,7 @@
     <ClInclude Include="Objects\Renderer3D.h">
       <Filter>Componerts</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\ObjectBace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -94,6 +95,7 @@
     <ClCompile Include="Objects\Renderer3D.cpp">
       <Filter>Componerts</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\ObjectBace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

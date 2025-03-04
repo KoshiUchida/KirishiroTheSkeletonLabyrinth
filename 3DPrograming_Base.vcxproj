@@ -187,6 +187,7 @@
     <ClInclude Include="ImaseLib\DebugFont.h" />
     <ClInclude Include="ImaseLib\GridFloor.h" />
     <ClInclude Include="Managers\SceneManager.h" />
+    <ClInclude Include="Objects\ObjectBace.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Objects\Player.h" />
     <ClInclude Include="Objects\Renderer3D.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="ImaseLib\GridFloor.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Managers\SceneManager.cpp" />
+    <ClCompile Include="Objects\ObjectBace.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
