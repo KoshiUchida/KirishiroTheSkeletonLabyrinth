@@ -11,8 +11,9 @@
 #pragma once
 #include <memory>
 
+#include "Transform.h"
+
 class SceneBace;
-class Transform;
 
 /// <summary>
 /// オブジェクトの基底クラス
@@ -34,5 +35,8 @@ public:
 	// Main System
 	virtual void Initialize(                 ) = 0;
 	virtual void Update    (float elapsedTime) = 0;
+
+	// Getter
+	Transform* GetTransformPointer() { return m_Transform.get(); }
 };
 

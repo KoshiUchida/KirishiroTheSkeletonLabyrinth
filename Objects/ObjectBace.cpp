@@ -2,7 +2,6 @@
 #include "ObjectBace.h"
 
 #include "../Scenes/SceneBace.h"
-#include "Transform.h"
 
 /// <summary>
 /// コンストラクタ

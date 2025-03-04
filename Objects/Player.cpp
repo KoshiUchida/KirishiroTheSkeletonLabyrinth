@@ -18,8 +18,8 @@ using namespace DirectX;
 /// コンストラクト
 /// </summary>
 Player::Player(SceneBace* pScene) noexcept(false)
-	: m_Transform{}
-	, m_Renderer(pScene, &m_Transform, L"Resources\\Models\\Kirishiro.sdkmesh")
+	: ObjectBace(pScene)
+	, m_Renderer(pScene, m_Transform.get(), L"Resources\\Models\\Kirishiro.sdkmesh")
 {
 }
 
@@ -55,25 +55,25 @@ void Player::Update(float elapsedTime)
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		m_Transform.AddPositionX(-1.5f * elapsedTime);
+		m_Transform->AddPositionX(-1.5f * elapsedTime);
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		m_Transform.AddPositionX(1.5f * elapsedTime);
+		m_Transform->AddPositionX(1.5f * elapsedTime);
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		m_Transform.AddPositionZ(-1.5f * elapsedTime);
+		m_Transform->AddPositionZ(-1.5f * elapsedTime);
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		m_Transform.AddPositionZ(1.5f * elapsedTime);
+		m_Transform->AddPositionZ(1.5f * elapsedTime);
 	}
 
 	//m_position += v * 3.0f * elapsedTime;

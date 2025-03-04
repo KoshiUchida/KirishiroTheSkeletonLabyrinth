@@ -9,7 +9,7 @@
  */
 
 #pragma once
-#include "Transform.h"
+#include "ObjectBace.h"
 #include "Renderer3D.h"
 
 class SceneBace;
@@ -18,11 +18,9 @@ class SceneBace;
 /// プレイヤークラス
 /// </summary>
 class Player
+	: public ObjectBace
 {
 private:
-	// トランスフォーム
-	Transform m_Transform;
-
 	// レンダラー
 	Renderer3D m_Renderer;
 
@@ -31,10 +29,9 @@ public:
 	Player(SceneBace* pScene) noexcept(false);
 	~Player() noexcept;
 
-	void Initialize();
-	void Update(float elapsedTime);
+	void Initialize(                 ) override final;
+	void Update    (float elapsedTime) override final;
 
-	Transform* GetTransformPointer() { return &m_Transform; }
 	Renderer3D* GetRenderer3DPointer() { return &m_Renderer; }
 };
 
