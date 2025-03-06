@@ -12,7 +12,11 @@
 #include <unordered_map>
 #include <string>
 #include <memory>
+#include <vector>
 #include "../Objects/ObjectBace.h"
+
+class ComponentsBace;
+class RendererBace;
 
 /// <summary>
 /// オブジェクト管理クラス
@@ -27,11 +31,19 @@ private:
 	// オブジェクトの集合
 	ObjectCollection m_Objects;
 
+	// 更新処理をするコンポーネント
+	// TODO::タグ「Update」のコンポーネントを作成したら修正する
+	std::vector<ComponentsBace*> m_UpdateComponent;
+
+	// 描画処理をするコンポーネント
+	std::vector<RendererBace*> m_RenderComponent;
+
 public:
 	// Main System
 	ObjectManager() noexcept;
 	~ObjectManager() noexcept;
 	void Update(float elapsedTime);
+	void Render(const DirectX::SimpleMath::Matrix& view);
 	void Finalize();
 
 	void AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object);

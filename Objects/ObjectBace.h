@@ -9,12 +9,13 @@
  */
 
 #pragma once
+#include <unordered_map>
+#include <string>
 #include <memory>
-
-#include "Transform.h"
 
 class ObjectManager;
 class SceneBace;
+class ComponentsBace;
 
 /// <summary>
 /// オブジェクトの基底クラス
@@ -22,14 +23,17 @@ class SceneBace;
 class ObjectBace
 {
 protected:
+	// エイリアス宣言
+	using ComponentsCollection = std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>;
+
 	// オブジェクトマネージャへのポインタ
 	ObjectManager* mp_ObjectManager;
 
 	// シーンへのポインタ
 	SceneBace* mp_Scene;
 
-	// トランスフォーム
-	std::unique_ptr<Transform> m_Transform;
+	// コンポネートの集合
+	ComponentsCollection m_Components;
 
 public:
 	// Constructor & Destructor
@@ -40,7 +44,9 @@ public:
 	virtual void Initialize(                 ) = 0;
 	virtual void Update    (float elapsedTime) = 0;
 
-	// Getter
-	Transform* GetTransformPointer() { return m_Transform.get(); }
+	void AddComponent(std::unique_ptr<ComponentsBace> component);
+
+	ComponentsBace* GetComponentPtr(const std::string& tag);
+	std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>* GetComponentsPtr();
 };
 

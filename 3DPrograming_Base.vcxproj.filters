@@ -52,14 +52,16 @@
     <ClInclude Include="Objects\Player.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Transform.h">
+    <ClInclude Include="Components\Transform.h">
       <Filter>Componerts</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Renderer3D.h">
+    <ClInclude Include="Components\Renderer3D.h">
       <Filter>Componerts</Filter>
     </ClInclude>
     <ClInclude Include="Objects\ObjectBace.h" />
     <ClInclude Include="Managers\ObjectManager.h" />
+    <ClInclude Include="Components\ComponentsBace.h" />
+    <ClInclude Include="Components\RendererBace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -90,14 +92,16 @@
     <ClCompile Include="Objects\Player.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Transform.cpp">
+    <ClCompile Include="Components\Transform.cpp">
       <Filter>Componerts</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Renderer3D.cpp">
+    <ClCompile Include="Components\Renderer3D.cpp">
       <Filter>Componerts</Filter>
     </ClCompile>
     <ClCompile Include="Objects\ObjectBace.cpp" />
     <ClCompile Include="Managers\ObjectManager.cpp" />
+    <ClCompile Include="Components\ComponentsBace.cpp" />
+    <ClCompile Include="Components\RendererBace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

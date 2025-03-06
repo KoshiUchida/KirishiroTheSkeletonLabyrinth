@@ -17,10 +17,10 @@
 using namespace DirectX;
 
 Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false)
-	: mp_Transform{ pTransform }
+	: RendererBace("Renderer3D", pScene->GetCommonStatesPointer())
+	, mp_Transform{ pTransform }
 	, mp_DeviceResources{ pScene->GetDeviceResourcesPointer() }
 	, mp_Proj{ pScene->GetProjPointer() }
-	, mp_States{ pScene->GetCommonStatesPointer() }
 {
 	// ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 	auto device = mp_DeviceResources->GetD3DDevice();

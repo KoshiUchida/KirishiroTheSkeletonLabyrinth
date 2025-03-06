@@ -10,7 +10,6 @@
 
 #pragma once
 #include "ObjectBace.h"
-#include "Renderer3D.h"
 
 class SceneBace;
 
@@ -20,18 +19,12 @@ class SceneBace;
 class Player
 	: public ObjectBace
 {
-private:
-	// ƒŒƒ“ƒ_ƒ‰[
-	Renderer3D m_Renderer;
-
 public:
 	// Main System
-	Player(SceneBace* pScene) noexcept(false);
+	Player(SceneBace* pScene) noexcept;
 	~Player() noexcept;
 
 	void Initialize(                 ) override final;
 	void Update    (float elapsedTime) override final;
-
-	Renderer3D* GetRenderer3DPointer() { return &m_Renderer; }
 };
 

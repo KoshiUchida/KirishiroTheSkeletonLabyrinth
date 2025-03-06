@@ -12,6 +12,9 @@
 #include "Player.h"
 #include "../Scenes/SceneBace.h"
 
+#include "../Components/Transform.h"
+#include "../Components/Renderer3D.h"
+
 using namespace DirectX;
 
 /// <summary>
@@ -19,8 +22,11 @@ using namespace DirectX;
 /// </summary>
 Player::Player(SceneBace* pScene) noexcept(false)
 	: ObjectBace(pScene)
-	, m_Renderer(pScene, m_Transform.get(), L"Resources\\Models\\Kirishiro.sdkmesh")
 {
+	AddComponent(std::make_unique<Transform>());
+
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
+	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 }
 
 /// <summary>
@@ -33,7 +39,8 @@ Player::~Player() noexcept = default;
 /// </summary>
 void Player::Initialize()
 {
-	this->m_Transform->SetScale(0.35f);
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
+	pTransform->SetScale(0.35f);
 }
 
 /// <summary>
@@ -43,6 +50,9 @@ void Player::Update(float elapsedTime)
 {
 	// キーボードの入力を取得
 	auto kd = Keyboard::Get().GetState();
+
+	// トランスフォームの取得
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
 
 	//float rotateSpeed = 75.f;
 
@@ -56,25 +66,25 @@ void Player::Update(float elapsedTime)
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		m_Transform->AddPositionX(-1.5f * elapsedTime);
+		pTransform->AddPositionX(-1.5f * elapsedTime);
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		m_Transform->AddPositionX(1.5f * elapsedTime);
+		pTransform->AddPositionX(1.5f * elapsedTime);
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		m_Transform->AddPositionZ(-1.5f * elapsedTime);
+		pTransform->AddPositionZ(-1.5f * elapsedTime);
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		m_Transform->AddPositionZ(1.5f * elapsedTime);
+		pTransform->AddPositionZ(1.5f * elapsedTime);
 	}
 
 	//m_position += v * 3.0f * elapsedTime;

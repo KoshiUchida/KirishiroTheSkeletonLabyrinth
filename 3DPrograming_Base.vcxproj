@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\ComponentsBace.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DeviceResources.h" />
     <ClInclude Include="Game.h" />
@@ -191,13 +192,15 @@
     <ClInclude Include="Objects\ObjectBace.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Objects\Player.h" />
-    <ClInclude Include="Objects\Renderer3D.h" />
+    <ClInclude Include="Components\Renderer3D.h" />
+    <ClInclude Include="Components\RendererBace.h" />
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="StepTimer.h" />
-    <ClInclude Include="Objects\Transform.h" />
+    <ClInclude Include="Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\ComponentsBace.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -215,10 +218,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Objects\Player.cpp" />
-    <ClCompile Include="Objects\Renderer3D.cpp" />
+    <ClCompile Include="Components\Renderer3D.cpp" />
+    <ClCompile Include="Components\RendererBace.cpp" />
     <ClCompile Include="Scenes\GameplayScene.cpp" />
     <ClCompile Include="Scenes\SceneBace.cpp" />
-    <ClCompile Include="Objects\Transform.cpp" />
+    <ClCompile Include="Components\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

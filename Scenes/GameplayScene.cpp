@@ -11,6 +11,7 @@
 #include "pch.h"
 #include "GameplayScene.h"
 #include "../Objects/Player.h"
+#include "../Managers/SceneManager.h"
 
 using namespace std;
 using namespace DirectX;
@@ -79,10 +80,8 @@ void GameplayScene::Render()
     // デバッグカメラからビュー行列を取得する
     SimpleMath::Matrix view = m_debugCamera->GetCameraMatrix();
 
-    // プレイヤーの描画処理
-    Player* pPlayer = static_cast<Player*>(GetObjectPtr("Player"));
-    if (pPlayer)
-        pPlayer->GetRenderer3DPointer()->Draw(view);
+    // オブジェクトの描画処理
+    mp_SceneManager->GetObjectManagerPtr()->Render(view);
 
     // グリッドの床の描画
     m_gridFloor->Render(context, view, *mp_Proj);

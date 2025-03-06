@@ -9,6 +9,7 @@
  */
 
 #pragma once
+#include "RendererBace.h"
 #include <memory>
 #include "DeviceResources.h"
 
@@ -19,6 +20,7 @@ class SceneBace;
 /// 3Dモデル描画クラス
 /// </summary>
 class Renderer3D
+	: public RendererBace
 {
 private:
 	// トランスフォームへのポインタ
@@ -33,12 +35,9 @@ private:
 	// 射影行列
 	DirectX::SimpleMath::Matrix* mp_Proj;
 
-	// 共通ステート
-	DirectX::CommonStates* mp_States;
-
 public:
 	Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false);
 	~Renderer3D() noexcept;
-	void Draw(const DirectX::SimpleMath::Matrix& view);
+	void Draw(const DirectX::SimpleMath::Matrix& view) override final;
 };
 

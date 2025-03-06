@@ -9,11 +9,13 @@
  */
 
 #pragma once
+#include "ComponentsBace.h"
 
 /// <summary>
 /// トランスフォームクラス
 /// </summary>
 class Transform
+	: public ComponentsBace
 {
 private:
 	// 座標

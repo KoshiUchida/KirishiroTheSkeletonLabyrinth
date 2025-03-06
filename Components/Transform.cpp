@@ -12,7 +12,8 @@
 #include "Transform.h"
 
 Transform::Transform() noexcept
-	: m_Position{}
+	: ComponentsBace(Tags::NONE , "Transform")
+	, m_Position{}
 	, m_Rotate{}
 	, m_Scale(1.0f, 1.0f, 1.0f)
 {
