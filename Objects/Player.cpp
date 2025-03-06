@@ -33,6 +33,7 @@ Player::~Player() noexcept = default;
 /// </summary>
 void Player::Initialize()
 {
+	this->m_Transform->SetScale(0.35f);
 }
 
 /// <summary>

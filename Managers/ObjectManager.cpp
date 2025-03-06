@@ -5,13 +5,11 @@
  *
  * @author CatCode
  *
- * @date   2025/03/04
+ * @date   2025/03/06
  */
 
 #include "pch.h"
 #include "ObjectManager.h"
-
-#include "../Objects/ObjectBace.h"
 
 /// <summary>
 /// コンストラクタ
@@ -24,15 +22,6 @@ ObjectManager::ObjectManager() noexcept = default;
 ObjectManager::~ObjectManager() noexcept
 {
 	Finalize();
-}
-
-/// <summary>
-/// 初期化処理
-/// </summary>
-void ObjectManager::Initialize()
-{
-	for (auto& element : m_Objects)
-		element.second->Initialize();
 }
 
 /// <summary>
@@ -50,6 +39,9 @@ void ObjectManager::Update(float elapsedTime)
 /// </summary>
 void ObjectManager::Finalize()
 {
+	for (auto& element : m_Objects)
+		element.second.reset();
+
 	m_Objects.clear();
 }
 
@@ -60,6 +52,7 @@ void ObjectManager::Finalize()
 /// <param name="object">追加するオブジェクトデータ</param>
 void ObjectManager::AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object)
 {
+	object->Initialize();
 	m_Objects.emplace(objectName, std::move(object));
 }
 

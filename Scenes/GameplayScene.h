@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/24
+ * @date   2025/03/06
  */
 
 #pragma once
@@ -16,8 +16,6 @@
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
 #include "ImaseLib/DebugCamera.h"
-
-class Player;
 
 /// <summary>
 /// ゲームプレイシーン
@@ -35,9 +33,6 @@ private:
 
     // デバッグカメラ
     std::unique_ptr<Imase::DebugCamera> m_debugCamera;
-
-    // プレイヤー
-    std::unique_ptr<Player> m_player;
 
 public:
 	// Main System

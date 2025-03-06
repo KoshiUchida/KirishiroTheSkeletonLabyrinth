@@ -13,6 +13,7 @@
 
 #include "Transform.h"
 
+class ObjectManager;
 class SceneBace;
 
 /// <summary>
@@ -21,6 +22,9 @@ class SceneBace;
 class ObjectBace
 {
 protected:
+	// オブジェクトマネージャへのポインタ
+	ObjectManager* mp_ObjectManager;
+
 	// シーンへのポインタ
 	SceneBace* mp_Scene;
 

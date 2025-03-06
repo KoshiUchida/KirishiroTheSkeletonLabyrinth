@@ -5,13 +5,11 @@
  *
  * @author CatCode
  *
- * @date   2024/11/03
+ * @date   2025/03/06
  */
 
 #include "pch.h"
 #include "SceneManager.h"
-
-#include "../Scenes/SceneBace.h"
 
 // コンストラクタ
 SceneManager::SceneManager()
@@ -20,6 +18,7 @@ SceneManager::SceneManager()
 	, m_scenes         {}
 	, m_IsEnd          {}
 {
+	m_ObjectManager = std::make_unique<ObjectManager>();
 }
 
 /// <summary>
@@ -29,6 +28,8 @@ SceneManager::~SceneManager()
 {
 	if (m_pCurrentScene)
 		m_pCurrentScene->Finalize();
+
+	m_ObjectManager.reset();
 }
 
 /// <summary>
@@ -45,6 +46,9 @@ void SceneManager::Update(const float elapsedTime)
 	// 現在のシーンを更新
 	if (m_pCurrentScene)
 		m_pCurrentScene->Update(elapsedTime);
+
+	// オブジェクトの更新
+	m_ObjectManager->Update(elapsedTime);
 }
 
 /// <summary>
@@ -98,6 +102,26 @@ void SceneManager::RequestSceneChange(const std::string& changeSceneName)
 }
 
 /// <summary>
+/// オブジェクトの追加
+/// </summary>
+/// <param name="objectName">追加するオブジェクト名</param>
+/// <param name="object">追加するオブジェクト</param>
+void SceneManager::AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object)
+{
+	m_ObjectManager->AddObject(objectName, std::move(object));
+}
+
+/// <summary>
+/// オブジェクトのポインタ取得
+/// </summary>
+/// <param name="objectName">オブジェクトの名前</param>
+/// <returns></returns>
+ObjectBace* SceneManager::GetObjectPtr(const std::string& objectName)
+{
+	return m_ObjectManager->GetObjectPtr(objectName);
+}
+
+/// <summary>
 /// 共有データの取得
 /// </summary>
 /// <param name="key">取得したい共有データのキー</param>
@@ -111,6 +135,11 @@ std::string SceneManager::GetShareData(const std::string& key) const
 	}
 
 	return m_shareData.at(key);
+}
+
+ObjectManager* SceneManager::GetObjectManagerPtr()
+{
+	return m_ObjectManager.get();
 }
 
 /// <summary>
@@ -133,6 +162,8 @@ void SceneManager::ChangeScene()
 
 	if (m_pCurrentScene)
 		m_pCurrentScene->Finalize();
+	
+	m_ObjectManager->Finalize();
 
 	if (m_IsEnd)
 		return;

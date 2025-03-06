@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/24
+ * @date   2025/03/06
  */
 
 #include "pch.h"
@@ -38,12 +38,6 @@ GameplayScene::GameplayScene
 
     // グリッド床の作成
     m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States );
-
-    // プレイヤーの作成
-    m_player = std::make_unique<Player>(this);
-
-    // ToDo : トランスフォームの実装
-    // ToDo : オブジェクトマネージャの導入
 }
 
 /// <summary>
@@ -56,15 +50,14 @@ GameplayScene::~GameplayScene() noexcept = default;
 /// </summary>
 void GameplayScene::Initialize()
 {
-    float width  = static_cast<float>(mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left);
-    float height = static_cast<float>(mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top );
+    int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
+    int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
 	// デバッグカメラの作成
     m_debugCamera = std::make_unique<Imase::DebugCamera>(width, height);
 
-    // プレイヤーの初期化処理
-    m_player->Initialize();
-    m_player->GetTransformPointer()->SetScale(0.35f);
+    // プレイヤーの作成
+    AddObject("Player", std::make_unique<Player>(this));
 }
 
 /// <summary>
@@ -74,9 +67,6 @@ void GameplayScene::Update(const float elapsedTime)
 {
     // デバッグカメラの更新
     m_debugCamera->Update();
-
-    // プレイヤーの更新処理
-    m_player->Update(elapsedTime);
 }
 
 /// <summary>
@@ -90,7 +80,9 @@ void GameplayScene::Render()
     SimpleMath::Matrix view = m_debugCamera->GetCameraMatrix();
 
     // プレイヤーの描画処理
-    m_player->GetRenderer3DPointer()->Draw(view);
+    Player* pPlayer = static_cast<Player*>(GetObjectPtr("Player"));
+    if (pPlayer)
+        pPlayer->GetRenderer3DPointer()->Draw(view);
 
     // グリッドの床の描画
     m_gridFloor->Render(context, view, *mp_Proj);
@@ -110,9 +102,6 @@ void GameplayScene::Render()
 /// </summary>
 void GameplayScene::Finalize()
 {
-    // オブジェクトの終了処理
-    m_player.reset();
-
     m_debugFont.reset();
     m_gridFloor.reset();
     m_debugCamera.reset();

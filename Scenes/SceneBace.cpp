@@ -5,13 +5,14 @@
  *
  * @author CatCode
  *
- * @date   2025/02/12
+ * @date   2025/03/06
  */
 
 #include "pch.h"
 #include "SceneBace.h"
 
 #include "../Managers/SceneManager.h"
+#include "../Objects/ObjectBace.h"
 
 /// <summary>
 /// Constructor
@@ -81,5 +82,30 @@ void SceneBace::WriteSharedData(const std::string& key, float value) noexcept(fa
 void SceneBace::WriteSharedData(const std::string& key, std::string value) noexcept(false)
 {
 	mp_SceneManager->SetSharedData(key, value);
+}
+
+/// <summary>
+/// オブジェクトの追加
+/// </summary>
+/// <param name="objectName">追加するオブジェクトの名前</param>
+/// <param name="object">追加するオブジェクト</param>
+void SceneBace::AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object) noexcept(false)
+{
+	mp_SceneManager->AddObject(objectName, std::move(object));
+}
+
+/// <summary>
+/// オブジェクトへのポインタの取得
+/// </summary>
+/// <param name="objectName">オブジェクトの名前</param>
+/// <returns>オブジェクトへのポインタ</returns>
+ObjectBace* SceneBace::GetObjectPtr(const std::string& objectName)
+{
+	return mp_SceneManager->GetObjectPtr(objectName);
+}
+
+SceneManager* SceneBace::GetSceneManagerPtr()
+{
+	return mp_SceneManager;
 }
 

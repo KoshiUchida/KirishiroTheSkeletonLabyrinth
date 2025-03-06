@@ -5,15 +5,14 @@
  *
  * @author CatCode
  *
- * @date   2025/03/04
+ * @date   2025/03/06
  */
 
 #pragma once
 #include <unordered_map>
 #include <string>
 #include <memory>
-
-class ObjectBace;
+#include "../Objects/ObjectBace.h"
 
 /// <summary>
 /// オブジェクト管理クラス
@@ -32,7 +31,6 @@ public:
 	// Main System
 	ObjectManager() noexcept;
 	~ObjectManager() noexcept;
-	void Initialize();
 	void Update(float elapsedTime);
 	void Finalize();
 

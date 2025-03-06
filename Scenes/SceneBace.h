@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/01/12
+ * @date   2025/03/06
  */
 
 #pragma once
@@ -14,6 +14,7 @@
 #include "DeviceResources.h"
 
 class SceneManager;
+class ObjectBace;
 
 /// <summary>
 /// シーンの基底クラス
@@ -50,8 +51,9 @@ public:
 
 	/*取得*/
 	DX::DeviceResources* GetDeviceResourcesPointer() { return mp_DeviceResources; }
-	DirectX::SimpleMath::Matrix* GetProjPointer() { return mp_Proj; }
-	DirectX::CommonStates* GetCommonStatesPointer() { return mp_States; }
+	DirectX::SimpleMath::Matrix* GetProjPointer()    { return mp_Proj; }
+	DirectX::CommonStates* GetCommonStatesPointer()  { return mp_States; }
+	SceneManager* GetSceneManagerPtr();
 
 protected:
 	/*内部実装*/
@@ -67,5 +69,11 @@ protected:
 	void WriteSharedData (const std::string& key, int         value) noexcept(false);
 	void WriteSharedData (const std::string& key, float       value) noexcept(false);
 	void WriteSharedData (const std::string& key, std::string value) noexcept(false);
+
+	// オブジェクトの追加
+	void AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object) noexcept(false);
+
+	// オブジェクトへのポインタの取得
+	ObjectBace* GetObjectPtr(const std::string& objectName);
 };
 
