@@ -34,7 +34,9 @@ void ObjectManager::Update(float elapsedTime)
 {
 	// 更新処理のあるコンポーネントの処理
 	// TODO::タグ「Update」のコンポーネントを作成したら修正する
-	for (auto& component : m_UpdateComponent);
+	for (auto& component : m_UpdateComponent)
+		// 警告回避用
+		component;
 
 	// オブジェクトの更新処理
 	for (auto& element : m_Objects)

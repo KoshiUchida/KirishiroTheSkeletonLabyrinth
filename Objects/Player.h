@@ -11,8 +11,6 @@
 #pragma once
 #include "ObjectBace.h"
 
-class SceneBace;
-
 /// <summary>
 /// プレイヤークラス
 /// </summary>

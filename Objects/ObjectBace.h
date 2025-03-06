@@ -46,7 +46,7 @@ public:
 
 	void AddComponent(std::unique_ptr<ComponentsBace> component);
 
-	ComponentsBace* GetComponentPtr(const std::string& tag);
+	ComponentsBace* GetComponentPtr(const std::string& name);
 	std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>* GetComponentsPtr();
 };
 

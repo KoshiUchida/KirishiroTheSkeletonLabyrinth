@@ -10,7 +10,6 @@
 
 #include "pch.h"
 #include "Player.h"
-#include "../Scenes/SceneBace.h"
 
 #include "../Components/Transform.h"
 #include "../Components/Renderer3D.h"
@@ -20,12 +19,12 @@ using namespace DirectX;
 /// <summary>
 /// コンストラクト
 /// </summary>
-Player::Player(SceneBace* pScene) noexcept(false)
+Player::Player(SceneBace* pScene) noexcept
 	: ObjectBace(pScene)
 {
 	AddComponent(std::make_unique<Transform>());
 
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 }
 
@@ -39,7 +38,7 @@ Player::~Player() noexcept = default;
 /// </summary>
 void Player::Initialize()
 {
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	pTransform->SetScale(0.35f);
 }
 
@@ -52,7 +51,7 @@ void Player::Update(float elapsedTime)
 	auto kd = Keyboard::Get().GetState();
 
 	// トランスフォームの取得
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transfrom"));
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 
 	//float rotateSpeed = 75.f;
 

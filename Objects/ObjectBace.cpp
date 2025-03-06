@@ -55,14 +55,14 @@ void ObjectBace::AddComponent(std::unique_ptr<ComponentsBace> component)
 /// コンポーネントへのポインタの取得
 /// </summary>
 /// <returns>コンポーネントへのポインタまたはNULL</returns>
-ComponentsBace* ObjectBace::GetComponentPtr(const std::string& tag)
+ComponentsBace* ObjectBace::GetComponentPtr(const std::string& name)
 {
-	if (m_Components.count(tag) == 0)
+	if (m_Components.count(name) == 0)
 	{
 		return nullptr;
 	}
 
-	return m_Components.at(tag).get();
+	return m_Components.at(name).get();
 }
 
 std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>* ObjectBace::GetComponentsPtr()
