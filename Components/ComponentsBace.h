@@ -20,7 +20,8 @@ public:
 	{
 		NONE,
 		Update,
-		Render
+		Render,
+		Collider
 	};
 
 private:

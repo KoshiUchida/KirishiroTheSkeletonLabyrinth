@@ -32,12 +32,6 @@ ObjectManager::~ObjectManager() noexcept
 /// <param name="elapsedTime">経過時間</param>
 void ObjectManager::Update(float elapsedTime)
 {
-	// 更新処理のあるコンポーネントの処理
-	// TODO::タグ「Update」のコンポーネントを作成したら修正する
-	for (auto& component : m_UpdateComponent)
-		// 警告回避用
-		component;
-
 	// オブジェクトの更新処理
 	for (auto& element : m_Objects)
 		element.second->Update(elapsedTime);
@@ -48,9 +42,9 @@ void ObjectManager::Update(float elapsedTime)
 /// </summary>
 void ObjectManager::Render(const DirectX::SimpleMath::Matrix& view)
 {
-	// 描画処理のあるコンポーネントの処理
-	for (auto& component : m_RenderComponent)
-		component->Draw(view);
+	// オブジェクトの描画処理
+	for (auto& element : m_Objects)
+		element.second->Render(view);
 }
 
 /// <summary>
@@ -73,24 +67,6 @@ void ObjectManager::AddObject(const std::string& objectName, std::unique_ptr<Obj
 {
 	// 新規オブジェクトの初期化処理
 	object->Initialize();
-
-	// オブジェクトのコンポーネント群へのポインタの取得
-	std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>*
-		NewObjectComponents = object->GetComponentsPtr();
-
-	// コンポーネントの登録
-	for (auto& component : (*NewObjectComponents))
-	{
-		if (component.second->GetTag() == ComponentsBace::Tags::Update)
-		{
-			// TODO::タグ「Update」のコンポーネントを作成したら修正する
-			m_UpdateComponent.push_back(component.second.get());
-		}
-		else if (component.second->GetTag() == ComponentsBace::Tags::Render)
-		{
-			m_RenderComponent.push_back(static_cast<RendererBace*>(component.second.get()));
-		}
-	}
 
 	// オブジェクトの登録
 	m_Objects.emplace(objectName, std::move(object));

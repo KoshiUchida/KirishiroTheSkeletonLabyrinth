@@ -23,6 +23,6 @@ public:
 	~Player() noexcept;
 
 	void Initialize(                 ) override final;
-	void Update    (float elapsedTime) override final;
+	void Process    (float elapsedTime) override final;
 };
 

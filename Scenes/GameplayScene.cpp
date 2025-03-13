@@ -11,6 +11,7 @@
 #include "pch.h"
 #include "GameplayScene.h"
 #include "../Objects/Player.h"
+#include "../Objects/Box.h"
 #include "../Managers/SceneManager.h"
 
 using namespace std;
@@ -59,6 +60,9 @@ void GameplayScene::Initialize()
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));
+
+    // サンプルの作成
+    AddObject("Sample", std::make_unique<Box>(this));
 }
 
 /// <summary>
@@ -86,6 +90,8 @@ void GameplayScene::Render()
     // オブジェクトの描画処理
     mp_SceneManager->GetObjectManagerPtr()->Render(view);
 
+    /*デバッグ表示*/
+#if defined(_DEBUG)
     // グリッドの床の描画
     m_gridFloor->Render(context, view, *mp_Proj);
 
@@ -97,6 +103,7 @@ void GameplayScene::Render()
 
     // デバッグフォントの描画
     m_debugFont->Render(mp_States);
+#endif
 }
 
 /// <summary>

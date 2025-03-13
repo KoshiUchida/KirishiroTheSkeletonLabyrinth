@@ -42,11 +42,13 @@ public:
 
 	// Main System
 	virtual void Initialize(                 ) = 0;
-	virtual void Update    (float elapsedTime) = 0;
+	virtual void Process   (float elapsedTime) = 0;
+	void Update(float elapsedTime);
+	void Render(const DirectX::SimpleMath::Matrix& view);
 
 	void AddComponent(std::unique_ptr<ComponentsBace> component);
 
 	ComponentsBace* GetComponentPtr(const std::string& name);
-	std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>* GetComponentsPtr();
+	ObjectBace* GetObjectPtr(const std::string& name);
 };
 

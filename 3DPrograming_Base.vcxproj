@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Box.h" />
     <ClInclude Include="Components\ComponentsBace.h" />
     <ClInclude Include="DebugDraw.h" />
     <ClInclude Include="DeviceResources.h" />
@@ -194,12 +195,16 @@
     <ClInclude Include="Objects\Player.h" />
     <ClInclude Include="Components\Renderer3D.h" />
     <ClInclude Include="Components\RendererBace.h" />
+    <ClInclude Include="Components\Polygon.h" />
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
+    <ClInclude Include="Components\SphereCollider.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="Components\Transform.h" />
+    <ClInclude Include="Objects\Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Box.cpp" />
     <ClCompile Include="Components\ComponentsBace.cpp" />
     <ClCompile Include="DebugDraw.cpp" />
     <ClCompile Include="DeviceResources.cpp" />
@@ -220,9 +225,12 @@
     <ClCompile Include="Objects\Player.cpp" />
     <ClCompile Include="Components\Renderer3D.cpp" />
     <ClCompile Include="Components\RendererBace.cpp" />
+    <ClCompile Include="Components\Polygon.cpp" />
     <ClCompile Include="Scenes\GameplayScene.cpp" />
     <ClCompile Include="Scenes\SceneBace.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
+    <ClCompile Include="Components\SphereCollider.cpp" />
+    <ClCompile Include="Objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

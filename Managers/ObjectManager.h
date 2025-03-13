@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/06
+ * @date   2025/03/10
  */
 
 #pragma once
@@ -30,13 +30,6 @@ private:
 
 	// オブジェクトの集合
 	ObjectCollection m_Objects;
-
-	// 更新処理をするコンポーネント
-	// TODO::タグ「Update」のコンポーネントを作成したら修正する
-	std::vector<ComponentsBace*> m_UpdateComponent;
-
-	// 描画処理をするコンポーネント
-	std::vector<RendererBace*> m_RenderComponent;
 
 public:
 	// Main System

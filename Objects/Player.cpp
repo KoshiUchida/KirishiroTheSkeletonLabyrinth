@@ -13,6 +13,10 @@
 
 #include "../Components/Transform.h"
 #include "../Components/Renderer3D.h"
+#include "../Components/SphereCollider.h"
+#include "../Components/Polygon.h"
+
+#include "../Managers/ObjectManager.h"
 
 using namespace DirectX;
 
@@ -26,6 +30,15 @@ Player::Player(SceneBace* pScene) noexcept
 
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
+
+	AddComponent(std::make_unique<SphereCollider>("Collider", pTransform, 1.f, mp_Scene));
+
+	AddComponent(std::make_unique<Polygon>(
+		pScene, "PORIKOU", pTransform,
+		SimpleMath::Vector3(0.0f, 1.0f, 0.0f),
+		SimpleMath::Vector3(-1.0f, 0.0f, 0.0f),
+		SimpleMath::Vector3(1.0f, 0.0f, 0.0f)
+	));
 }
 
 /// <summary>
@@ -45,7 +58,7 @@ void Player::Initialize()
 /// <summary>
 /// 更新処理
 /// </summary>
-void Player::Update(float elapsedTime)
+void Player::Process(float elapsedTime)
 {
 	// キーボードの入力を取得
 	auto kd = Keyboard::Get().GetState();
@@ -65,27 +78,37 @@ void Player::Update(float elapsedTime)
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		pTransform->AddPositionX(-1.5f * elapsedTime);
+		pTransform->AddPositionX(-2.5f * elapsedTime);
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		pTransform->AddPositionX(1.5f * elapsedTime);
+		pTransform->AddPositionX(2.5f * elapsedTime);
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		pTransform->AddPositionZ(-1.5f * elapsedTime);
+		pTransform->AddPositionZ(-2.5f * elapsedTime);
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		pTransform->AddPositionZ(1.5f * elapsedTime);
+		pTransform->AddPositionZ(2.5f * elapsedTime);
 	}
 
 	//m_position += v * 3.0f * elapsedTime;
+
+	// 重なり処理
+	if (
+		static_cast<SphereCollider*>(GetComponentPtr("Collider"))
+		->Collider(
+			*static_cast<SphereCollider*>(GetObjectPtr("Sample")->GetComponentPtr("Collider"))
+		))
+	{
+		pTransform->SetPosition(SimpleMath::Vector3());
+	}
 }
 

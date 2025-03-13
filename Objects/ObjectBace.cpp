@@ -15,6 +15,8 @@
 #include "../Scenes/SceneBace.h"
 #include "../Managers/SceneManager.h" 
 #include "../Components/ComponentsBace.h"
+#include "../Components/RendererBace.h"
+#include "../Components/SphereCollider.h"
 
 /// <summary>
 /// コンストラクタ
@@ -38,6 +40,44 @@ ObjectBace::~ObjectBace() noexcept
 		element.second.reset();
 
 	m_Components.clear();
+}
+
+/// <summary>
+/// オブジェクト全体の更新処理
+/// </summary>
+/// <param name="elapsedTime">経過時間</param>
+void ObjectBace::Update(float elapsedTime)
+{
+	Process(elapsedTime);
+
+	for (auto& component : m_Components)
+	{
+		if (component.second->GetTag() == ComponentsBace::Tags::Update)
+		{
+			// TODO::タグ「Update」のコンポーネントを作成したら修正する
+		}
+		component;
+	}
+}
+
+/// <summary>
+/// オブジェクト全体の描画処理
+/// </summary>
+void ObjectBace::Render(const DirectX::SimpleMath::Matrix& view)
+{
+	for (auto& component : m_Components)
+	{
+		if (component.second->GetTag() == ComponentsBace::Tags::Render)
+		{
+			static_cast<RendererBace*>(component.second.get())->Draw(view);
+		}
+		else if (component.second->GetTag() == ComponentsBace::Tags::Collider)
+		{
+			static_cast<SphereCollider*>(component.second.get())->Render(view);
+		}
+		else
+			component;
+	}
 }
 
 /// <summary>
@@ -65,8 +105,8 @@ ComponentsBace* ObjectBace::GetComponentPtr(const std::string& name)
 	return m_Components.at(name).get();
 }
 
-std::unordered_map<std::string, std::unique_ptr<ComponentsBace>>* ObjectBace::GetComponentsPtr()
+ObjectBace* ObjectBace::GetObjectPtr(const std::string& name)
 {
-	return &m_Components;
+	return mp_ObjectManager->GetObjectPtr(name);
 }
 

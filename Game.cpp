@@ -174,15 +174,35 @@ void Game::CreateDeviceDependentResources()
     // 共通ステートの作成
     m_states = std::make_unique<CommonStates>(device);
 
+    // ベーシックエフェクトの作成
+    m_basicEffect = std::make_unique<BasicEffect>(device);
+    // ライト(OFF)
+    m_basicEffect->SetLightingEnabled(false);
+    // 頂点カラー(OFF)
+    m_basicEffect->SetVertexColorEnabled(false);
+    // テクスチャ(ON)
+    m_basicEffect->SetTextureEnabled(true);
+
+    // アルファテストエフェクトの作成
+    m_alphaTestEffect = std::make_unique<AlphaTestEffect>(device);
+    m_alphaTestEffect->SetAlpha(200);
+
+    // 入力レイアウトの作成
+    DX::ThrowIfFailed(
+        CreateInputLayoutFromEffect<VertexPositionTexture>(
+            device, m_basicEffect.get(), m_inputLayout.ReleaseAndGetAddressOf())
+    );
+
+    // プリミティブバッチの作成
+    m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionTexture>>(context);
+
     // シーンマネージャの作成
     m_sceneManager = std::make_unique<SceneManager>();
 
     // シーンの登録
-    m_sceneManager->addScene
-    (
+    m_sceneManager->addScene(
         "Gameplay",
-        std::make_unique<GameplayScene>
-        (
+        std::make_unique<GameplayScene>(
             m_sceneManager.get(),
             m_deviceResources.get(),
             &m_proj,
@@ -192,7 +212,11 @@ void Game::CreateDeviceDependentResources()
     );
 
     // 最初のシーンを設定
+#if defined(_DEBUG)
     m_sceneManager->SetStartScene("Gameplay");
+#else
+    m_sceneManager->SetStartScene("Gameplay");
+#endif
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
