@@ -195,7 +195,6 @@
     <ClInclude Include="Objects\Player.h" />
     <ClInclude Include="Components\Renderer3D.h" />
     <ClInclude Include="Components\RendererBace.h" />
-    <ClInclude Include="Components\Polygon.h" />
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="Components\SphereCollider.h" />
@@ -225,7 +224,6 @@
     <ClCompile Include="Objects\Player.cpp" />
     <ClCompile Include="Components\Renderer3D.cpp" />
     <ClCompile Include="Components\RendererBace.cpp" />
-    <ClCompile Include="Components\Polygon.cpp" />
     <ClCompile Include="Scenes\GameplayScene.cpp" />
     <ClCompile Include="Scenes\SceneBace.cpp" />
     <ClCompile Include="Components\Transform.cpp" />

@@ -14,7 +14,6 @@
 #include "../Components/Transform.h"
 #include "../Components/Renderer3D.h"
 #include "../Components/SphereCollider.h"
-#include "../Components/Polygon.h"
 
 #include "../Managers/ObjectManager.h"
 
@@ -32,13 +31,6 @@ Player::Player(SceneBace* pScene) noexcept
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
 	AddComponent(std::make_unique<SphereCollider>("Collider", pTransform, 1.f, mp_Scene));
-
-	AddComponent(std::make_unique<Polygon>(
-		pScene, "PORIKOU", pTransform,
-		SimpleMath::Vector3(0.0f, 1.0f, 0.0f),
-		SimpleMath::Vector3(-1.0f, 0.0f, 0.0f),
-		SimpleMath::Vector3(1.0f, 0.0f, 0.0f)
-	));
 }
 
 /// <summary>
