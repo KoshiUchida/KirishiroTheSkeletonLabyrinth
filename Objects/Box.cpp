@@ -15,7 +15,7 @@ Box::Box(SceneBace* pScene) noexcept
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
-	AddComponent(std::make_unique<SphereCollider>("Collider", pTransform, 1.f, mp_Scene));
+	AddComponent(std::make_unique<SphereCollider>("Collider", pTransform, 1.f, mp_Scene, false));
 }
 
 Box::~Box() noexcept = default;

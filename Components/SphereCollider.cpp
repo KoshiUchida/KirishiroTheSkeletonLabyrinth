@@ -1,4 +1,3 @@
-
 /**
  * @file   SphereCollider.cpp
  *
@@ -22,11 +21,12 @@ using namespace DirectX;
 /// <param name="pTransform">中心座標となるトランスフォームへのポインタ</param>
 /// <param name="radius">半径</param>
 /// <param name="offset">オフセット</param>
-SphereCollider::SphereCollider(const std::string& name, Transform* pTransform, float radius, SceneBace* pScene, const DirectX::SimpleMath::Vector3& offset) noexcept
+SphereCollider::SphereCollider(const std::string& name, Transform* pTransform, float radius, SceneBace* pScene, bool canDraw, const DirectX::SimpleMath::Vector3& offset) noexcept
 	: ComponentsBace(Tags::Collider, name)
 	, mp_Transform{ pTransform }
 	, m_Radius    { radius }
 	, m_Offset    { offset }
+	, m_CanDraw   { canDraw }
 {
 	mp_DeviceResources = pScene->GetDeviceResourcesPointer();
 	mp_Proj = pScene->GetProjPointer();
@@ -49,6 +49,9 @@ SphereCollider::~SphereCollider() noexcept
 /// </summary>
 void SphereCollider::Render(const DirectX::SimpleMath::Matrix& view)
 {
+	if (!m_CanDraw)
+		return;
+
 #if defined(_DEBUG)
 	// ワールド行列
 	SimpleMath::Matrix world;

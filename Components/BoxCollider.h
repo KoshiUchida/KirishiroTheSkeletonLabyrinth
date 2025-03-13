@@ -1,7 +1,7 @@
 /**
- * @file   SphereCollider.h
+ * @file   BoxCollider.h
  *
- * @brief  球コライダークラスのヘッダーファイル
+ * @brief  ボックスコライダークラスのヘッダーファイル
  *
  * @author CatCode
  *
@@ -13,21 +13,22 @@
 #include "DeviceResources.h"
 #include "GeometricPrimitive.h"
 
+// 前方宣言
 class Transform;
 class SceneBace;
 
 /// <summary>
-/// 球コライダークラス
+/// ボックスコライダークラス
 /// </summary>
-class SphereCollider
-	: public ComponentsBace
+class BoxCollider :
+    public ComponentsBace
 {
 private:
 	// 中心座標となる座標へのポインタ
 	Transform* mp_Transform;
 
-	// 半径
-	float m_Radius;
+	// サイズ
+	DirectX::SimpleMath::Vector3 m_Siz;
 
 	// オフセット
 	DirectX::SimpleMath::Vector3 m_Offset;
@@ -43,21 +44,22 @@ private:
 
 	// 表示設定
 	bool m_CanDraw;
-	
+
 public:
 	/*Main System*/
-	SphereCollider(const std::string& name, Transform* pTransform, float radius, SceneBace* pScene, bool canDraw = true, const DirectX::SimpleMath::Vector3& offset = DirectX::SimpleMath::Vector3()) noexcept;
-	~SphereCollider() noexcept;
+	BoxCollider(const std::string& name, Transform* pTransform, const DirectX::SimpleMath::Vector3& siz, SceneBace* pScene, bool canDraw = true, const DirectX::SimpleMath::Vector3& offset = DirectX::SimpleMath::Vector3()) noexcept(false);
+	~BoxCollider() noexcept;
 
 	void Render(const DirectX::SimpleMath::Matrix& view);
 
-	bool Collider(const SphereCollider& other);
+	bool Collider(const BoxCollider& other);
 
 	/*Setter*/
 	void CanDraw(bool can) { m_CanDraw = can; }
 
 	/*Getter*/
 	DirectX::SimpleMath::Vector3 GetPosition() const;
-	float GetRadius() const;
+
+	DirectX::SimpleMath::Vector3 GetSiz() const;
 };
 
