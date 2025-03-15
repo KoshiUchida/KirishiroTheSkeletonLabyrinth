@@ -13,7 +13,7 @@
 
 #include "../Components/Transform.h"
 #include "../Components/Renderer3D.h"
-#include "../Components/SphereCollider.h"
+#include "../Components/BoxCollider.h"
 
 #include "../Managers/ObjectManager.h"
 
@@ -30,7 +30,7 @@ Player::Player(SceneBace* pScene) noexcept
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
-	AddComponent(std::make_unique<SphereCollider>(mp_Scene, "Collider", pTransform, 1.f));
+	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(0.5f, 1.f, 1.f)));
 }
 
 /// <summary>

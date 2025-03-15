@@ -25,6 +25,8 @@ BoxCollider::BoxCollider(SceneBace* pScene, const std::string& name, Transform* 
 	, m_Siz{ siz }
 	, m_Positions{}
 {
+	AddSiz(&m_Positions, m_Siz);
+
 #if defined(_DEBUG)
 	// ƒ‚ƒfƒ‹‚Ìì¬
 	m_Model = GeometricPrimitive::CreateBox(mp_DeviceResources->GetD3DDeviceContext(), siz * 2.f);
@@ -43,9 +45,23 @@ bool BoxCollider::Collider(ColliderBace* other)
 {
 	switch (other->GetType())
 	{
-	case ColliderType::Sphare:
-
 	case ColliderType::Box:
+		if (true)
+		{
+			Positions InsertBox = m_Positions;
+
+			AddSiz(&InsertBox, static_cast<BoxCollider*>(other)->GetSiz());
+
+			MovePositions(&InsertBox, this->GetPosition());
+
+			SimpleMath::Vector3 findPosiiton = other->GetPosition();
+
+			return(
+				(InsertBox.min.x <= findPosiiton.x && findPosiiton.x <= InsertBox.max.x) &&
+				(InsertBox.min.y <= findPosiiton.y && findPosiiton.y <= InsertBox.max.y) &&
+				(InsertBox.min.z <= findPosiiton.z && findPosiiton.z <= InsertBox.max.z));
+		}
+	case ColliderType::Sphare:
 
 	default:
 		return false;

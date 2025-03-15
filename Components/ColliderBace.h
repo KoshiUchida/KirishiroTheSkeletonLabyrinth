@@ -84,5 +84,8 @@ protected:
 
 	// 頂点の座標群への入力
 	void AddSiz(Positions* pPositions, const DirectX::SimpleMath::Vector3& addSiz);
+
+	// 頂点座標群の移動
+	void MovePositions(Positions* pPositions, const DirectX::SimpleMath::Vector3& move);
 };
 

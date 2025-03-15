@@ -86,10 +86,53 @@ DirectX::SimpleMath::Vector3 ColliderBace::GetPosition() const
 /// <param name="addSiz">入力サイズ</param>
 void ColliderBace::AddSiz(Positions* pPositions, const DirectX::SimpleMath::Vector3& addSiz)
 {
+	if (!pPositions)
+		return;
+
 	pPositions->max += addSiz;
 	pPositions->min -= addSiz;
 
 	pPositions->p1.x += addSiz.x;
+	pPositions->p1.y -= addSiz.y;
+	pPositions->p1.z -= addSiz.z;
+
+	pPositions->p2.x -= addSiz.x;
 	pPositions->p2.y += addSiz.y;
+	pPositions->p2.z -= addSiz.z;
+
+	pPositions->p3.x -= addSiz.x;
+	pPositions->p3.y -= addSiz.y;
 	pPositions->p3.z += addSiz.z;
+
+	pPositions->p4.x += addSiz.x;
+	pPositions->p4.y += addSiz.y;
+	pPositions->p4.z -= addSiz.z;
+
+	pPositions->p5.x -= addSiz.x;
+	pPositions->p5.y += addSiz.y;
+	pPositions->p5.z += addSiz.z;
+
+	pPositions->p6.x += addSiz.x;
+	pPositions->p6.y -= addSiz.y;
+	pPositions->p6.z += addSiz.z;
+}
+
+/// <summary>
+/// 頂点座標群の移動
+/// </summary>
+/// <param name="pPositions">移動させる目標</param>
+/// <param name="move">移動量</param>
+void ColliderBace::MovePositions(Positions* pPositions, const DirectX::SimpleMath::Vector3& move)
+{
+	if (!pPositions)
+		return;
+
+	pPositions->max += move;
+	pPositions->min += move;
+	pPositions->p1  += move;
+	pPositions->p2  += move;
+	pPositions->p3  += move;
+	pPositions->p4  += move;
+	pPositions->p5  += move;
+	pPositions->p6  += move;
 }
