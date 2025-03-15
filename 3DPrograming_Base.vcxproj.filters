@@ -81,8 +81,9 @@
     </ClInclude>
     <ClInclude Include="Components\SphereCollider.h" />
     <ClInclude Include="Objects\Box.h" />
-    <ClInclude Include="Components\Polygon.h" />
     <ClInclude Include="Objects\Wall.h" />
+    <ClInclude Include="Components\BoxCollider.h" />
+    <ClInclude Include="Components\ColliderBace.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -133,8 +134,9 @@
     </ClCompile>
     <ClCompile Include="Components\SphereCollider.cpp" />
     <ClCompile Include="Objects\Box.cpp" />
-    <ClCompile Include="Components\Polygon.cpp" />
     <ClCompile Include="Objects\Wall.cpp" />
+    <ClCompile Include="Components\BoxCollider.cpp" />
+    <ClCompile Include="Components\ColliderBace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

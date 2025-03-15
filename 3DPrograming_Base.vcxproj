@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Components\BoxCollider.h" />
     <ClInclude Include="Objects\Box.h" />
     <ClInclude Include="Components\ComponentsBace.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="Objects\Wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\ColliderBace.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />
     <ClCompile Include="Objects\Box.cpp" />
     <ClCompile Include="Components\ComponentsBace.cpp" />

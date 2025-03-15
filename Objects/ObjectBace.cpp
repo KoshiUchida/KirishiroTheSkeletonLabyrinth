@@ -73,7 +73,9 @@ void ObjectBace::Render(const DirectX::SimpleMath::Matrix& view)
 		}
 		else if (component.second->GetTag() == ComponentsBace::Tags::Collider)
 		{
-			static_cast<SphereCollider*>(component.second.get())->Render(view);
+			SphereCollider* sphere = static_cast<SphereCollider*>(component.second.get());
+			if (sphere)
+				sphere->Render(view);
 		}
 		else
 			component;

@@ -30,7 +30,7 @@ Player::Player(SceneBace* pScene) noexcept
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
-	AddComponent(std::make_unique<SphereCollider>("Collider", pTransform, 1.f, mp_Scene, false));
+	AddComponent(std::make_unique<SphereCollider>(mp_Scene, "Collider", pTransform, 1.f));
 }
 
 /// <summary>
@@ -95,9 +95,9 @@ void Player::Process(float elapsedTime)
 
 	// èdÇ»ÇËèàóù
 	if (
-		static_cast<SphereCollider*>(GetComponentPtr("Collider"))
+		static_cast<ColliderBace*>(GetComponentPtr("Collider"))
 		->Collider(
-			*static_cast<SphereCollider*>(GetObjectPtr("Sample")->GetComponentPtr("Collider"))
+			static_cast<ColliderBace*>(GetObjectPtr("Sample")->GetComponentPtr("Collider"))
 		))
 	{
 		pTransform->SetPosition(SimpleMath::Vector3());
