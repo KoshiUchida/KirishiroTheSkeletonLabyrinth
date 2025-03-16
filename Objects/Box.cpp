@@ -1,3 +1,11 @@
+/**
+ * @file   Box.cpp
+ *
+ * @brief  ボックスオブジェクトのソースファイル
+ *
+ * @author CatCode
+ */
+
 #include "pch.h"
 #include "Box.h"
 
@@ -29,5 +37,6 @@ void Box::Initialize()
 
 void Box::Process(float elapsedTime)
 {
+	// 警告回避分
 	elapsedTime;
 }

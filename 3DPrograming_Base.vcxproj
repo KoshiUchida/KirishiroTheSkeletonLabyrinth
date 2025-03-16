@@ -182,6 +182,7 @@
   <ItemGroup>
     <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Components\BoxCollider.h" />
+    <ClInclude Include="Objects\MapGenerator.h" />
     <ClInclude Include="Objects\Box.h" />
     <ClInclude Include="Components\ComponentsBace.h" />
     <ClInclude Include="DebugDraw.h" />
@@ -207,6 +208,7 @@
   <ItemGroup>
     <ClCompile Include="Components\ColliderBace.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />
+    <ClCompile Include="Objects\MapGenerator.cpp" />
     <ClCompile Include="Objects\Box.cpp" />
     <ClCompile Include="Components\ComponentsBace.cpp" />
     <ClCompile Include="DebugDraw.cpp" />

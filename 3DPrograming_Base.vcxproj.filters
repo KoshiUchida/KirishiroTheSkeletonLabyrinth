@@ -84,6 +84,7 @@
     <ClInclude Include="Objects\Wall.h" />
     <ClInclude Include="Components\BoxCollider.h" />
     <ClInclude Include="Components\ColliderBace.h" />
+    <ClInclude Include="Objects\MapGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Objects\Wall.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />
     <ClCompile Include="Components\ColliderBace.cpp" />
+    <ClCompile Include="Objects\MapGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

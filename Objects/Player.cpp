@@ -1,11 +1,9 @@
 /**
- * @file   Transform.cpp
+ * @file   Player.cpp
  *
  * @brief  プレイヤーのソースファイル
  *
  * @author CatCode
- *
- * @date   2025/02/24
  */
 
 #include "pch.h"

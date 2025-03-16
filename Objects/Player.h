@@ -12,7 +12,7 @@
 #include "ObjectBace.h"
 
 /// <summary>
-/// プレイヤークラス
+/// プレイヤーオブジェクトクラス
 /// </summary>
 class Player
 	: public ObjectBace
