@@ -15,13 +15,14 @@
 
 using namespace DirectX;
 
-Box::Box(SceneBace* pScene) noexcept
+Box::Box(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
 	: ObjectBace(pScene)
 {
 	AddComponent(std::make_unique<Transform>());
 
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
-	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
+
+	pTransform->SetPosition(position);
 
 	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(1.f, 1.f, 1.f)));
 }
@@ -31,7 +32,6 @@ Box::~Box() noexcept = default;
 void Box::Initialize()
 {
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
-	pTransform->SetPositionX(2.f);
 	pTransform->SetScale(0.35f);
 }
 

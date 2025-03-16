@@ -5,7 +5,7 @@ class Box :
 {
 public:
 	/*Main System*/
-	Box(SceneBace* pScene) noexcept;
+	Box(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3()) noexcept;
 	~Box() noexcept;
 
 	void Initialize() override final;

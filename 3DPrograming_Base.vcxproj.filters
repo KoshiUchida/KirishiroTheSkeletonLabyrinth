@@ -81,7 +81,6 @@
     </ClInclude>
     <ClInclude Include="Components\SphereCollider.h" />
     <ClInclude Include="Objects\Box.h" />
-    <ClInclude Include="Objects\Wall.h" />
     <ClInclude Include="Components\BoxCollider.h" />
     <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Objects\MapGenerator.h" />
@@ -135,7 +134,6 @@
     </ClCompile>
     <ClCompile Include="Components\SphereCollider.cpp" />
     <ClCompile Include="Objects\Box.cpp" />
-    <ClCompile Include="Objects\Wall.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />
     <ClCompile Include="Components\ColliderBace.cpp" />
     <ClCompile Include="Objects\MapGenerator.cpp" />

@@ -203,7 +203,6 @@
     <ClInclude Include="Components\SphereCollider.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="Components\Transform.h" />
-    <ClInclude Include="Objects\Wall.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Components\ColliderBace.cpp" />
@@ -234,7 +233,6 @@
     <ClCompile Include="Scenes\SceneBace.cpp" />
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Components\SphereCollider.cpp" />
-    <ClCompile Include="Objects\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
