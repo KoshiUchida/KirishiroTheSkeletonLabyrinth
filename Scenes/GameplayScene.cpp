@@ -55,8 +55,8 @@ void GameplayScene::Initialize()
     int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
     int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
-	// デバッグカメラの作成
-    m_debugCamera = std::make_unique<Imase::DebugCamera>(width, height);
+	// カメラの作成
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(1.f, 1.f, 1.f));
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));
@@ -72,9 +72,6 @@ void GameplayScene::Update(const float elapsedTime)
 {
     // 警告回避用
     elapsedTime;
-
-    // デバッグカメラの更新
-    m_debugCamera->Update();
 }
 
 /// <summary>
@@ -85,7 +82,7 @@ void GameplayScene::Render()
     auto context = mp_DeviceResources->GetD3DDeviceContext();
 
     // デバッグカメラからビュー行列を取得する
-    SimpleMath::Matrix view = m_debugCamera->GetCameraMatrix();
+    SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
     // オブジェクトの描画処理
     mp_SceneManager->GetObjectManagerPtr()->Render(view);
@@ -113,5 +110,5 @@ void GameplayScene::Finalize()
 {
     m_debugFont.reset();
     m_gridFloor.reset();
-    m_debugCamera.reset();
+    m_Camera.reset();
 }

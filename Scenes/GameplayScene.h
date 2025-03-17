@@ -15,7 +15,7 @@
 
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
-#include "ImaseLib/DebugCamera.h"
+#include "Camera.h"
 
 /// <summary>
 /// ゲームプレイシーン
@@ -32,7 +32,7 @@ private:
     std::unique_ptr<Imase::GridFloor> m_gridFloor;
 
     // デバッグカメラ
-    std::unique_ptr<Imase::DebugCamera> m_debugCamera;
+    std::unique_ptr<Camera> m_Camera;
 
 public:
 	// Main System

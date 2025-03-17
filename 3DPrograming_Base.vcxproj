@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\Camera.h" />
     <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Components\BoxCollider.h" />
     <ClInclude Include="Objects\MapGenerator.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\Camera.cpp" />
     <ClCompile Include="Components\ColliderBace.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />
     <ClCompile Include="Objects\MapGenerator.cpp" />
