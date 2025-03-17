@@ -56,7 +56,7 @@ void GameplayScene::Initialize()
     int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 8.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 3.f));
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));

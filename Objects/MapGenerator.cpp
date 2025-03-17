@@ -325,7 +325,9 @@ void MapGenerator::Initialize()
 			}
 			else if (MapData[i][j] == 2)
 			{
+				Transform* pPlayer = static_cast<Transform*>(mp_ObjectManager->GetObjectPtr("Player")->GetComponentPtr("Transform"));
 
+				pPlayer->SetPosition(DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f));
 			}
 		}
 	}

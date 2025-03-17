@@ -28,7 +28,7 @@ Player::Player(SceneBace* pScene) noexcept
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
-	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(0.5f, 1.f, 1.f)));
+	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(0.1f, 0.5f, 0.1f)));
 }
 
 /// <summary>
@@ -42,7 +42,6 @@ Player::~Player() noexcept = default;
 void Player::Initialize()
 {
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
-	pTransform->SetScale(0.35f);
 }
 
 /// <summary>

@@ -67,7 +67,7 @@ void ColliderBace::Render(const DirectX::SimpleMath::Matrix& view)
 	// ƒ[ƒ‹ƒhs—ñ‚Ö“‡
 	world =  rotZ * rotY * rotX * scale * trans;
 
-	m_Model->Draw(world, view, *mp_Proj, Colors::Red);
+	m_Model->Draw(world, view, *mp_Proj, Colors::GreenYellow);
 #endif
 }
 
