@@ -4,8 +4,6 @@
  * @brief  ゲームプレイシーンのヘッダファイル
  *
  * @author CatCode
- *
- * @date   2025/03/06
  */
 
 #pragma once

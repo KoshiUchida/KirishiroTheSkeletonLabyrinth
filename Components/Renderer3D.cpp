@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/25
+ * @date   2025/03/17
  */
 
 #include "pch.h"
@@ -16,7 +16,7 @@
 
 using namespace DirectX;
 
-Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath) noexcept(false)
+Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* modelPath, Read read) noexcept(false)
 	: RendererBace("Renderer3D", pScene->GetCommonStatesPointer())
 	, mp_Transform{ pTransform }
 	, mp_DeviceResources{ pScene->GetDeviceResourcesPointer() }
@@ -25,8 +25,23 @@ Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* 
 	// ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 	auto device = mp_DeviceResources->GetD3DDevice();
 	EffectFactory fx(device);
-	m_Model = Model::CreateFromSDKMESH(
-		device, modelPath, fx);
+
+	switch (read)
+	{
+	case Renderer3D::Read::SDK:
+		m_Model = Model::CreateFromSDKMESH(
+			device, modelPath, fx
+		);
+		break;
+	case Renderer3D::Read::CMO:
+		m_Model = Model::CreateFromCMO(
+			device, modelPath, fx
+		);
+		break;
+	default:
+		// ERORR
+		break;
+	}
 }
 
 Renderer3D::~Renderer3D() noexcept

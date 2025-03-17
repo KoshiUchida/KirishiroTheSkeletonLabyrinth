@@ -8,10 +8,12 @@
 
 #include "pch.h"
 #include "GameplayScene.h"
+
+// 使用するオブジェクト
 #include "../Objects/Player.h"
 #include "../Objects/MapGenerator.h"
-#include "../Managers/SceneManager.h"
 
+#include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
 
 using namespace std;
@@ -56,7 +58,7 @@ void GameplayScene::Initialize()
     int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 3.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));

@@ -11,6 +11,8 @@
 
 #include "../Managers/ObjectManager.h"
 #include "Box.h"
+#include "Wall.h"
+#include "Cylinder.h"
 
 #include "../Components/Transform.h"
 
@@ -310,18 +312,128 @@ void MapGenerator::Initialize()
 	// マップ上のオブジェクトを生成する
 	for (int i{ 0 }, c{ 0 }; i < MapData.size(); i++)
 	{
-		for (int j{ 0 }; j < MapData[i].size(); j++, c++)
+		for (int j{ 0 }; j < MapData[i].size(); j++)
 		{
 			if (MapData[i][j] == 0)
 			{
-				mp_ObjectManager->AddObject
-				(std::string("Wall") + std::to_string(c),
-					std::make_unique<Box>
-					(
-						mp_Scene,
-						DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
-					)
-				);
+				// 空間がある場合はコライダーを生成する
+				if ((i - 1 >= 0 && MapData[i - 1][j] != 0) || (i + 1 < MapData.size() && MapData[i + 1][j] != 0) || (j - 1 >= 0 && MapData[i][j - 1] != 0) || (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0))
+					mp_ObjectManager->AddObject
+					(std::string("WallCollider") + std::to_string(c++),
+						std::make_unique<Box>
+						(
+							mp_Scene,
+							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
+						)
+					);
+
+				// 空間のある方向に壁を設置する
+				if (i - 1 >= 0 && MapData[i - 1][j] != 0)
+				{
+					mp_ObjectManager->AddObject
+					(std::string("WallModel") + std::to_string(c++),
+						std::make_unique<Wall>
+						(
+							mp_Scene,
+							DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI, 0.f)
+						)
+					);
+				}
+
+				if (i + 1 < MapData.size() && MapData[i + 1][j] != 0)
+				{
+					mp_ObjectManager->AddObject
+					(std::string("WallModel") + std::to_string(c++),
+						std::make_unique<Wall>
+						(
+							mp_Scene,
+							DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
+						)
+					);
+				}
+
+				if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+				{
+					mp_ObjectManager->AddObject
+					(std::string("WallModel") + std::to_string(c++),
+						std::make_unique<Wall>
+						(
+							mp_Scene,
+							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / 2.f, 0.f)
+						)
+					);
+				}
+
+				if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+				{
+					mp_ObjectManager->AddObject
+					(std::string("WallModel") + std::to_string(c++),
+						std::make_unique<Wall>
+						(
+							mp_Scene,
+							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / -2.f, 0.f)
+						)
+					);
+				}
+
+				// 角となる部分に柱を設置
+				if (i - 1 >= 0 && MapData[i - 1][j] != 0)
+				{
+					if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+					{
+						mp_ObjectManager->AddObject
+						(std::string("CylinderModel") + std::to_string(c++),
+							std::make_unique<Cylinder>
+							(
+								mp_Scene,
+								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+							)
+						);
+					}
+
+					if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+					{
+						mp_ObjectManager->AddObject
+						(std::string("CylinderModel") + std::to_string(c++),
+							std::make_unique<Cylinder>
+							(
+								mp_Scene,
+								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+							)
+						);
+					}
+				}
+
+
+				if (i + 1 < MapData.size() && MapData[i + 1][j] != 0)
+				{
+					if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+					{
+						mp_ObjectManager->AddObject
+						(std::string("CylinderModel") + std::to_string(c++),
+							std::make_unique<Cylinder>
+							(
+								mp_Scene,
+								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+							)
+						);
+					}
+
+					if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+					{
+						mp_ObjectManager->AddObject
+						(std::string("CylinderModel") + std::to_string(c++),
+							std::make_unique<Cylinder>
+							(
+								mp_Scene,
+								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+							)
+						);
+					}
+				}
 			}
 			else if (MapData[i][j] == 2)
 			{
@@ -338,6 +450,8 @@ void MapGenerator::Initialize()
 /// </summary>
 void MapGenerator::Process(float elapsedTime)
 {
+	// 警告回避用
+	elapsedTime;
 }
 
 

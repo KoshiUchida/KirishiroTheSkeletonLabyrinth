@@ -79,12 +79,28 @@
     <ClInclude Include="Components\ComponentsBace.h">
       <Filter>Baces\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Components\SphereCollider.h" />
-    <ClInclude Include="Objects\Box.h" />
-    <ClInclude Include="Components\BoxCollider.h" />
-    <ClInclude Include="Components\ColliderBace.h" />
-    <ClInclude Include="Objects\MapGenerator.h" />
-    <ClInclude Include="Scenes\Camera.h" />
+    <ClInclude Include="Objects\Box.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\BoxCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\MapGenerator.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SphereCollider.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Wall.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ColliderBace.h">
+      <Filter>Baces\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Camera.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Cylinder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -133,12 +149,28 @@
     <ClCompile Include="Components\ComponentsBace.cpp">
       <Filter>Baces\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Components\SphereCollider.cpp" />
-    <ClCompile Include="Objects\Box.cpp" />
-    <ClCompile Include="Components\BoxCollider.cpp" />
-    <ClCompile Include="Components\ColliderBace.cpp" />
-    <ClCompile Include="Objects\MapGenerator.cpp" />
-    <ClCompile Include="Scenes\Camera.cpp" />
+    <ClCompile Include="Objects\Box.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\BoxCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\MapGenerator.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SphereCollider.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Wall.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\ColliderBace.cpp">
+      <Filter>Baces\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Camera.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Cylinder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
