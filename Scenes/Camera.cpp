@@ -7,8 +7,12 @@
  *
  * @date   2025/03/17
  */
+
 #include "pch.h"
 #include "Camera.h"
+
+/*前方宣言*/
+#include "../Components/Transform.h"
 
 using namespace DirectX;
 
@@ -19,10 +23,36 @@ using namespace DirectX;
 /// </summary>
 /// <param name="_eye">視点の座標</param>
 /// <param name="_target">注点の座標</param>
-Camera::Camera(const DirectX::SimpleMath::Vector3& _eye, const DirectX::SimpleMath::Vector3& _target)
-	: m_eye   { _eye }
-	, m_target{ _target }
-	, m_view{}
+Camera::Camera(const DirectX::SimpleMath::Vector3& _eye, const DirectX::SimpleMath::Vector3& _target) noexcept
+	: m_Eye   { _eye }
+	, m_Target{ _target }
+	, m_View{}
+	, mp_Target{ nullptr }
+{
+}
+
+/// <summary>
+/// Destructor
+/// </summary>
+Camera::~Camera() noexcept = default;
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="_eye"></param>
+/// <param name="pTarget"></param>
+Camera::Camera(const DirectX::SimpleMath::Vector3& _eye, Transform* pTarget) noexcept
+	: m_Eye    { _eye }
+	, m_Target { SimpleMath::Vector3::Zero}
+	, m_View   {}
+	, mp_Target{ pTarget }
+{
+}
+
+/// <summary>
+/// 更新処理
+/// </summary>
+void Camera::Update()
 {
 	ViewUpdate();
 }
@@ -32,7 +62,14 @@ Camera::Camera(const DirectX::SimpleMath::Vector3& _eye, const DirectX::SimpleMa
 /// </summary>
 void Camera::ViewUpdate()
 {
-	m_view = SimpleMath::Matrix::CreateLookAt(m_eye, m_target, SimpleMath::Vector3::UnitY);
+	if (mp_Target)
+	{
+		m_View = SimpleMath::Matrix::CreateLookAt(mp_Target->GetPosition() + m_Eye, mp_Target->GetPosition(), SimpleMath::Vector3::UnitY);
+	}
+	else
+	{
+		m_View = SimpleMath::Matrix::CreateLookAt(m_Eye, m_Target, SimpleMath::Vector3::UnitY);
+	}
 }
 
 
@@ -44,9 +81,7 @@ void Camera::ViewUpdate()
 /// <param name="position">視点の座標</param>
 void Camera::SetEyePosition(const DirectX::SimpleMath::Vector3& position)
 {
-	m_eye = position;
-
-	ViewUpdate();
+	m_Eye = position;
 }
 
 /// <summary>
@@ -55,9 +90,16 @@ void Camera::SetEyePosition(const DirectX::SimpleMath::Vector3& position)
 /// <param name="position">注点の座標</param>
 void Camera::SetTargetPosition(const DirectX::SimpleMath::Vector3& position)
 {
-	m_target = position;
+	m_Target = position;
+}
 
-	ViewUpdate();
+/// <summary>
+/// 注視点ポインタの設定関数
+/// </summary>
+/// <param name="pPosition">注視点となる座標へのポインタ</param>
+void Camera::SetTargetPositionPtr(Transform* pPosition)
+{
+	mp_Target = pPosition;
 }
 
 
@@ -70,7 +112,7 @@ void Camera::SetTargetPosition(const DirectX::SimpleMath::Vector3& position)
 /// <returns>ビュー行列</returns>
 DirectX::SimpleMath::Matrix Camera::GetCameraMatrix()
 {
-	return m_view;
+	return m_View;
 }
 
 /// <summary>
@@ -79,7 +121,7 @@ DirectX::SimpleMath::Matrix Camera::GetCameraMatrix()
 /// <returns>視点の位置</returns>
 DirectX::SimpleMath::Vector3 Camera::GetEyePosition()
 {
-	return m_eye;
+	return m_Eye;
 }
 
 
@@ -89,6 +131,6 @@ DirectX::SimpleMath::Vector3 Camera::GetEyePosition()
 /// <returns>注視点の位置</returns>
 DirectX::SimpleMath::Vector3 Camera::GetTargetPosition()
 {
-	return m_target;
+	return m_Target;
 }
 

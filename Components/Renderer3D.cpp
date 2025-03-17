@@ -55,7 +55,7 @@ void Renderer3D::Draw(const DirectX::SimpleMath::Matrix& view)
 	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(mp_Transform->GetScale());
 
 	// ワールド行列へ統合
-	world = trans * rotZ * rotY * rotX * scale;
+	world = scale * rotZ * rotY * rotX  * trans;
 
 	// モデルの描画
 	m_Model->Draw(

@@ -65,28 +65,30 @@ void Player::Process(float elapsedTime)
 	//SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(m_rotate.y);
 	//v = SimpleMath::Vector3::Transform(v, rotY);
 
+	static constexpr float MoveSpeed{ 5.f };
+
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		pTransform->AddPositionX(-2.5f * elapsedTime);
+		pTransform->AddPositionX(-MoveSpeed * elapsedTime);
 	}
 
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		pTransform->AddPositionX(2.5f * elapsedTime);
+		pTransform->AddPositionX(MoveSpeed * elapsedTime);
 	}
 
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		pTransform->AddPositionZ(-2.5f * elapsedTime);
+		pTransform->AddPositionZ(-MoveSpeed * elapsedTime);
 	}
 
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		pTransform->AddPositionZ(2.5f * elapsedTime);
+		pTransform->AddPositionZ(MoveSpeed * elapsedTime);
 	}
 
 	//m_position += v * 3.0f * elapsedTime;

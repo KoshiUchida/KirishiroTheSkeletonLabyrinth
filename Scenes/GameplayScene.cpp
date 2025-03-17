@@ -4,8 +4,6 @@
  * @brief  ゲームプレイシーンのソースファイル
  *
  * @author CatCode
- *
- * @date   2025/03/06
  */
 
 #include "pch.h"
@@ -13,6 +11,8 @@
 #include "../Objects/Player.h"
 #include "../Objects/MapGenerator.h"
 #include "../Managers/SceneManager.h"
+
+#include "../Components/Transform.h"
 
 using namespace std;
 using namespace DirectX;
@@ -56,10 +56,13 @@ void GameplayScene::Initialize()
     int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(1.f, 1.f, 1.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 8.f));
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));
+
+    // カメラの注視点をプレイヤーに設定
+    m_Camera->SetTargetPositionPtr(static_cast<Transform*>(GetObjectPtr("Player")->GetComponentPtr("Transform")));
 
     // MapGeneratorの作成
     AddObject("MapGenerator", std::make_unique<MapGenerator>(this));
@@ -72,6 +75,9 @@ void GameplayScene::Update(const float elapsedTime)
 {
     // 警告回避用
     elapsedTime;
+
+    // カメラの更新処理
+    m_Camera->Update();
 }
 
 /// <summary>

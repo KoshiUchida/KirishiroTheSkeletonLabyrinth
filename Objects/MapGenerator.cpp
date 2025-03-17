@@ -12,6 +12,8 @@
 #include "../Managers/ObjectManager.h"
 #include "Box.h"
 
+#include "../Components/Transform.h"
+
 /// <summary>
 /// Constructor
 /// </summary>
@@ -264,7 +266,7 @@ void MapGenerator::Initialize()
 							{
 								{0, 0, 0, 0, 0},
 								{0, 1, 1, 1, 0},
-								{0, 1, 1, 1, 1},
+								{0, 1, 2, 1, 1},
 								{0, 1, 1, 1, 0},
 								{0, 0, 1, 0, 0}
 							};
@@ -307,16 +309,26 @@ void MapGenerator::Initialize()
 
 	// マップ上のオブジェクトを生成する
 	for (int i{ 0 }, c{ 0 }; i < MapData.size(); i++)
+	{
 		for (int j{ 0 }; j < MapData[i].size(); j++, c++)
+		{
 			if (MapData[i][j] == 0)
+			{
 				mp_ObjectManager->AddObject
 				(std::string("Wall") + std::to_string(c),
 					std::make_unique<Box>
 					(
 						mp_Scene,
-						DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 6.f, 3.f, (j - MapData.size() / 2.f) * 6.f)
+						DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
 					)
 				);
+			}
+			else if (MapData[i][j] == 2)
+			{
+
+			}
+		}
+	}
 }
 
 /// <summary>
