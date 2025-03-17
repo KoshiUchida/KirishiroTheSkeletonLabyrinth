@@ -24,7 +24,7 @@ Box::Box(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexce
 
 	pTransform->SetPosition(position);
 
-	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(1.f, 1.f, 1.f)));
+	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(3.f, 3.f, 3.f)));
 }
 
 Box::~Box() noexcept = default;

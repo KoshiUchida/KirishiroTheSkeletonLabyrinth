@@ -30,6 +30,7 @@ MapGenerator::~MapGenerator() noexcept = default;
 /// </summary>
 void MapGenerator::Initialize()
 {
+
 	// パネルのデータを作成
 	int datas[][PanelWidth][PanelWidth]
 	{
@@ -144,7 +145,6 @@ void MapGenerator::Initialize()
 			{0, 0, 0, 0, 0}
 		},
 	};
-
 
 	// パネルデータの読み込み
 	std::vector<PanelData> PanelDatas;
@@ -285,9 +285,12 @@ void MapGenerator::Initialize()
 			{
 				std::vector<int> MapWidthData;
 				for (int k{ 0 }; k < Width; k++)
+				{
 					for (int l{ 0 }; l < PanelWidth; l++)
+					{
 						MapWidthData.push_back(MapDataA[i * Width + k].GetTileData(l, j));
-
+					}
+				}
 				MapData.push_back(MapWidthData);
 			}
 		}
@@ -306,7 +309,14 @@ void MapGenerator::Initialize()
 	for (int i{ 0 }, c{ 0 }; i < MapData.size(); i++)
 		for (int j{ 0 }; j < MapData[i].size(); j++, c++)
 			if (MapData[i][j] == 0)
-				mp_ObjectManager->AddObject(std::string("Wall") + std::to_string(c), std::make_unique<Box>(mp_Scene, DirectX::SimpleMath::Vector3(i, 0.f, j)));
+				mp_ObjectManager->AddObject
+				(std::string("Wall") + std::to_string(c),
+					std::make_unique<Box>
+					(
+						mp_Scene,
+						DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 6.f, 3.f, (j - MapData.size() / 2.f) * 6.f)
+					)
+				);
 }
 
 /// <summary>
@@ -328,6 +338,20 @@ PanelData::PanelData(int data[PanelWidth][PanelWidth], int popParcent)
 	, m_hoal     {}
 	, m_parcent  { popParcent }
 {
+	// パネルデータの読み込み
+	for (int i{ 0 }; i < PanelWidth; i++)
+	{
+		for (int j{ 0 }; j < PanelWidth; j++)
+		{
+			m_tileDatas[i][j] = data[i][j];
+		}
+	}
+
+	// パネルの「穴」を保存する
+	m_hoal.up = (m_tileDatas[0][PanelWidth / 2] != 0);
+	m_hoal.down = (m_tileDatas[PanelWidth - 1][PanelWidth / 2] != 0);
+	m_hoal.left = (m_tileDatas[PanelWidth / 2][0] != 0);
+	m_hoal.right = (m_tileDatas[PanelWidth / 2][PanelWidth - 1] != 0);
 }
 
 /// <summary>

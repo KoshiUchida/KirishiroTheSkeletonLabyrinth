@@ -92,13 +92,13 @@ void Player::Process(float elapsedTime)
 	//m_position += v * 3.0f * elapsedTime;
 
 	// d‚È‚èˆ—
-	if (
-		static_cast<ColliderBace*>(GetComponentPtr("Collider"))
-		->Collider(
-			static_cast<ColliderBace*>(GetObjectPtr("Sample")->GetComponentPtr("Collider"))
-		))
-	{
-		pTransform->SetPosition(SimpleMath::Vector3());
-	}
+	//if (
+	//	static_cast<ColliderBace*>(GetComponentPtr("Collider"))
+	//	->Collider(
+	//		static_cast<ColliderBace*>(GetObjectPtr("Sample")->GetComponentPtr("Collider"))
+	//	))
+	//{
+	//	pTransform->SetPosition(SimpleMath::Vector3());
+	//}
 }
 

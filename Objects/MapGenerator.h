@@ -15,7 +15,7 @@ class MapGenerator :
     public ObjectBace
 {
 private:
-	static constexpr int Width{ 3 };
+	static constexpr int Width{ 5 };
 
 public:
 	// Main System
