@@ -106,6 +106,12 @@ void GameplayScene::Render()
     // FPSの表示
     m_debugFont->AddString(0, 0, Colors::White, L"FPS=%d", fps);
 
+    // Playerの座標を取得
+    SimpleMath::Vector3 playerPosition = static_cast<Transform*>(GetObjectPtr("Player")->GetComponentPtr("Transform"))->GetPosition();
+
+    // Playerの座標を表示
+    m_debugFont->AddString(200, 0, Colors::Red, L"Player=(%f, %f, %f)", playerPosition.x, playerPosition.y, playerPosition.z);
+
     // デバッグフォントの描画
     m_debugFont->Render(mp_States);
 #endif

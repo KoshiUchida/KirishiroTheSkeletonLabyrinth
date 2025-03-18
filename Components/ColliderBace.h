@@ -61,6 +61,8 @@ public:
 
 	virtual bool Collider(ColliderBace* other) = 0;
 
+	virtual void Collision(ColliderBace* other) = 0;
+
 	/*Setter*/
 	void CanDraw(bool can) { m_CanDraw = can; }
 

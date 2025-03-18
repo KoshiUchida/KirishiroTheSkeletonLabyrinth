@@ -35,6 +35,8 @@ public:
 
 	bool Collider(ColliderBace* other) override final;
 
+	void Collision(ColliderBace* other) override final;
+
 	/*Getter*/
 	DirectX::SimpleMath::Vector3 GetSiz() const;
 };

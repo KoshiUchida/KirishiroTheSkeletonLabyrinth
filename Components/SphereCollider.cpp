@@ -69,6 +69,11 @@ bool SphereCollider::Collider(ColliderBace* other)
 	}
 }
 
+void SphereCollider::Collision(ColliderBace* other)
+{
+	// ToDo:‰Ÿ‚µo‚µˆ—
+}
+
 /// <summary>
 /// ”¼Œa‚Ìæ“¾
 /// </summary>

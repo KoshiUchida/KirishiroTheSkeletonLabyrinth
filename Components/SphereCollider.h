@@ -31,6 +31,8 @@ public:
 
 	bool Collider(ColliderBace* other) override final;
 
+	void Collision(ColliderBace* other) override final;
+
 	/*Getter*/
 	float GetRadius() const;
 };
