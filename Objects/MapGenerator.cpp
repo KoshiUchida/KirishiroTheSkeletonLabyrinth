@@ -327,6 +327,9 @@ void MapGenerator::Initialize()
 						)
 					);
 
+				// ƒ‚ƒfƒ‹‚ÌYÀ•W
+				static constexpr float ModelPosY{ 1.3f };
+
 				// ‹óŠÔ‚Ì‚ ‚é•ûŒü‚É•Ç‚ðÝ’u‚·‚é
 				if (i - 1 >= 0 && MapData[i - 1][j] != 0)
 				{
@@ -335,7 +338,7 @@ void MapGenerator::Initialize()
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI, 0.f)
 						)
 					);
@@ -348,7 +351,7 @@ void MapGenerator::Initialize()
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
+							DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - MapData.size() / 2.f) * 3.5f)
 						)
 					);
 				}
@@ -360,7 +363,7 @@ void MapGenerator::Initialize()
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / 2.f, 0.f)
 						)
 					);
@@ -373,7 +376,7 @@ void MapGenerator::Initialize()
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / -2.f, 0.f)
 						)
 					);
@@ -389,7 +392,7 @@ void MapGenerator::Initialize()
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
@@ -401,7 +404,7 @@ void MapGenerator::Initialize()
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
@@ -417,7 +420,7 @@ void MapGenerator::Initialize()
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
@@ -429,7 +432,7 @@ void MapGenerator::Initialize()
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, 0.f, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
