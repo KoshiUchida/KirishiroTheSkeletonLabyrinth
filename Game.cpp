@@ -25,7 +25,7 @@ Game::Game() noexcept(false)
 // Initialize the Direct3D resources required to run.
 void Game::Initialize(HWND window, int width, int height)
 {
-    srand(time(NULL));
+    srand(static_cast<unsigned int>(time(NULL)));
 
     m_deviceResources->SetWindow(window, width, height);
 

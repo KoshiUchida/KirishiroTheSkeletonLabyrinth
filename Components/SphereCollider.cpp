@@ -71,6 +71,8 @@ bool SphereCollider::Collider(ColliderBace* other)
 
 void SphereCollider::Collision(ColliderBace* other)
 {
+	other;
+
 	// ToDo:‰Ÿ‚µo‚µˆ—
 }
 

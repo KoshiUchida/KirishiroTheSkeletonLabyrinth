@@ -4,6 +4,8 @@
  * @brief  プレイヤーのソースファイル
  *
  * @author CatCode
+ *
+ * @date   2025/03/21
  */
 
 #include "pch.h"
@@ -17,11 +19,17 @@
 
 using namespace DirectX;
 
+// 移動の設定値
+static constexpr float MoveSpeedSpeed{ 5.f };
+static constexpr float MoveSpeedA    { 3.f };
+static constexpr float MoveSpeedFC   { 0.95f };
+
 /// <summary>
 /// コンストラクト
 /// </summary>
 Player::Player(SceneBace* pScene) noexcept
 	: ObjectBace(pScene)
+	, m_MoveSpeed{ MoveSpeedSpeed, MoveSpeedA, MoveSpeedFC }
 {
 	AddComponent(std::make_unique<Transform>());
 
@@ -41,7 +49,6 @@ Player::~Player() noexcept = default;
 /// </summary>
 void Player::Initialize()
 {
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 }
 
 /// <summary>
@@ -49,47 +56,67 @@ void Player::Initialize()
 /// </summary>
 void Player::Process(float elapsedTime)
 {
+	Move(elapsedTime);
+}
+
+/// <summary>
+/// 移動処理
+/// </summary>
+void Player::Move(float elapsedTime)
+{
 	// キーボードの入力を取得
-	auto kd = Keyboard::Get().GetState();
+	Keyboard::State kd = Keyboard::Get().GetState();
 
-	// トランスフォームの取得
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
-
-	//float rotateSpeed = 75.f;
-
-	//// 速度ベクトル
-	//SimpleMath::Vector3 v(0.0f, 0.0f, 3.0f);
-
-	//// Y軸で回転する行列を作成する
-	//SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(m_rotate.y);
-	//v = SimpleMath::Vector3::Transform(v, rotY);
-
-	static constexpr float MoveSpeed{ 5.f };
+	// コントローラの値
+	float cx = { 0.f };
+	float cy = { 0.f };
 
 	// 左キーが押されているか
 	if (kd.Left)
 	{
-		pTransform->AddPositionX(-MoveSpeed * elapsedTime);
+		cx -= 1.f;
 	}
-
 	// 右キーが押されているか
 	if (kd.Right)
 	{
-		pTransform->AddPositionX(MoveSpeed * elapsedTime);
+		cx += 1.f;
 	}
-
 	// 上キーが押されているか  
 	if (kd.Up)
 	{
-		pTransform->AddPositionZ(-MoveSpeed * elapsedTime);
+		cy += 1.f;
 	}
-
 	// 下キーが押されているか
 	if (kd.Down)
 	{
-		pTransform->AddPositionZ(MoveSpeed * elapsedTime);
+		cy -= 1.f;
 	}
 
-	//m_position += v * 3.0f * elapsedTime;
+	// トランスフォームの取得
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
+
+	// 移動時の処理
+	if (kd.Left || kd.Right || kd.Up || kd.Down)
+	{
+		m_MoveSpeed.Up(elapsedTime);
+
+		pTransform->SetRotateY(std::atan2f(cy, cx));
+	}
+	// 停止時の処理
+	else
+	{
+		m_MoveSpeed.Stop(elapsedTime);
+	}
+
+	// 速度ベクトル
+	SimpleMath::Vector3 speed(m_MoveSpeed.Get(), 0.f, 0.f);
+
+	// Y軸で回転する行列を作成
+	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(pTransform->GetRotateY());
+	speed = SimpleMath::Vector3::Transform(speed, rotY);
+
+	// 座標の更新処理
+	pTransform->AddPosition(speed * elapsedTime);
+
 }
 

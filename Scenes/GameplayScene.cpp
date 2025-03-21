@@ -12,6 +12,7 @@
 // 使用するオブジェクト
 #include "../Objects/Player.h"
 #include "../Objects/MapGenerator.h"
+#include "../Objects/Enemy.h"
 
 #include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
@@ -54,8 +55,8 @@ GameplayScene::~GameplayScene() noexcept = default;
 /// </summary>
 void GameplayScene::Initialize()
 {
-    int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
-    int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
+    //int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
+    //int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
 	// カメラの作成
     m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
@@ -63,11 +64,17 @@ void GameplayScene::Initialize()
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));
 
+    // プレイヤーのトランスフォームの取得
+    Transform* playerTransform = static_cast<Transform*>(GetObjectPtr("Player")->GetComponentPtr("Transform"));
+
     // カメラの注視点をプレイヤーに設定
-    m_Camera->SetTargetPositionPtr(static_cast<Transform*>(GetObjectPtr("Player")->GetComponentPtr("Transform")));
+    m_Camera->SetTargetPositionPtr(playerTransform);
 
     // MapGeneratorの作成
     AddObject("MapGenerator", std::make_unique<MapGenerator>(this));
+
+    // エネミーの作成
+    AddObject("Enemy", std::make_unique<Enemy>(this, playerTransform->GetPosition() + SimpleMath::Vector3(1.f, 0.f, 0.f)));
 }
 
 /// <summary>

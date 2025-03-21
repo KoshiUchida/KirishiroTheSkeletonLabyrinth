@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/25
+ * @date   2025/03/21
  */
 
 #pragma once
@@ -68,12 +68,16 @@ public:
 	float GetScaleZ() const;
 
 	// Addition
+	void AddPosition(const DirectX::SimpleMath::Vector3& position);
+
 	void AddPositionX(float x);
 	void AddPositionY(float y);
 	void AddPositionZ(float z);
+
 	void AddRotateX(float x);
 	void AddRotateY(float y);
 	void AddRotateZ(float z);
+
 	void AddScaleX(float x);
 	void AddScaleY(float y);
 	void AddScaleZ(float z);

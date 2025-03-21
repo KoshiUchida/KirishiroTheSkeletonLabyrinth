@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Objects\Cylinder.h" />
     <ClInclude Include="Scenes\Camera.h" />
     <ClInclude Include="Components\ColliderBace.h" />
@@ -206,8 +207,10 @@
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Objects\Wall.h" />
+    <ClInclude Include="Common\Thruster.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Enemy.cpp" />
     <ClCompile Include="Objects\Cylinder.cpp" />
     <ClCompile Include="Scenes\Camera.cpp" />
     <ClCompile Include="Components\ColliderBace.cpp" />
@@ -239,6 +242,7 @@
     <ClCompile Include="Components\Transform.cpp" />
     <ClCompile Include="Components\SphereCollider.cpp" />
     <ClCompile Include="Objects\Wall.cpp" />
+    <ClCompile Include="Common\Thruster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

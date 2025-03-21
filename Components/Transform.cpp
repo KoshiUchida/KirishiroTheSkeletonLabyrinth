@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/02/25
+ * @date   2025/03/21
  */
 
 #include "pch.h"
@@ -153,6 +153,11 @@ float Transform::GetScaleZ() const
 
 
 /*Addition*/
+
+void Transform::AddPosition(const DirectX::SimpleMath::Vector3& position)
+{
+	m_Position += position;
+}
 
 void Transform::AddPositionX(float x)
 {

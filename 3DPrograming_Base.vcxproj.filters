@@ -101,6 +101,8 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Cylinder.h" />
+    <ClInclude Include="Objects\Enemy.h" />
+    <ClInclude Include="Common\Thruster.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -171,6 +173,8 @@
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Cylinder.cpp" />
+    <ClCompile Include="Objects\Enemy.cpp" />
+    <ClCompile Include="Common\Thruster.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
