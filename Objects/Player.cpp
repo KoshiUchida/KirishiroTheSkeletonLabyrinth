@@ -21,7 +21,7 @@ using namespace DirectX;
 
 // ˆÚ“®‚Ìİ’è’l
 static constexpr float MoveSpeedSpeed{ 5.f };
-static constexpr float MoveSpeedA    { 3.f };
+static constexpr float MoveSpeedA    { 4.5f };
 static constexpr float MoveSpeedFC   { 0.95f };
 
 /// <summary>
@@ -56,6 +56,7 @@ void Player::Initialize()
 /// </summary>
 void Player::Process(float elapsedTime)
 {
+	// ˆÚ“®ˆ—
 	Move(elapsedTime);
 }
 

@@ -103,6 +103,7 @@
     <ClInclude Include="Objects\Cylinder.h" />
     <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Common\Thruster.h" />
+    <ClInclude Include="Objects\Floor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="Objects\Cylinder.cpp" />
     <ClCompile Include="Objects\Enemy.cpp" />
     <ClCompile Include="Common\Thruster.cpp" />
+    <ClCompile Include="Objects\Floor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

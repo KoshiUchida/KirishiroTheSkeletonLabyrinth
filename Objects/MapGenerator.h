@@ -9,21 +9,36 @@
 #pragma once
 #include "ObjectBace.h"
 
+/// <summary>
+/// パネルの一辺のマス数
+/// </summary>
 static constexpr int PanelWidth{ 5 };
 
+/// <summary>
+/// マップ生成機クラス
+/// </summary>
 class MapGenerator :
     public ObjectBace
 {
 private:
-	static constexpr int Width{ 5 };
+	// マップ一辺のパネルの数
+	int m_Width{ 5 };
+
+	// マップデータ
+	std::vector<std::vector<int>> m_MapData;
 
 public:
 	// Main System
-	MapGenerator(SceneBace* pScene) noexcept;
+	MapGenerator(SceneBace* pScene, int width = 5) noexcept;
 	~MapGenerator() noexcept;
 
 	void Initialize() override final;
 	void Process(float elapsedTime) override final;
+
+private:
+	// 内部実装
+	void GenerateMap();
+	void GenerateObject();
 };
 
 class PanelData
@@ -47,8 +62,9 @@ private:
 public:
 	PanelData(int data[PanelWidth][PanelWidth], int popParcent = 1000);
 	~PanelData();
+
 	int GetTileData(int x, int y);
-	int  GetParcent() const { return m_parcent; }
+	int  GetParcent()  const { return m_parcent; }
 	Hoal GetHoalData() const { return m_hoal; }
 };
 

@@ -13,14 +13,131 @@
 #include "Box.h"
 #include "Wall.h"
 #include "Cylinder.h"
+#include "Floor.h"
 
 #include "../Components/Transform.h"
+
+ // パネルのデータを作成
+int Datas[][PanelWidth][PanelWidth]
+{
+	// 0:十字路のパネル
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 1, 1},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	// 1~4:L字型のパネル
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{1, 1, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 0, 1, 1, 1},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 0, 0},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+	// 5~6:I字型のパネル
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{1, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+	// 7~10:イベント部屋のパネル
+	{
+		{0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 0},
+		{0, 1, 1, 1, 0},
+		{0, 1, 1, 1, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 0},
+		{0, 1, 1, 1, 1},
+		{0, 1, 1, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+	{
+		{0, 0, 1, 0, 0},
+		{0, 1, 1, 1, 0},
+		{0, 1, 1, 1, 0},
+		{0, 1, 1, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+	{
+		{0, 0, 0, 0, 0},
+		{0, 1, 1, 1, 0},
+		{1, 1, 1, 1, 0},
+		{0, 1, 1, 1, 0},
+		{0, 0, 0, 0, 0}
+	},
+	// 11~14:T字のパネル
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0},
+		{1, 1, 1, 1, 1},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 1, 1},
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0}
+	},
+	{
+		{0, 0, 1, 0, 0},
+		{0, 0, 1, 0, 0},
+		{1, 1, 1, 1, 1},
+		{0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0}
+	},
+};
 
 /// <summary>
 /// Constructor
 /// </summary>
-MapGenerator::MapGenerator(SceneBace* pScene) noexcept
+MapGenerator::MapGenerator(SceneBace* pScene, int width) noexcept
 	: ObjectBace(pScene)
+	, m_Width{ width }
 {
 }
 
@@ -34,152 +151,56 @@ MapGenerator::~MapGenerator() noexcept = default;
 /// </summary>
 void MapGenerator::Initialize()
 {
+	/*マップの自動生成*/
+	GenerateMap();
 
-	// パネルのデータを作成
-	int datas[][PanelWidth][PanelWidth]
-	{
-		// 0:十字路のパネル
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{1, 1, 1, 1, 1},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		// 1~4:L字型のパネル
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0},
-			{1, 1, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0},
-			{0, 0, 1, 1, 1},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 1, 1},
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{1, 1, 1, 0, 0},
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-		// 5~6:I字型のパネル
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0},
-			{1, 1, 1, 1, 1},
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-		// 7~10:イベント部屋のパネル
-		{
-			{0, 0, 0, 0, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 1, 1, 1},
-			{0, 1, 1, 1, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 1, 0, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 0, 0, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 1, 1, 1, 0},
-			{1, 1, 1, 1, 0},
-			{0, 1, 1, 1, 0},
-			{0, 0, 0, 0, 0}
-		},
-		// 11~14:T字のパネル
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{1, 1, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0},
-			{1, 1, 1, 1, 1},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 1, 1},
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0}
-		},
-		{
-			{0, 0, 1, 0, 0},
-			{0, 0, 1, 0, 0},
-			{1, 1, 1, 1, 1},
-			{0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0}
-		},
-	};
+	/*オブジェクトの生成*/
+	GenerateObject();
+}
 
+/// <summary>
+/// 更新処理
+/// </summary>
+void MapGenerator::Process(float elapsedTime)
+{
+	// 警告回避用
+	elapsedTime;
+}
+
+/// <summary>
+/// マップデータの自動生成
+/// </summary>
+void MapGenerator::GenerateMap()
+{
 	// パネルデータの読み込み
 	std::vector<PanelData> PanelDatas;
 	// 0:十字路のパネル
-	PanelDatas.push_back(PanelData(datas[0], 300));
+	PanelDatas.push_back(PanelData(Datas[0], 300));
 	// 1~4:L字型のパネル
-	PanelDatas.push_back(PanelData(datas[1], 350));
-	PanelDatas.push_back(PanelData(datas[2], 380));
-	PanelDatas.push_back(PanelData(datas[3], 430));
-	PanelDatas.push_back(PanelData(datas[4], 480));
+	PanelDatas.push_back(PanelData(Datas[1], 350));
+	PanelDatas.push_back(PanelData(Datas[2], 380));
+	PanelDatas.push_back(PanelData(Datas[3], 430));
+	PanelDatas.push_back(PanelData(Datas[4], 480));
 	// 5~6:I字型のパネル
-	PanelDatas.push_back(PanelData(datas[5], 580));
-	PanelDatas.push_back(PanelData(datas[6], 680));
+	PanelDatas.push_back(PanelData(Datas[5], 580));
+	PanelDatas.push_back(PanelData(Datas[6], 680));
 	// 7~10:イベント部屋のパネル
-	PanelDatas.push_back(PanelData(datas[7], 710));
-	PanelDatas.push_back(PanelData(datas[8], 740));
-	PanelDatas.push_back(PanelData(datas[9], 770));
-	PanelDatas.push_back(PanelData(datas[10], 800));
+	PanelDatas.push_back(PanelData(Datas[7], 710));
+	PanelDatas.push_back(PanelData(Datas[8], 740));
+	PanelDatas.push_back(PanelData(Datas[9], 770));
+	PanelDatas.push_back(PanelData(Datas[10], 800));
 	// 11~14:T字のパネル
-	PanelDatas.push_back(PanelData(datas[11], 850));
-	PanelDatas.push_back(PanelData(datas[12], 900));
-	PanelDatas.push_back(PanelData(datas[13], 950));
-	PanelDatas.push_back(PanelData(datas[14]));
+	PanelDatas.push_back(PanelData(Datas[11], 850));
+	PanelDatas.push_back(PanelData(Datas[12], 900));
+	PanelDatas.push_back(PanelData(Datas[13], 950));
+	PanelDatas.push_back(PanelData(Datas[14]));
 
 	std::vector<PanelData> MapDataA;
-	std::vector<std::vector<int>> MapData;
 
 	while (true)
 	{
 		// マップデータの生成
-		for (int i{ 0 }; i < Width * Width; i++)
+		for (int i{ 0 }; i < m_Width * m_Width; i++)
 		{
 			bool next{ false };
 
@@ -192,7 +213,7 @@ void MapGenerator::Initialize()
 					if (randomNumber < PanelDatas[j].GetParcent())
 					{
 						// パネルを当てはまられる条件を確認
-						if (i == Width * Width - 1)
+						if (i == m_Width * m_Width - 1)
 						{
 							// ゴールのパネル
 							int GoalPanel[PanelWidth][PanelWidth]
@@ -209,7 +230,7 @@ void MapGenerator::Initialize()
 						else if (i > 0)
 						{
 							// マップ右上の角
-							if (i + 1 == Width)
+							if (i + 1 == m_Width)
 							{
 								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (PanelDatas[j].GetHoalData().up == false) && (PanelDatas[j].GetHoalData().right == false))
 								{
@@ -218,7 +239,7 @@ void MapGenerator::Initialize()
 								}
 							}
 							// マップ最上部
-							else if (i < Width)
+							else if (i < m_Width)
 							{
 								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (PanelDatas[j].GetHoalData().up == false))
 								{
@@ -227,26 +248,26 @@ void MapGenerator::Initialize()
 								}
 							}
 							// マップ最下部
-							else if (i >= Width * (Width - 1))
+							else if (i >= m_Width * (m_Width - 1))
 							{
-								if (i % Width == 0)
+								if (i % m_Width == 0)
 								{
-									if ((PanelDatas[j].GetHoalData().left == false) && (MapDataA[MapDataA.size() - Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().down == false))
+									if ((PanelDatas[j].GetHoalData().left == false) && (MapDataA[MapDataA.size() - m_Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().down == false))
 									{
 										MapDataA.push_back(PanelDatas[j]);
 										next = true;
 									}
 								}
-								else if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().down == false))
+								else if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - m_Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().down == false))
 								{
 									MapDataA.push_back(PanelDatas[j]);
 									next = true;
 								}
 							}
 							// マップ最右部
-							else if ((i + 1) % Width == 0)
+							else if ((i + 1) % m_Width == 0)
 							{
-								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().right == false))
+								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - m_Width].GetHoalData().down == PanelDatas[j].GetHoalData().up) && (PanelDatas[j].GetHoalData().right == false))
 								{
 									MapDataA.push_back(PanelDatas[j]);
 									next = true;
@@ -254,7 +275,7 @@ void MapGenerator::Initialize()
 							}
 							else
 							{
-								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - Width].GetHoalData().down == PanelDatas[j].GetHoalData().up))
+								if ((MapDataA[MapDataA.size() - 1].GetHoalData().right == PanelDatas[j].GetHoalData().left) && (MapDataA[MapDataA.size() - m_Width].GetHoalData().down == PanelDatas[j].GetHoalData().up))
 								{
 									MapDataA.push_back(PanelDatas[j]);
 									next = true;
@@ -283,47 +304,53 @@ void MapGenerator::Initialize()
 		}
 
 		// マップデータをINT型のマトリックス変数のマップデータに変換
-		for (int i{ 0 }; i < Width; i++)
+		for (int i{ 0 }; i < m_Width; i++)
 		{
 			for (int j{ 0 }; j < PanelWidth; j++)
 			{
 				std::vector<int> MapWidthData;
-				for (int k{ 0 }; k < Width; k++)
+				for (int k{ 0 }; k < m_Width; k++)
 				{
 					for (int l{ 0 }; l < PanelWidth; l++)
 					{
-						MapWidthData.push_back(MapDataA[i * Width + k].GetTileData(l, j));
+						MapWidthData.push_back(MapDataA[i * m_Width + k].GetTileData(l, j));
 					}
 				}
-				MapData.push_back(MapWidthData);
+				m_MapData.push_back(MapWidthData);
 			}
 		}
 
 		// マップの正規化
-		if (GetNormalizedPathMap(&MapData, 0, 2, 2, Width * PanelWidth - 3, Width * PanelWidth - 3))
+		if (GetNormalizedPathMap(&m_MapData, 0, 2, 2, m_Width * PanelWidth - 3, m_Width * PanelWidth - 3))
 			break;
 		else
 		{
 			MapDataA.clear();
-			MapData.clear();
+			m_MapData.clear();
 		}
 	}
+}
 
+/// <summary>
+/// マップデータからオブジェクトを生成する
+/// </summary>
+void MapGenerator::GenerateObject()
+{
 	// マップ上のオブジェクトを生成する
-	for (int i{ 0 }, c{ 0 }; i < MapData.size(); i++)
+	for (int i{ 0 }, c{ 0 }; i < m_MapData.size(); i++)
 	{
-		for (int j{ 0 }; j < MapData[i].size(); j++)
+		for (int j{ 0 }; j < m_MapData[i].size(); j++)
 		{
-			if (MapData[i][j] == 0)
+			if (m_MapData[i][j] == 0)
 			{
 				// 空間がある場合はコライダーを生成する
-				if ((i - 1 >= 0 && MapData[i - 1][j] != 0) || (i + 1 < MapData.size() && MapData[i + 1][j] != 0) || (j - 1 >= 0 && MapData[i][j - 1] != 0) || (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0))
+				if ((i - 1 >= 0 && m_MapData[i - 1][j] != 0) || (i + 1 < m_MapData.size() && m_MapData[i + 1][j] != 0) || (j - 1 >= 0 && m_MapData[i][j - 1] != 0) || (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0))
 					mp_ObjectManager->AddObject
 					(std::string("WallCollider") + std::to_string(c++),
 						std::make_unique<Box>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f)
+							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 						)
 					);
 
@@ -331,130 +358,135 @@ void MapGenerator::Initialize()
 				static constexpr float ModelPosY{ 1.3f };
 
 				// 空間のある方向に壁を設置する
-				if (i - 1 >= 0 && MapData[i - 1][j] != 0)
+				if (i - 1 >= 0 && m_MapData[i - 1][j] != 0)
 				{
 					mp_ObjectManager->AddObject
 					(std::string("WallModel") + std::to_string(c++),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI, 0.f)
 						)
 					);
 				}
 
-				if (i + 1 < MapData.size() && MapData[i + 1][j] != 0)
+				if (i + 1 < m_MapData.size() && m_MapData[i + 1][j] != 0)
 				{
 					mp_ObjectManager->AddObject
 					(std::string("WallModel") + std::to_string(c++),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - MapData.size() / 2.f) * 3.5f)
+							DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f)
 						)
 					);
 				}
 
-				if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+				if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 				{
 					mp_ObjectManager->AddObject
 					(std::string("WallModel") + std::to_string(c++),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / 2.f, 0.f)
 						)
 					);
 				}
 
-				if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+				if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 				{
 					mp_ObjectManager->AddObject
 					(std::string("WallModel") + std::to_string(c++),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
-							DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / -2.f, 0.f)
 						)
 					);
 				}
 
 				// 角となる部分に柱を設置
-				if (i - 1 >= 0 && MapData[i - 1][j] != 0)
+				if (i - 1 >= 0 && m_MapData[i - 1][j] != 0)
 				{
-					if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+					if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 					{
 						mp_ObjectManager->AddObject
 						(std::string("CylinderModel") + std::to_string(c++),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
 
-					if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+					if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 					{
 						mp_ObjectManager->AddObject
 						(std::string("CylinderModel") + std::to_string(c++),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i - 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
 				}
 
 
-				if (i + 1 < MapData.size() && MapData[i + 1][j] != 0)
+				if (i + 1 < m_MapData.size() && m_MapData[i + 1][j] != 0)
 				{
-					if (j - 1 >= 0 && MapData[i][j - 1] != 0)
+					if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 					{
 						mp_ObjectManager->AddObject
 						(std::string("CylinderModel") + std::to_string(c++),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
 
-					if (j + 1 < MapData[i].size() && MapData[i][j + 1] != 0)
+					if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 					{
 						mp_ObjectManager->AddObject
 						(std::string("CylinderModel") + std::to_string(c++),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
-								DirectX::SimpleMath::Vector3((i + 0.5f - MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - MapData.size() / 2.f) * 3.5f)
+								DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
 					}
 				}
 			}
-			else if (MapData[i][j] == 2)
+			else 
 			{
-				Transform* pPlayer = static_cast<Transform*>(mp_ObjectManager->GetObjectPtr("Player")->GetComponentPtr("Transform"));
+				// 床の作成
+				mp_ObjectManager->AddObject
+				(std::string("FloorModel") + std::to_string(c++),
+					std::make_unique<Floor>
+					(
+						mp_Scene,
+						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, -0.5f, (j - m_MapData.size() / 2.f) * 3.5f)
+					)
+				);
 
-				pPlayer->SetPosition(DirectX::SimpleMath::Vector3((i - MapData.size() / 2.f) * 3.5f, 0.f, (j - MapData.size() / 2.f) * 3.5f));
+				if (m_MapData[i][j] == 2)
+				{
+					Transform* pPlayer = static_cast<Transform*>(mp_ObjectManager->GetObjectPtr("Player")->GetComponentPtr("Transform"));
+
+					pPlayer->SetPosition(DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f));
+				}
+
 			}
 		}
 	}
-}
-
-/// <summary>
-/// 更新処理
-/// </summary>
-void MapGenerator::Process(float elapsedTime)
-{
-	// 警告回避用
-	elapsedTime;
 }
 
 
@@ -497,6 +529,10 @@ int PanelData::GetTileData(int x, int y)
 {
 	return m_tileDatas[y][x];
 }
+
+
+
+
 
 /// <summary>
 /// マップの正規化とゴール到達が可能かを行う
