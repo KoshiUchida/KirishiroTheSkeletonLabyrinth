@@ -256,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico" />
+    <Image Include="lobbycube.dds" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest" />

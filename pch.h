@@ -96,3 +96,4 @@ namespace DX
 #include "VertexTypes.h"
 #include "DirectXHelpers.h"
 #include "Model.h"
+#include "BufferHelpers.h"
