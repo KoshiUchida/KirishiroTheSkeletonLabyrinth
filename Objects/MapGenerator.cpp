@@ -14,8 +14,38 @@
 #include "Wall.h"
 #include "Cylinder.h"
 #include "Floor.h"
+#include "Goal.h"
 
 #include "../Components/Transform.h"
+
+/**
+* マスデータの示すもの
+* 0 : 壁
+* マスの指す座標にコライダーが生成されるが、
+* 周囲(十字方向)に空間が存在しない場合、
+* 生成はされない。
+* 
+* 周囲に空間が存在する場合に、
+* 空間が存在する方向すべてに,
+* 壁のモデルを生成する。
+* 
+* 曲がり角となる空間が存在する場合、
+* その方向に柱のモデルを生成する。
+* 
+* 1 : 道
+* 床のモデルを生成する。
+* 
+* 2 : プレイヤーのスタート地点
+* プレイヤーの座標をそのマスの指す座標に変更する。
+* 
+* 床のモデルを生成する。
+* 
+* 3 : ゴール
+* ゴールオブジェクトを生成する。
+* 
+* 4 : スケルトンの確率スポーン
+* 一定の確率で、スケルトンオブジェクトを生成する。
+*/
 
  // パネルのデータを作成
 int Datas[][PanelWidth][PanelWidth]
@@ -220,7 +250,7 @@ void MapGenerator::GenerateMap()
 							{
 								{0, 0, 1, 0, 0},
 								{0, 1, 1, 1, 0},
-								{1, 1, 1, 1, 0},
+								{1, 1, 3, 1, 0},
 								{0, 1, 1, 1, 0},
 								{0, 0, 0, 0, 0}
 							};
@@ -341,6 +371,7 @@ void MapGenerator::GenerateObject()
 	{
 		for (int j{ 0 }; j < m_MapData[i].size(); j++)
 		{
+			// 壁のマスの際の処理
 			if (m_MapData[i][j] == 0)
 			{
 				// 空間がある場合はコライダーを生成する
@@ -465,6 +496,20 @@ void MapGenerator::GenerateObject()
 					}
 				}
 			}
+			// マスがゴールを示す際
+			else if (m_MapData[i][j] == 3)
+			{
+				// ゴールの作成
+				mp_ObjectManager->AddObject
+				(std::string("Goal") + std::to_string(c++),
+					std::make_unique<Goal>
+					(
+						mp_Scene,
+						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, -0.5f, (j - m_MapData.size() / 2.f) * 3.5f)
+					)
+				);
+			}
+			// 必ず床のモデルを生成する処理
 			else 
 			{
 				// 床の作成

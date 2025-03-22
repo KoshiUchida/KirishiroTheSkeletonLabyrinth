@@ -180,6 +180,7 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Goal.h" />
     <ClInclude Include="Objects\Floor.h" />
     <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Objects\Cylinder.h" />
@@ -211,6 +212,7 @@
     <ClInclude Include="Common\Thruster.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Objects\Goal.cpp" />
     <ClCompile Include="Objects\Floor.cpp" />
     <ClCompile Include="Objects\Enemy.cpp" />
     <ClCompile Include="Objects\Cylinder.cpp" />
