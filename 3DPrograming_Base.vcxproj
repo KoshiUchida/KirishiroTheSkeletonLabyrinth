@@ -184,6 +184,7 @@
     <ClInclude Include="Objects\Floor.h" />
     <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Objects\Cylinder.h" />
+    <ClInclude Include="ReadData.h" />
     <ClInclude Include="Scenes\Camera.h" />
     <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Components\BoxCollider.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Scenes\GameplayScene.h" />
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="Components\SphereCollider.h" />
+    <ClInclude Include="SkyboxEffect.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Objects\Wall.h" />
@@ -247,6 +249,7 @@
     <ClCompile Include="Components\SphereCollider.cpp" />
     <ClCompile Include="Objects\Wall.cpp" />
     <ClCompile Include="Common\Thruster.cpp" />
+    <ClCompile Include="SkyboxEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -259,6 +262,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SkyboxEffect_Common.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="SkyboxEffect_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="SkyboxEffect_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

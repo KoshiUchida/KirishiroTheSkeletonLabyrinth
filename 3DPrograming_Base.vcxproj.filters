@@ -100,11 +100,21 @@
     <ClInclude Include="Scenes\Camera.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Cylinder.h" />
-    <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Common\Thruster.h" />
-    <ClInclude Include="Objects\Floor.h" />
-    <ClInclude Include="Objects\Goal.h" />
+    <ClInclude Include="ReadData.h" />
+    <ClInclude Include="Objects\Cylinder.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Enemy.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Floor.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Goal.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -174,11 +184,20 @@
     <ClCompile Include="Scenes\Camera.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Cylinder.cpp" />
-    <ClCompile Include="Objects\Enemy.cpp" />
     <ClCompile Include="Common\Thruster.cpp" />
-    <ClCompile Include="Objects\Floor.cpp" />
-    <ClCompile Include="Objects\Goal.cpp" />
+    <ClCompile Include="Objects\Cylinder.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Enemy.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Floor.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Goal.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -195,5 +214,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SkyboxEffect_Common.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="SkyboxEffect_PS.hlsl" />
+    <FxCompile Include="SkyboxEffect_VS.hlsl" />
   </ItemGroup>
 </Project>
