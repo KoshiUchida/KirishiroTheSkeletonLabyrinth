@@ -71,26 +71,33 @@ void Game::Update(DX::StepTimer const& timer)
 
     // Skyboxの更新処理
 
-    //auto pad = m_gamePad->GetState(0);
+    // キーボードの入力を取得
+    Keyboard::State kd = Keyboard::Get().GetState();
 
-    //if (pad.IsConnected())
-    //{
-    //    if (pad.IsViewPressed())
-    //    {
-    //        ExitGame();
-    //    }
-
-    //    if (pad.IsLeftStickPressed())
-    //    {
-    //        m_yaw = m_pitch = 0.f;
-    //    }
-    //    else
-    //    {
-    //        constexpr float ROTATION_GAIN = 0.1f;
-    //        m_yaw += -pad.thumbSticks.leftX * ROTATION_GAIN;
-    //        m_pitch += pad.thumbSticks.leftY * ROTATION_GAIN;
-    //    }
-    //}
+    if (kd.U)
+    {
+        m_yaw = m_pitch = 0.f;
+    }
+    else
+    {
+        constexpr float ROTATION_GAIN = 0.1f;
+        if (kd.L)
+        {
+            m_yaw += -1.f * ROTATION_GAIN;
+        }
+        if (kd.J)
+        {
+            m_yaw += 1.f * ROTATION_GAIN;
+        }
+        if (kd.I)
+        {
+            m_pitch += 1.f * ROTATION_GAIN;
+        }
+        if (kd.K)
+        {
+            m_pitch += -1.f * ROTATION_GAIN;
+        }
+    }
 
     // limit pitch to straight up or straight down
     constexpr float limit = XM_PIDIV2 - 0.01f;
