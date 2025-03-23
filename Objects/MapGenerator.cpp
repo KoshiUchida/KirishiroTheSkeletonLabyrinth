@@ -386,7 +386,7 @@ void MapGenerator::GenerateObject()
 					);
 
 				// ƒ‚ƒfƒ‹‚ÌYÀ•W
-				static constexpr float ModelPosY{ 1.3f };
+				static constexpr float ModelPosY{ 1.8f };
 
 				// ‹óŠÔ‚Ì‚ ‚é•ûŒü‚É•Ç‚ðÝ’u‚·‚é
 				if (i - 1 >= 0 && m_MapData[i - 1][j] != 0)
@@ -505,7 +505,7 @@ void MapGenerator::GenerateObject()
 					std::make_unique<Goal>
 					(
 						mp_Scene,
-						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, -0.5f, (j - m_MapData.size() / 2.f) * 3.5f)
+						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 					)
 				);
 			}
@@ -518,7 +518,7 @@ void MapGenerator::GenerateObject()
 					std::make_unique<Floor>
 					(
 						mp_Scene,
-						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, -0.5f, (j - m_MapData.size() / 2.f) * 3.5f)
+						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 					)
 				);
 
@@ -526,7 +526,7 @@ void MapGenerator::GenerateObject()
 				{
 					Transform* pPlayer = static_cast<Transform*>(mp_ObjectManager->GetObjectPtr("Player")->GetComponentPtr("Transform"));
 
-					pPlayer->SetPosition(DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f));
+					pPlayer->SetPosition(DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.5f, (j - m_MapData.size() / 2.f) * 3.5f));
 				}
 
 			}

@@ -33,9 +33,7 @@ GameplayScene::GameplayScene
                   DX::StepTimer* pTimer
 ) noexcept(false):
     SceneBace(sceneManager, pDeviceResources, pProj, pStates),
-    mp_timer{ pTimer },
-    m_pitch(0),
-    m_yaw(0)
+    mp_timer{ pTimer }
 {
     auto device = mp_DeviceResources->GetD3DDevice();
     auto context = mp_DeviceResources->GetD3DDeviceContext();
@@ -49,7 +47,7 @@ GameplayScene::GameplayScene
 
     // Skyboxの作成
 
-    m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
+    m_sky = GeometricPrimitive::CreateGeoSphere(context, 6.f, 6,
         false /*invert for bein inside the shape*/);
 
     m_effect = std::make_unique<SkyboxEffect>(device);
@@ -80,7 +78,8 @@ void GameplayScene::Initialize()
     m_effect->SetProjection(*mp_Proj);
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 7.f, 2.f));
+	//m_Camera = std::make_unique<Imase::DebugCamera>(width, height);
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this));
@@ -108,59 +107,6 @@ void GameplayScene::Update(const float elapsedTime)
 
     // カメラの更新処理
     m_Camera->Update();
-
-    // Skyboxの更新処理
-
-    // キーボードの入力を取得
-    Keyboard::State kd = Keyboard::Get().GetState();
-
-    if (kd.U)
-    {
-        m_yaw = m_pitch = 0.f;
-    }
-    else
-    {
-        constexpr float ROTATION_GAIN = 0.1f;
-        if (kd.L)
-        {
-            m_yaw += -1.f * ROTATION_GAIN;
-        }
-        if (kd.J)
-        {
-            m_yaw += 1.f * ROTATION_GAIN;
-        }
-        if (kd.I)
-        {
-            m_pitch += 1.f * ROTATION_GAIN;
-        }
-        if (kd.K)
-        {
-            m_pitch += -1.f * ROTATION_GAIN;
-        }
-    }
-
-    // limit pitch to straight up or straight down
-    constexpr float limit = XM_PIDIV2 - 0.01f;
-    m_pitch = std::max(-limit, m_pitch);
-    m_pitch = std::min(+limit, m_pitch);
-
-    // keep longitude in sane range by wrapping
-    if (m_yaw > XM_PI)
-    {
-        m_yaw -= XM_2PI;
-    }
-    else if (m_yaw < -XM_PI)
-    {
-        m_yaw += XM_2PI;
-    }
-
-    float y = sinf(m_pitch);
-    float r = cosf(m_pitch);
-    float z = r * cosf(m_yaw);
-    float x = r * sinf(m_yaw);
-
-    XMVECTORF32 lookAt = { x, y, z, 0.f };
-    m_view = XMMatrixLookAtRH(g_XMZero, lookAt, SimpleMath::Vector3::Up);
 }
 
 /// <summary>
@@ -174,7 +120,7 @@ void GameplayScene::Render()
     SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
     // Skyboxの描画処理
-    m_effect->SetView(m_view);
+    m_effect->SetView(view);
     m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 
     // オブジェクトの描画処理

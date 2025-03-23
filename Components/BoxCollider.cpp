@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/18
+ * @date   2025/03/23
  */
 
 #include "pch.h"
@@ -125,10 +125,11 @@ void BoxCollider::Collision(ColliderBace* other)
 				face = Face::right;
 
 			// 横軸の方向から必要であったら方向を変更
-			if (45.f <= horizontal && horizontal <= 135.f)
-				face = Face::top;
-			else if (-45.f >= horizontal && horizontal >= -135.f)
-				face = Face::buttom;
+			// TODO : 今回は上下の押し出しを不使用とするためコメント
+			//if (45.f <= horizontal && horizontal <= 135.f)
+			//	face = Face::top;
+			//else if (135.f <= horizontal || horizontal <= -135.f)
+			//	face = Face::buttom;
 
 			// 加力コライダーのサイズを取得
 			SimpleMath::Vector3 otherSiz = static_cast<BoxCollider*>(other)->GetSiz();

@@ -15,6 +15,7 @@
 
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
+//#include "ImaseLib/DebugCamera.h"
 #include "Camera.h"
 
 /// <summary>
@@ -35,11 +36,6 @@ private:
     std::unique_ptr<Camera> m_Camera;
 
     // SkyBox
-    DirectX::SimpleMath::Matrix m_view;
-
-    float m_pitch;
-    float m_yaw;
-
     std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
     std::unique_ptr<SkyboxEffect> m_effect;
 
