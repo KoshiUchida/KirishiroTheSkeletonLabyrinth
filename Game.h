@@ -6,9 +6,6 @@
 
 #include "DeviceResources.h"
 #include "StepTimer.h"
-#include "GeometricPrimitive.h"
-#include "GamePad.h"
-#include "SkyboxEffect.h"
 
 #include "Managers/SceneManager.h"
 
@@ -85,18 +82,4 @@ private:
 
     // シーンマネージャ
     std::unique_ptr<SceneManager> m_sceneManager;
-
-    // Skybox
-    //std::unique_ptr<DirectX::GamePad> m_gamePad;
-    DirectX::SimpleMath::Matrix m_view;
-    //DirectX::SimpleMath::Matrix m_proj;
-
-    float m_pitch;
-    float m_yaw;
-
-    std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
-    std::unique_ptr<SkyboxEffect> m_effect;
-
-    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
-    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
  };

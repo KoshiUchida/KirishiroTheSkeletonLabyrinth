@@ -10,6 +10,8 @@
 #include "SceneBace.h"
 #include <memory>
 #include "StepTimer.h"
+#include "GeometricPrimitive.h"
+#include "SkyboxEffect.h"
 
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
@@ -31,6 +33,18 @@ private:
 
     // デバッグカメラ
     std::unique_ptr<Camera> m_Camera;
+
+    // SkyBox
+    DirectX::SimpleMath::Matrix m_view;
+
+    float m_pitch;
+    float m_yaw;
+
+    std::unique_ptr<DirectX::GeometricPrimitive> m_sky;
+    std::unique_ptr<SkyboxEffect> m_effect;
+
+    Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
 
 public:
 	// Main System

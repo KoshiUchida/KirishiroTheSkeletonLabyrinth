@@ -16,6 +16,7 @@
 
 #include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
+#include "DDSTextureLoader.h"
 
 using namespace std;
 using namespace DirectX;
@@ -30,9 +31,11 @@ GameplayScene::GameplayScene
     DirectX::SimpleMath::Matrix* pProj,
           DirectX::CommonStates* pStates,
                   DX::StepTimer* pTimer
-) noexcept(false)
-	: SceneBace(sceneManager, pDeviceResources, pProj, pStates)
-    , mp_timer{ pTimer }
+) noexcept(false):
+    SceneBace(sceneManager, pDeviceResources, pProj, pStates),
+    mp_timer{ pTimer },
+    m_pitch(0),
+    m_yaw(0)
 {
     auto device = mp_DeviceResources->GetD3DDevice();
     auto context = mp_DeviceResources->GetD3DDeviceContext();
@@ -43,6 +46,22 @@ GameplayScene::GameplayScene
 
     // グリッド床の作成
     m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States );
+
+    // Skyboxの作成
+
+    m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
+        false /*invert for bein inside the shape*/);
+
+    m_effect = std::make_unique<SkyboxEffect>(device);
+
+    m_sky->CreateInputLayout(m_effect.get(),
+        m_skyInputLayout.ReleaseAndGetAddressOf());
+
+    DX::ThrowIfFailed(
+        CreateDDSTextureFromFile(device, L"Resources\\Textures\\lobbycube.dds",
+            nullptr, m_cubemap.ReleaseAndGetAddressOf()));
+
+    m_effect->SetTexture(m_cubemap.Get());
 }
 
 /// <summary>
@@ -57,6 +76,8 @@ void GameplayScene::Initialize()
 {
     //int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
     //int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
+
+    m_effect->SetProjection(*mp_Proj);
 
 	// カメラの作成
     m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
@@ -87,6 +108,59 @@ void GameplayScene::Update(const float elapsedTime)
 
     // カメラの更新処理
     m_Camera->Update();
+
+    // Skyboxの更新処理
+
+    // キーボードの入力を取得
+    Keyboard::State kd = Keyboard::Get().GetState();
+
+    if (kd.U)
+    {
+        m_yaw = m_pitch = 0.f;
+    }
+    else
+    {
+        constexpr float ROTATION_GAIN = 0.1f;
+        if (kd.L)
+        {
+            m_yaw += -1.f * ROTATION_GAIN;
+        }
+        if (kd.J)
+        {
+            m_yaw += 1.f * ROTATION_GAIN;
+        }
+        if (kd.I)
+        {
+            m_pitch += 1.f * ROTATION_GAIN;
+        }
+        if (kd.K)
+        {
+            m_pitch += -1.f * ROTATION_GAIN;
+        }
+    }
+
+    // limit pitch to straight up or straight down
+    constexpr float limit = XM_PIDIV2 - 0.01f;
+    m_pitch = std::max(-limit, m_pitch);
+    m_pitch = std::min(+limit, m_pitch);
+
+    // keep longitude in sane range by wrapping
+    if (m_yaw > XM_PI)
+    {
+        m_yaw -= XM_2PI;
+    }
+    else if (m_yaw < -XM_PI)
+    {
+        m_yaw += XM_2PI;
+    }
+
+    float y = sinf(m_pitch);
+    float r = cosf(m_pitch);
+    float z = r * cosf(m_yaw);
+    float x = r * sinf(m_yaw);
+
+    XMVECTORF32 lookAt = { x, y, z, 0.f };
+    m_view = XMMatrixLookAtRH(g_XMZero, lookAt, SimpleMath::Vector3::Up);
 }
 
 /// <summary>
@@ -98,6 +172,10 @@ void GameplayScene::Render()
 
     // デバッグカメラからビュー行列を取得する
     SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
+
+    // Skyboxの描画処理
+    m_effect->SetView(m_view);
+    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 
     // オブジェクトの描画処理
     mp_SceneManager->GetObjectManagerPtr()->Render(view);
@@ -132,4 +210,9 @@ void GameplayScene::Finalize()
     m_debugFont.reset();
     m_gridFloor.reset();
     m_Camera.reset();
+
+    m_sky.reset();
+    m_effect.reset();
+    m_skyInputLayout.Reset();
+    m_cubemap.Reset();
 }

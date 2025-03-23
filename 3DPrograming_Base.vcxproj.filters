@@ -206,7 +206,7 @@
     <Image Include="directx.ico">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="lobbycube.dds">
+    <Image Include="Resources\Textures\lobbycube.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

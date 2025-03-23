@@ -5,8 +5,6 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "DDSTextureLoader.h"
-
 #include "Scenes/GameplayScene.h"
 
 extern void ExitGame() noexcept;
@@ -15,9 +13,7 @@ using namespace DirectX;
 
 using Microsoft::WRL::ComPtr;
 
-Game::Game() noexcept(false) :
-    m_pitch(0),
-    m_yaw(0)
+Game::Game() noexcept(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
@@ -68,59 +64,6 @@ void Game::Update(DX::StepTimer const& timer)
 
     // シーンマネージャの更新
     m_sceneManager->Update(elapsedTime);
-
-    // Skyboxの更新処理
-
-    // キーボードの入力を取得
-    Keyboard::State kd = Keyboard::Get().GetState();
-
-    if (kd.U)
-    {
-        m_yaw = m_pitch = 0.f;
-    }
-    else
-    {
-        constexpr float ROTATION_GAIN = 0.1f;
-        if (kd.L)
-        {
-            m_yaw += -1.f * ROTATION_GAIN;
-        }
-        if (kd.J)
-        {
-            m_yaw += 1.f * ROTATION_GAIN;
-        }
-        if (kd.I)
-        {
-            m_pitch += 1.f * ROTATION_GAIN;
-        }
-        if (kd.K)
-        {
-            m_pitch += -1.f * ROTATION_GAIN;
-        }
-    }
-
-    // limit pitch to straight up or straight down
-    constexpr float limit = XM_PIDIV2 - 0.01f;
-    m_pitch = std::max(-limit, m_pitch);
-    m_pitch = std::min(+limit, m_pitch);
-
-    // keep longitude in sane range by wrapping
-    if (m_yaw > XM_PI)
-    {
-        m_yaw -= XM_2PI;
-    }
-    else if (m_yaw < -XM_PI)
-    {
-        m_yaw += XM_2PI;
-    }
-
-    float y = sinf(m_pitch);
-    float r = cosf(m_pitch);
-    float z = r * cosf(m_yaw);
-    float x = r * sinf(m_yaw);
-
-    XMVECTORF32 lookAt = { x, y, z, 0.f };
-    m_view = XMMatrixLookAtRH(g_XMZero, lookAt, SimpleMath::Vector3::Up);
 }
 #pragma endregion
 
@@ -136,10 +79,6 @@ void Game::Render()
 
     Clear();
     m_deviceResources->PIXBeginEvent(L"Render");
-
-    // Skyboxの描画処理
-    m_effect->SetView(m_view);
-    m_sky->Draw(m_effect.get(), m_skyInputLayout.Get());
 
     // シーンマネージャの描画処理
     m_sceneManager->Render();
@@ -178,19 +117,16 @@ void Game::Clear()
 void Game::OnActivated()
 {
     // TODO: Game is becoming active window.
-    //m_gamePad->Resume();
 }
 
 void Game::OnDeactivated()
 {
     // TODO: Game is becoming background window.
-    //m_gamePad->Suspend();
 }
 
 void Game::OnSuspending()
 {
     // TODO: Game is being power-suspended (or minimized).
-    //m_gamePad->Suspend();
 }
 
 void Game::OnResuming()
@@ -198,7 +134,6 @@ void Game::OnResuming()
     m_timer.ResetElapsedTime();
 
     // TODO: Game is being power-resumed (or returning from minimize).
-    //m_gamePad->Resume();
 }
 
 void Game::OnWindowMoved()
@@ -237,20 +172,6 @@ void Game::CreateDeviceDependentResources()
 {
     auto device = m_deviceResources->GetD3DDevice();
     auto context = m_deviceResources->GetD3DDeviceContext();
-
-    m_sky = GeometricPrimitive::CreateGeoSphere(context, 2.f, 3,
-        false /*invert for bein inside the shape*/);
-
-    m_effect = std::make_unique<SkyboxEffect>(device);
-
-    m_sky->CreateInputLayout(m_effect.get(),
-        m_skyInputLayout.ReleaseAndGetAddressOf());
-
-    DX::ThrowIfFailed(
-        CreateDDSTextureFromFile(device, L"lobbycube.dds",
-            nullptr, m_cubemap.ReleaseAndGetAddressOf()));
-
-    m_effect->SetTexture(m_cubemap.Get());
 
     // 共通ステートの作成
     m_states = std::make_unique<CommonStates>(device);
@@ -305,31 +226,16 @@ void Game::CreateWindowSizeDependentResources()
 {
     // TODO: Initialize windows-size dependent objects here.
 
-    //// 画面サイズの取得
-    //RECT rect = m_deviceResources->GetOutputSize();
-
-    //// 射影行列の作成
-    //m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(
-    //    XMConvertToRadians(45.0f)
-    //    , static_cast<float>(rect.right) / static_cast<float>(rect.bottom)
-    //    , 0.1f, 100.0f);
-
     auto size = m_deviceResources->GetOutputSize();
 
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
         float(size.right) / float(size.bottom), 0.1f, 10.f);
-
-    m_effect->SetProjection(m_proj);
 
 }
 
 void Game::OnDeviceLost()
 {
     // TODO: Add Direct3D resource cleanup here.
-    m_sky.reset();
-    m_effect.reset();
-    m_skyInputLayout.Reset();
-    m_cubemap.Reset();
 }
 
 void Game::OnDeviceRestored()
