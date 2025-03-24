@@ -15,8 +15,8 @@
 
 using namespace DirectX;
 
-Box::Box(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
-	: ObjectBace(pScene)
+Box::Box(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(std::make_unique<Transform>());
 

@@ -59,12 +59,14 @@ public:
 
 	void Render(const DirectX::SimpleMath::Matrix& view);
 
-	virtual bool Collider(ColliderBace* other) = 0;
+	virtual bool IsHit(ColliderBace* other) = 0;
 
 	virtual void Collision(ColliderBace* other) = 0;
 
 	/*Setter*/
 	void CanDraw(bool can) { m_CanDraw = can; }
+
+	void SetOffset(const DirectX::SimpleMath::Vector3& offset);
 
 	/*Getter*/
 	DirectX::SimpleMath::Vector3 GetPosition() const;

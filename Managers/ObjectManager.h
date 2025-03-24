@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/10
+ * @date   2025/03/24
  */
 
 #pragma once
@@ -31,6 +31,9 @@ private:
 	// オブジェクトの集合
 	ObjectCollection m_Objects;
 
+	// 削除予定のオブジェクト名前
+	std::vector<std::string> m_DeleteObjectNames;
+
 public:
 	// Main System
 	ObjectManager() noexcept;
@@ -42,5 +45,7 @@ public:
 	void AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object);
 
 	ObjectBace* GetObjectPtr(const std::string& objectName);
+
+	void DeleteObject(ObjectBace* pObject);
 };
 

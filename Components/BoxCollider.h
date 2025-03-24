@@ -28,12 +28,13 @@ private:
 
 	// í∏ì_ÇÃç¿ïWåQ
 	Positions m_Positions;
+
 public:
 	/*Main System*/
 	BoxCollider(SceneBace* pScene, const std::string& name, Transform* pTransform, const DirectX::SimpleMath::Vector3& siz, bool canDraw = true) noexcept(false);
 	~BoxCollider() noexcept;
 
-	bool Collider(ColliderBace* other) override final;
+	bool IsHit(ColliderBace* other) override final;
 
 	void Collision(ColliderBace* other) override final;
 

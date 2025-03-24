@@ -39,7 +39,7 @@ SphereCollider::~SphereCollider() noexcept = default;
 /// 重なり判定
 /// </summary>
 /// <param name="other">重なりを調べるコライダー</param>
-bool SphereCollider::Collider(ColliderBace* other)
+bool SphereCollider::IsHit(ColliderBace* other)
 {
 	switch (other->GetType())
 	{

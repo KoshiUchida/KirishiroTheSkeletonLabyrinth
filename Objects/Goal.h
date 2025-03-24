@@ -4,8 +4,6 @@
  * @brief  ゴールオブジェクトのヘッダーファイル
  *
  * @author CatCode
- *
- * @date   2025/03/22
  */
 
 #pragma once
@@ -16,7 +14,7 @@ class Goal :
 {
 public:
     /*Main System*/
-    Goal(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
+    Goal(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
     ~Goal() noexcept;
 
     void Initialize() override final;

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/20
+ * @date   2025/03/23
  */
 
 #include "pch.h"
@@ -16,11 +16,17 @@
 #include "../Components/Renderer3D.h"
 #include "../Components/BoxCollider.h"
 
+// 使用するマネージャー
+#include "../Managers/ObjectManager.h"
+
+// 関連のあるオブジェクト
+#include "Player.h"
+
 /// <summary>
 /// Constructor
 /// </summary>
-Enemy::Enemy(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
-	: ObjectBace(pScene)
+Enemy::Enemy(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(std::make_unique<Transform>());
 
@@ -52,5 +58,22 @@ void Enemy::Initialize()
 /// </summary>
 void Enemy::Process(float elapsedTime)
 {
+	// 警告回避用
 	elapsedTime;
+
+	// プレイヤーの攻撃に対する処理
+	Player* pPlayer = static_cast<Player*>(mp_ObjectManager->GetObjectPtr("Player"));
+
+	if (pPlayer->IsAttack())
+	{
+		// プレイヤーの攻撃が当たったかどうか
+		ColliderBace* pCollider = static_cast<ColliderBace*>(GetComponentPtr("Collider"));
+		ColliderBace* pPlayerCollider = static_cast<ColliderBace*>(pPlayer->GetComponentPtr("DamageCollider"));
+
+		if (pCollider->IsHit(pPlayerCollider))
+		{
+			// エネミーの削除
+			mp_ObjectManager->DeleteObject(this);
+		}
+	}
 }

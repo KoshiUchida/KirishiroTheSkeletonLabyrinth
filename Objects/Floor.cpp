@@ -4,8 +4,6 @@
  * @brief  床オブジェクトのソースファイル
  *
  * @author CatCode
- *
- * @date   2025/03/21
  */
 
 #include "pch.h"
@@ -19,8 +17,8 @@
 /// <summary>
 /// Costructor
 /// </summary>
-Floor::Floor(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
-	: ObjectBace(pScene)
+Floor::Floor(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(std::make_unique<Transform>());
 

@@ -35,9 +35,12 @@ protected:
 	// コンポネートの集合
 	ComponentsCollection m_Components;
 
+	// オブジェクトの名前
+	std::string m_Name;
+
 public:
 	// Constructor & Destructor
-	ObjectBace(SceneBace* pScene) noexcept;
+	ObjectBace(SceneBace* pScene, const std::string& name) noexcept;
 	virtual ~ObjectBace() noexcept;
 
 	// Main System
@@ -50,5 +53,6 @@ public:
 
 	ComponentsBace* GetComponentPtr(const std::string& name);
 	ObjectBace* GetObjectPtr(const std::string& name);
+	std::string GetName() const noexcept;
 };
 

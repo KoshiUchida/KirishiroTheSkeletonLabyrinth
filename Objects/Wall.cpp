@@ -18,8 +18,8 @@
 /// <summary>
 /// Constructor
 /// </summary>
-Wall::Wall(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Vector3& rotate) noexcept
-	: ObjectBace(pScene)
+Wall::Wall(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position, const DirectX::SimpleMath::Vector3& rotate) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(std::make_unique<Transform>());
 

@@ -18,8 +18,8 @@
 /// <summary>
 /// Constructor
 /// </summary>
-Cylinder::Cylinder(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
-	: ObjectBace(pScene)
+Cylinder::Cylinder(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(std::make_unique<Transform>());
 

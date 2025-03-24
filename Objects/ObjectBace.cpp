@@ -21,9 +21,10 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-ObjectBace::ObjectBace(SceneBace* pScene) noexcept
+ObjectBace::ObjectBace(SceneBace* pScene, const std::string& name) noexcept
 	: mp_ObjectManager{ pScene->GetSceneManagerPtr()->GetObjectManagerPtr() }
 	, mp_Scene        { pScene }
+	, m_Name          { name }
 {
 }
 
@@ -110,5 +111,14 @@ ComponentsBace* ObjectBace::GetComponentPtr(const std::string& name)
 ObjectBace* ObjectBace::GetObjectPtr(const std::string& name)
 {
 	return mp_ObjectManager->GetObjectPtr(name);
+}
+
+/// <summary>
+/// 名前の取得関数
+/// </summary>
+/// <returns>このオブジェクトの名前</returns>
+std::string ObjectBace::GetName() const noexcept
+{
+	return m_Name;
 }
 

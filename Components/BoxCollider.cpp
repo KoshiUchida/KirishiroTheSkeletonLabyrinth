@@ -41,7 +41,7 @@ BoxCollider::~BoxCollider() noexcept = default;
 /// <summary>
 /// 重なり判定
 /// </summary>
-bool BoxCollider::Collider(ColliderBace* other)
+bool BoxCollider::IsHit(ColliderBace* other)
 {
 	switch (other->GetType())
 	{
@@ -81,7 +81,7 @@ void BoxCollider::Collision(ColliderBace* other)
 		if (true)
 		{
 			// 重なりを調べる
-			if (!Collider(other)) return;
+			if (!IsHit(other)) return;
 
 			// 中心座標同士の座標の差分を取得
 			SimpleMath::Vector3 diffPosition = other->GetPosition() - mp_Transform->GetPosition();

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/21
+ * @date   2025/03/23
  */
 
 #include "pch.h"
@@ -27,9 +27,10 @@ static constexpr float MoveSpeedFC   { 0.95f };
 /// <summary>
 /// コンストラクト
 /// </summary>
-Player::Player(SceneBace* pScene) noexcept
-	: ObjectBace(pScene)
+Player::Player(SceneBace* pScene, const std::string& name) noexcept
+	: ObjectBace(pScene, name)
 	, m_MoveSpeed{ MoveSpeedSpeed, MoveSpeedA, MoveSpeedFC }
+	, m_IsAttack{ false }
 {
 	AddComponent(std::make_unique<Transform>());
 
@@ -37,6 +38,11 @@ Player::Player(SceneBace* pScene) noexcept
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Kirishiro.sdkmesh"));
 
 	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(0.1f, 0.5f, 0.1f)));
+
+	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "DamageCollider", pTransform, SimpleMath::Vector3(0.2f, 0.1f, 0.2f)));
+	ColliderBace* pDamageCollider = static_cast<ColliderBace*>(GetComponentPtr("DamageCollider"));
+
+	pDamageCollider->SetOffset(SimpleMath::Vector3(0.7f, 0.f, 0.f));
 }
 
 /// <summary>
@@ -58,6 +64,9 @@ void Player::Process(float elapsedTime)
 {
 	// 移動処理
 	Move(elapsedTime);
+
+	// 攻撃処理
+	Attack();
 }
 
 /// <summary>
@@ -119,5 +128,32 @@ void Player::Move(float elapsedTime)
 	// 座標の更新処理
 	pTransform->AddPosition(speed * elapsedTime);
 
+}
+
+/// <summary>
+/// 攻撃処理
+/// </summary>
+void Player::Attack()
+{
+	// キーボードの入力を取得
+	Keyboard::State kd = Keyboard::Get().GetState();
+
+	// 攻撃キーが押されているか
+	if (kd.Space)
+	{
+		m_IsAttack = true;
+	}
+	else
+	{
+		m_IsAttack = false;
+	}
+}
+
+/// <summary>
+/// 攻撃をしているかを取得関数
+/// </summary>
+bool Player::IsAttack() const noexcept
+{
+	return m_IsAttack;
 }
 

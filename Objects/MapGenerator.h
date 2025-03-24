@@ -29,7 +29,7 @@ private:
 
 public:
 	// Main System
-	MapGenerator(SceneBace* pScene, int width = 5) noexcept;
+	MapGenerator(SceneBace* pScene, const std::string& name, int width = 5) noexcept;
 	~MapGenerator() noexcept;
 
 	void Initialize() override final;

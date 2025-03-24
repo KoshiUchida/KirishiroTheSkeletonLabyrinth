@@ -78,11 +78,11 @@ void GameplayScene::Initialize()
     m_effect->SetProjection(*mp_Proj);
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 7.f, 2.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 7.5f, 2.5f));
 	//m_Camera = std::make_unique<Imase::DebugCamera>(width, height);
 
     // プレイヤーの作成
-    AddObject("Player", std::make_unique<Player>(this));
+    AddObject("Player", std::make_unique<Player>(this, "Player"));
 
     // プレイヤーのトランスフォームの取得
     Transform* playerTransform = static_cast<Transform*>(GetObjectPtr("Player")->GetComponentPtr("Transform"));
@@ -91,10 +91,10 @@ void GameplayScene::Initialize()
     m_Camera->SetTargetPositionPtr(playerTransform);
 
     // MapGeneratorの作成
-    AddObject("MapGenerator", std::make_unique<MapGenerator>(this));
+    AddObject("MapGenerator", std::make_unique<MapGenerator>(this, "MapGenerator"));
 
     // エネミーの作成
-    AddObject("Enemy", std::make_unique<Enemy>(this, playerTransform->GetPosition() + SimpleMath::Vector3(1.f, 0.f, 0.f)));
+    AddObject("Enemy", std::make_unique<Enemy>(this, "Enemy", playerTransform->GetPosition() + SimpleMath::Vector3(1.f, 0.f, 0.f)));
 }
 
 /// <summary>

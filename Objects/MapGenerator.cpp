@@ -165,8 +165,8 @@ int Datas[][PanelWidth][PanelWidth]
 /// <summary>
 /// Constructor
 /// </summary>
-MapGenerator::MapGenerator(SceneBace* pScene, int width) noexcept
-	: ObjectBace(pScene)
+MapGenerator::MapGenerator(SceneBace* pScene, const std::string& name, int width) noexcept
+	: ObjectBace(pScene, name)
 	, m_Width{ width }
 {
 }
@@ -377,10 +377,11 @@ void MapGenerator::GenerateObject()
 				// 空間がある場合はコライダーを生成する
 				if ((i - 1 >= 0 && m_MapData[i - 1][j] != 0) || (i + 1 < m_MapData.size() && m_MapData[i + 1][j] != 0) || (j - 1 >= 0 && m_MapData[i][j - 1] != 0) || (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0))
 					mp_ObjectManager->AddObject
-					(std::string("WallCollider") + std::to_string(c++),
+					(std::string("WallCollider") + std::to_string(c),
 						std::make_unique<Box>
 						(
 							mp_Scene,
+							std::string("WallCollider") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 						)
 					);
@@ -392,10 +393,11 @@ void MapGenerator::GenerateObject()
 				if (i - 1 >= 0 && m_MapData[i - 1][j] != 0)
 				{
 					mp_ObjectManager->AddObject
-					(std::string("WallModel") + std::to_string(c++),
+					(std::string("WallModel") + std::to_string(c),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
+							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI, 0.f)
 						)
@@ -405,10 +407,11 @@ void MapGenerator::GenerateObject()
 				if (i + 1 < m_MapData.size() && m_MapData[i + 1][j] != 0)
 				{
 					mp_ObjectManager->AddObject
-					(std::string("WallModel") + std::to_string(c++),
+					(std::string("WallModel") + std::to_string(c),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
+							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f)
 						)
 					);
@@ -417,10 +420,11 @@ void MapGenerator::GenerateObject()
 				if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 				{
 					mp_ObjectManager->AddObject
-					(std::string("WallModel") + std::to_string(c++),
+					(std::string("WallModel") + std::to_string(c),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
+							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / 2.f, 0.f)
 						)
@@ -430,10 +434,11 @@ void MapGenerator::GenerateObject()
 				if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 				{
 					mp_ObjectManager->AddObject
-					(std::string("WallModel") + std::to_string(c++),
+					(std::string("WallModel") + std::to_string(c),
 						std::make_unique<Wall>
 						(
 							mp_Scene,
+							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f),
 							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / -2.f, 0.f)
 						)
@@ -446,10 +451,11 @@ void MapGenerator::GenerateObject()
 					if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 					{
 						mp_ObjectManager->AddObject
-						(std::string("CylinderModel") + std::to_string(c++),
+						(std::string("CylinderModel") + std::to_string(c),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
+								std::string("CylinderModel") + std::to_string(c++),
 								DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
@@ -458,10 +464,11 @@ void MapGenerator::GenerateObject()
 					if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 					{
 						mp_ObjectManager->AddObject
-						(std::string("CylinderModel") + std::to_string(c++),
+						(std::string("CylinderModel") + std::to_string(c),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
+								std::string("CylinderModel") + std::to_string(c++),
 								DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
@@ -474,10 +481,11 @@ void MapGenerator::GenerateObject()
 					if (j - 1 >= 0 && m_MapData[i][j - 1] != 0)
 					{
 						mp_ObjectManager->AddObject
-						(std::string("CylinderModel") + std::to_string(c++),
+						(std::string("CylinderModel") + std::to_string(c),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
+								std::string("CylinderModel") + std::to_string(c++),
 								DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
@@ -486,10 +494,11 @@ void MapGenerator::GenerateObject()
 					if (j + 1 < m_MapData[i].size() && m_MapData[i][j + 1] != 0)
 					{
 						mp_ObjectManager->AddObject
-						(std::string("CylinderModel") + std::to_string(c++),
+						(std::string("CylinderModel") + std::to_string(c),
 							std::make_unique<Cylinder>
 							(
 								mp_Scene,
+								std::string("CylinderModel") + std::to_string(c++),
 								DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f)
 							)
 						);
@@ -501,10 +510,11 @@ void MapGenerator::GenerateObject()
 			{
 				// ゴールの作成
 				mp_ObjectManager->AddObject
-				(std::string("Goal") + std::to_string(c++),
+				(std::string("Goal") + std::to_string(c),
 					std::make_unique<Goal>
 					(
 						mp_Scene,
+						std::string("Goal") + std::to_string(c++),
 						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 					)
 				);
@@ -514,10 +524,11 @@ void MapGenerator::GenerateObject()
 			{
 				// 床の作成
 				mp_ObjectManager->AddObject
-				(std::string("FloorModel") + std::to_string(c++),
+				(std::string("FloorModel") + std::to_string(c),
 					std::make_unique<Floor>
 					(
 						mp_Scene,
+						std::string("FloorModel") + std::to_string(c++),
 						DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, 0.f, (j - m_MapData.size() / 2.f) * 3.5f)
 					)
 				);

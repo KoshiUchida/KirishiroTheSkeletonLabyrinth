@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/15
+ * @date   2025/03/23
  */
 
 #include "pch.h"
@@ -50,7 +50,7 @@ void ColliderBace::Render(const DirectX::SimpleMath::Matrix& view)
 	SimpleMath::Matrix world;
 
 	// 平行移動する行列を作成する
-	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(mp_Transform->GetPosition());
+	SimpleMath::Matrix trans = SimpleMath::Matrix::CreateTranslation(GetPosition());
 
 	// X軸で回転する行列を作成する
 	SimpleMath::Matrix rotX = SimpleMath::Matrix::CreateRotationX(mp_Transform->GetRotateX());
@@ -72,11 +72,27 @@ void ColliderBace::Render(const DirectX::SimpleMath::Matrix& view)
 }
 
 /// <summary>
-/// 座標の取得
+/// オフセットの設定関数
+/// </summary>
+/// <param name="offset"></param>
+void ColliderBace::SetOffset(const DirectX::SimpleMath::Vector3& offset)
+{
+	m_Offset = offset;
+}
+
+/// <summary>
+/// 座標の取得関数
 /// </summary>
 DirectX::SimpleMath::Vector3 ColliderBace::GetPosition() const
 {
-	return mp_Transform->GetPosition() + m_Offset;
+	// オフセットのベクトル
+	SimpleMath::Vector3 offset(m_Offset);
+
+	// Y軸で回転する行列を作成
+	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(mp_Transform->GetRotateY());
+	offset = SimpleMath::Vector3::Transform(offset, rotY);
+
+	return mp_Transform->GetPosition() + offset;
 }
 
 /// <summary>

@@ -4,8 +4,6 @@
  * @brief  ゴールオブジェクトのソースファイル
  *
  * @author CatCode
- *
- * @date   2025/03/22
  */
 
 #include "pch.h"
@@ -20,8 +18,8 @@ using namespace std;
 /// <summary>
 /// Constructor
 /// </summary>
-Goal::Goal(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position) noexcept
-	: ObjectBace(pScene)
+Goal::Goal(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
+	: ObjectBace(pScene, name)
 {
 	AddComponent(make_unique<Transform>());
 

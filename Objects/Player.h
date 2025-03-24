@@ -23,9 +23,12 @@ private:
 	// スピード
 	Thruster m_MoveSpeed;
 
+	// 攻撃をしているか
+	bool m_IsAttack;
+
 public:
 	// Main System
-	Player(SceneBace* pScene) noexcept;
+	Player(SceneBace* pScene, const std::string& name) noexcept;
 	~Player() noexcept;
 
 	void Initialize(                 ) override final;
@@ -34,5 +37,10 @@ public:
 private:
 	/*内部関数*/
 	void Move(float elapsedTime);
+	void Attack();
+
+public:
+	/*Getter Functions*/
+	bool IsAttack() const noexcept;
 };
 

@@ -4,8 +4,6 @@
  * @brief  円柱オブジェクトのソースファイル
  *
  * @author CatCode
- *
- * @date   2025/03/18
  */
 
 #pragma once
@@ -19,7 +17,7 @@ class Cylinder :
 {
 public:
     /*Main System*/
-    Cylinder(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
+    Cylinder(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
     ~Cylinder() noexcept;
 
     void Initialize() override final;

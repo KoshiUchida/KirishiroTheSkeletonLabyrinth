@@ -29,7 +29,7 @@ public:
 	SphereCollider(SceneBace* pScene, const std::string& name, Transform* pTransform, float radius, bool canDraw = true, const DirectX::SimpleMath::Vector3& offset = DirectX::SimpleMath::Vector3()) noexcept;
 	~SphereCollider() noexcept;
 
-	bool Collider(ColliderBace* other) override final;
+	bool IsHit(ColliderBace* other) override final;
 
 	void Collision(ColliderBace* other) override final;
 

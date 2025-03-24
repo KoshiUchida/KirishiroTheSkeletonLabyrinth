@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/06
+ * @date   2025/03/24
  */
 
 #include "pch.h"
@@ -35,6 +35,13 @@ void ObjectManager::Update(float elapsedTime)
 	// オブジェクトの更新処理
 	for (auto& element : m_Objects)
 		element.second->Update(elapsedTime);
+
+	// 削除予定のオブジェクトの削除
+	for (int i{ 0 }; i < m_DeleteObjectNames.size(); i++)
+	{
+		m_Objects.erase(m_DeleteObjectNames[i]);
+		m_DeleteObjectNames.erase(m_DeleteObjectNames.begin() + i);
+	}
 }
 
 /// <summary>
@@ -80,4 +87,18 @@ ObjectBace* ObjectManager::GetObjectPtr(const std::string& objectName)
 	}
 
 	return m_Objects.at(objectName).get();
+}
+
+/// <summary>
+/// 対象オブジェクトの削除
+/// </summary>
+/// <param name="pObject">削除するオブジェクト</param>
+void ObjectManager::DeleteObject(ObjectBace* pObject)
+{
+	// オブジェクトが存在しない場合は処理を行わない
+	if (m_Objects.count(pObject->GetName()) == 0)
+		return;
+
+	// オブジェクトの名前を保存
+	m_DeleteObjectNames.push_back(pObject->GetName());
 }

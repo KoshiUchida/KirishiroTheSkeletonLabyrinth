@@ -19,7 +19,7 @@ class Enemy :
 {
 public:
 	// Main System
-	Enemy(SceneBace* pScene, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
+	Enemy(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
 	~Enemy() noexcept;
 
 	void Initialize() override final;
