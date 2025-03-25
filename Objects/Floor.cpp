@@ -25,6 +25,7 @@ Floor::Floor(SceneBace* pScene, const std::string& name, const DirectX::SimpleMa
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 
 	pTransform->SetPosition(position);
+	pTransform->SetRotateX(DirectX::XM_PI / -2.f);
 
 	AddComponent(std::make_unique<Renderer3D>(pScene, pTransform, L"Resources\\Models\\Floor.sdkmesh"));
 }

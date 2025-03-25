@@ -399,7 +399,7 @@ void MapGenerator::GenerateObject()
 							mp_Scene,
 							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f),
-							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI, 0.f)
+							DirectX::SimpleMath::Vector3(DirectX::XM_PI * 0.5f, DirectX::XM_PI * 1.5f, 0.f)
 						)
 					);
 				}
@@ -412,7 +412,8 @@ void MapGenerator::GenerateObject()
 						(
 							mp_Scene,
 							std::string("WallModel") + std::to_string(c++),
-							DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f)
+							DirectX::SimpleMath::Vector3((i + 0.5f - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - m_MapData.size() / 2.f) * 3.5f),
+							DirectX::SimpleMath::Vector3(DirectX::XM_PI * 0.5f, DirectX::XM_PI * 0.5f, 0.f)
 						)
 					);
 				}
@@ -426,7 +427,7 @@ void MapGenerator::GenerateObject()
 							mp_Scene,
 							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j - 0.5f - m_MapData.size() / 2.f) * 3.5f),
-							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / 2.f, 0.f)
+							DirectX::SimpleMath::Vector3(DirectX::XM_PI, 0.f, DirectX::XM_PI * 0.5f)
 						)
 					);
 				}
@@ -440,7 +441,7 @@ void MapGenerator::GenerateObject()
 							mp_Scene,
 							std::string("WallModel") + std::to_string(c++),
 							DirectX::SimpleMath::Vector3((i - m_MapData.size() / 2.f) * 3.5f, ModelPosY, (j + 0.5f - m_MapData.size() / 2.f) * 3.5f),
-							DirectX::SimpleMath::Vector3(0.f, DirectX::XM_PI / -2.f, 0.f)
+							DirectX::SimpleMath::Vector3(DirectX::XM_PI, DirectX::XM_PI, DirectX::XM_PI * 0.5f)
 						)
 					);
 				}

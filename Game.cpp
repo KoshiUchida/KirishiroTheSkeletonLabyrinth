@@ -229,7 +229,7 @@ void Game::CreateWindowSizeDependentResources()
     auto size = m_deviceResources->GetOutputSize();
 
     m_proj = SimpleMath::Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f,
-        float(size.right) / float(size.bottom), 0.1f, 10.f);
+        float(size.right) / float(size.bottom), 0.1f, 100.f);
 
 }
 

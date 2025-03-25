@@ -25,6 +25,7 @@ Renderer3D::Renderer3D(SceneBace* pScene, Transform* pTransform, const wchar_t* 
 	// ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 	auto device = mp_DeviceResources->GetD3DDevice();
 	EffectFactory fx(device);
+	fx.SetDirectory(L"Resources/Textures");
 
 	switch (read)
 	{
@@ -64,7 +65,7 @@ void Renderer3D::Draw(const DirectX::SimpleMath::Matrix& view)
 	SimpleMath::Matrix rotY = SimpleMath::Matrix::CreateRotationY(mp_Transform->GetRotateY());
 
 	// ZŽ²‚Å‰ñ“]‚·‚és—ñ‚ðì¬‚·‚é
-	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationY(mp_Transform->GetRotateZ());
+	SimpleMath::Matrix rotZ = SimpleMath::Matrix::CreateRotationZ(mp_Transform->GetRotateZ());
 
 	// Šg‘å‚·‚és—ñ‚ðì¬‚·‚é
 	SimpleMath::Matrix scale = SimpleMath::Matrix::CreateScale(mp_Transform->GetScale());

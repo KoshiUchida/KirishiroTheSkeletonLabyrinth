@@ -47,7 +47,7 @@ GameplayScene::GameplayScene
 
     // Skyboxの作成
 
-    m_sky = GeometricPrimitive::CreateGeoSphere(context, 6.f, 6,
+    m_sky = GeometricPrimitive::CreateGeoSphere(context, 1.0f, 3,
         false /*invert for bein inside the shape*/);
 
     m_effect = std::make_unique<SkyboxEffect>(device);
@@ -78,8 +78,8 @@ void GameplayScene::Initialize()
     m_effect->SetProjection(*mp_Proj);
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 7.5f, 2.5f));
-	//m_Camera = std::make_unique<Imase::DebugCamera>(width, height);
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
+	//m_DebugCamera = std::make_unique<Imase::DebugCamera>(width, height);
 
     // プレイヤーの作成
     AddObject("Player", std::make_unique<Player>(this, "Player"));
