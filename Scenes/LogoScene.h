@@ -15,7 +15,6 @@
 #if defined(_DEBUG)
  // デバッグ必須読み込み
 #include "ImaseLib/DebugFont.h"
-#include "ImaseLib/GridFloor.h"
 
 #endif
 
@@ -40,6 +39,11 @@ private:
     // 現在の経過時間
     float m_Time;
 
+    // 画面のサイズ
+	RECT m_FullscreenRect;
+
+
+
 	// ロゴのテクスチャ
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture_Logo;
 
@@ -52,13 +56,15 @@ private:
     // ロゴの透明度
 	float m_LogoAlpha;
 
+
+
+	// 背景のテクスチャ
+    Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_texture_Background;
+
 #if defined(_DEBUG)
     /*デバッグ用スマートポインタ*/
     // デバッグフォント
     std::unique_ptr<Imase::DebugFont> m_debugFont;
-
-    // グリッドの床
-    std::unique_ptr<Imase::GridFloor> m_gridFloor;
 
 #endif
 

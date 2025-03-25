@@ -33,7 +33,8 @@ LogoScene::LogoScene(SceneManager* sceneManager, DX::DeviceResources* pDeviceRes
 	SceneBace(sceneManager, pDeviceResources, pProj, pStates),
 	mp_timer   { pTimer },
 	m_Time     { 0.f },
-	m_LogoAlpha{ 0.f }
+	m_LogoAlpha{ 0.f },
+	m_FullscreenRect{}
 {
 }
 
@@ -60,6 +61,10 @@ void LogoScene::Initialize()
 	m_SpriteBatch = make_unique<SpriteBatch>(context);
 
 	Microsoft::WRL::ComPtr<ID3D11Resource> resource;
+
+	m_FullscreenRect = mp_DeviceResources->GetOutputSize();
+
+
 	
 	// ロゴのテクスチャの読み込み
 	DX::ThrowIfFailed(
@@ -77,20 +82,23 @@ void LogoScene::Initialize()
 	m_LogoOrigin = SimpleMath::Vector2(logoDesc.Width / 2.f, logoDesc.Height / 2.f);
 
 	// ロゴのテクスチャの座標の設定
-	auto size = mp_DeviceResources->GetOutputSize();
-	m_LogoPos = SimpleMath::Vector2(size.right / 2.f, size.bottom / 2.f);
+	m_LogoPos = SimpleMath::Vector2(m_FullscreenRect.right / 2.f, m_FullscreenRect.bottom / 2.f);
 
 	// ロゴのアルファ値の初期化
 	m_LogoAlpha = 0.f;
+
+
+
+	// 背景のテクスチャの読み込み
+	DX::ThrowIfFailed(
+		CreateDDSTextureFromFile(device, L"Resources\\Textures\\LogoBackground.dds", nullptr,
+			m_texture_Background.ReleaseAndGetAddressOf()));
 
 #if defined(_DEBUG)
 	/*デバッグ時の追加初期化処理*/
 	// デバッグフォントの作成
 	m_debugFont = std::make_unique<Imase::DebugFont>(device
 		, context, L"Resources\\Font\\SegoeUI_18.spritefont");
-
-	// グリッド床の作成
-	m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States);
 
 #endif
 }
@@ -148,12 +156,16 @@ void LogoScene::Render()
 	// デバッグカメラからビュー行列を取得する
 	SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
-	// ロゴの描画
-	m_SpriteBatch->Begin();
+	// 描画処理
+	m_SpriteBatch->Begin(SpriteSortMode_Deferred, mp_States->NonPremultiplied());
+
+	// 背景の描画
+	m_SpriteBatch->Draw(m_texture_Background.Get(), m_FullscreenRect, Colors::Black);
 
 	// ロゴのサイズ
 	static constexpr float logoSize = 0.15f;
 
+	// ロゴの描画
 	m_SpriteBatch->Draw(m_texture_Logo.Get(), m_LogoPos, nullptr,
 		SimpleMath::Color(1.f, 1.f, 1.f, m_LogoAlpha), 0.f, m_LogoOrigin,
 		logoSize
@@ -163,9 +175,6 @@ void LogoScene::Render()
 
 #if defined(_DEBUG)
 	/*デバッグ表示*/
-	// グリッドの床の描画
-	m_gridFloor->Render(context, view, *mp_Proj);
-
 	// シーンの名前の表示
 	m_debugFont->AddString(0, 0, Colors::White, L"Scene:LogoScene");
 
@@ -187,8 +196,8 @@ void LogoScene::Finalize()
 {
 	m_Camera     .reset();
 	m_debugFont  .reset();
-	m_gridFloor  .reset();
 	m_SpriteBatch.reset();
 
 	m_texture_Logo.Reset();
+	m_texture_Background.Reset();
 }
