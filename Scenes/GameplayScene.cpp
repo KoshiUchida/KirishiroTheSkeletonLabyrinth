@@ -9,6 +9,9 @@
 #include "pch.h"
 #include "GameplayScene.h"
 
+ // 前方宣言
+#include "Camera.h"
+
 // 使用するオブジェクト
 #include "../Objects/Player.h"
 #include "../Objects/MapGenerator.h"
@@ -162,11 +165,4 @@ void GameplayScene::Finalize()
     m_effect.reset();
     m_skyInputLayout.Reset();
     m_cubemap.Reset();
-
-
-#if defined(_DEBUG)
-    /*デバッグ時の追加終了処理*/
-    m_debugFont.reset();
-    m_gridFloor.reset();
-#endif
 }

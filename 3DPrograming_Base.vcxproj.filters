@@ -116,6 +116,8 @@
     </ClInclude>
     <ClInclude Include="SkyboxEffect.h" />
     <ClInclude Include="Scenes\ResultScene.h" />
+    <ClInclude Include="Scenes\LogoScene.h" />
+    <ClInclude Include="Scenes\TitleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -200,6 +202,8 @@
     </ClCompile>
     <ClCompile Include="SkyboxEffect.cpp" />
     <ClCompile Include="Scenes\ResultScene.cpp" />
+    <ClCompile Include="Scenes\LogoScene.cpp" />
+    <ClCompile Include="Scenes\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

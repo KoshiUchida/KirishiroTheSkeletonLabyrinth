@@ -5,6 +5,8 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "Scenes/LogoScene.h"
+#include "Scenes/TitleScene.h"
 #include "Scenes/GameplayScene.h"
 #include "Scenes/ResultScene.h"
 
@@ -204,6 +206,28 @@ void Game::CreateDeviceDependentResources()
 
     // ƒV[ƒ“‚Ì“o˜^
     m_sceneManager->addScene(
+        "Logo",
+        std::make_unique<LogoScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+
+    m_sceneManager->addScene(
+        "Title",
+        std::make_unique<TitleScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+
+    m_sceneManager->addScene(
         "Gameplay",
         std::make_unique<GameplayScene>(
             m_sceneManager.get(),
@@ -226,9 +250,9 @@ void Game::CreateDeviceDependentResources()
     );
     // Å‰‚ÌƒV[ƒ“‚ðÝ’è
 #if defined(_DEBUG)
-    m_sceneManager->SetStartScene("Gameplay");
+    m_sceneManager->SetStartScene("Logo");
 #else
-    m_sceneManager->SetStartScene("Gameplay");
+    m_sceneManager->SetStartScene("Logo");
 #endif
  }
 

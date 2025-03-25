@@ -13,8 +13,6 @@
 #include "GeometricPrimitive.h"
 #include "SkyboxEffect.h"
 
-#include "Camera.h"
-
 #if defined(_DEBUG)
 // デバッグ必須読み込み
 #include "ImaseLib/DebugFont.h"
@@ -22,6 +20,9 @@
 #include "ImaseLib/DebugCamera.h"
 
 #endif
+
+// 前方宣言
+class Camera;
 
 /// <summary>
 /// ゲームプレイシーン
