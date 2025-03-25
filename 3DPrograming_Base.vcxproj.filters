@@ -100,7 +100,6 @@
     <ClInclude Include="Scenes\Camera.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Common\Thruster.h" />
     <ClInclude Include="ReadData.h" />
     <ClInclude Include="Objects\Cylinder.h">
       <Filter>Objects</Filter>
@@ -115,9 +114,18 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="SkyboxEffect.h" />
-    <ClInclude Include="Scenes\ResultScene.h" />
-    <ClInclude Include="Scenes\LogoScene.h" />
-    <ClInclude Include="Scenes\TitleScene.h" />
+    <ClInclude Include="Scenes\LogoScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\ResultScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\TitleScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Thruster.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -187,7 +195,6 @@
     <ClCompile Include="Scenes\Camera.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Common\Thruster.cpp" />
     <ClCompile Include="Objects\Cylinder.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -201,9 +208,18 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="SkyboxEffect.cpp" />
-    <ClCompile Include="Scenes\ResultScene.cpp" />
-    <ClCompile Include="Scenes\LogoScene.cpp" />
-    <ClCompile Include="Scenes\TitleScene.cpp" />
+    <ClCompile Include="Scenes\LogoScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\ResultScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TitleScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Thruster.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -224,6 +240,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="SkyboxEffect_Common.hlsli" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="SkyboxEffect_PS.hlsl" />
