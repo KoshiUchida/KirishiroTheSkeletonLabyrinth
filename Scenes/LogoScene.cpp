@@ -4,6 +4,8 @@
  * @brief  ロゴシーンのソースファイル
  *
  * @author CatCode
+ *
+ * @date   2025/03/25
  */
 
 #include "pch.h"

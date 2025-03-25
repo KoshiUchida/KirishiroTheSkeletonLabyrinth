@@ -1,3 +1,13 @@
+/**
+ * @file   ResultScene.h
+ *
+ * @brief  リザルトシーンのヘッダファイル
+ *
+ * @author CatCode
+ *
+ * @date   2025/03/25
+ */
+
 #pragma once
 #include "SceneBace.h"
 

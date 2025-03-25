@@ -1,9 +1,11 @@
 /**
- * @file   TitleScene.h
+ * @file   TitleScene.cpp
  *
- * @brief  タイトルシーンのヘッダファイル
+ * @brief  タイトルシーンのソースファイル
  *
  * @author CatCode
+ *
+ * @date   2025/03/25
  */
 
 #include "pch.h"

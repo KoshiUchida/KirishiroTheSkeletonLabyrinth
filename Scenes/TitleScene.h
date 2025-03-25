@@ -4,6 +4,8 @@
  * @brief  タイトルシーンのヘッダファイル
  *
  * @author CatCode
+ *
+ * @date   2025/03/25
  */
 
 #pragma once
