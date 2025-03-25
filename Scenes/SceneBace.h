@@ -55,7 +55,7 @@ public:
 	DirectX::CommonStates* GetCommonStatesPointer()  { return mp_States; }
 	SceneManager* GetSceneManagerPtr();
 
-protected:
+public:
 	/*内部実装*/
 	// シーンの変更
 	void ChangeScene(const std::string& nextSceneName) noexcept(false);
@@ -70,6 +70,7 @@ protected:
 	void WriteSharedData (const std::string& key, float       value) noexcept(false);
 	void WriteSharedData (const std::string& key, std::string value) noexcept(false);
 
+protected:
 	// オブジェクトの追加
 	void AddObject(const std::string& objectName, std::unique_ptr<ObjectBace> object) noexcept(false);
 

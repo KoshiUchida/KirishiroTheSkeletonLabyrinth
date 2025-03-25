@@ -185,6 +185,7 @@
     <ClInclude Include="Objects\Enemy.h" />
     <ClInclude Include="Objects\Cylinder.h" />
     <ClInclude Include="ReadData.h" />
+    <ClInclude Include="Scenes\ResultScene.h" />
     <ClInclude Include="Scenes\Camera.h" />
     <ClInclude Include="Components\ColliderBace.h" />
     <ClInclude Include="Components\BoxCollider.h" />
@@ -218,6 +219,7 @@
     <ClCompile Include="Objects\Floor.cpp" />
     <ClCompile Include="Objects\Enemy.cpp" />
     <ClCompile Include="Objects\Cylinder.cpp" />
+    <ClCompile Include="Scenes\ResultScene.cpp" />
     <ClCompile Include="Scenes\Camera.cpp" />
     <ClCompile Include="Components\ColliderBace.cpp" />
     <ClCompile Include="Components\BoxCollider.cpp" />

@@ -115,6 +115,7 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="SkyboxEffect.h" />
+    <ClInclude Include="Scenes\ResultScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -198,6 +199,7 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="SkyboxEffect.cpp" />
+    <ClCompile Include="Scenes\ResultScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

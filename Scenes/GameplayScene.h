@@ -21,7 +21,8 @@
 /// <summary>
 /// ゲームプレイシーン
 /// </summary>
-class GameplayScene final : public SceneBace
+class GameplayScene final :
+    public SceneBace
 {
 private:
     DX::StepTimer* mp_timer;

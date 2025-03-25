@@ -6,6 +6,7 @@
 #include "Game.h"
 
 #include "Scenes/GameplayScene.h"
+#include "Scenes/ResultScene.h"
 
 extern void ExitGame() noexcept;
 
@@ -213,6 +214,16 @@ void Game::CreateDeviceDependentResources()
         )
     );
 
+    m_sceneManager->addScene(
+        "Result",
+        std::make_unique<ResultScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
     // Å‰‚ÌƒV[ƒ“‚ðÝ’è
 #if defined(_DEBUG)
     m_sceneManager->SetStartScene("Gameplay");
