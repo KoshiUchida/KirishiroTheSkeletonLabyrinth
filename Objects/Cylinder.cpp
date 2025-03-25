@@ -25,6 +25,7 @@ Cylinder::Cylinder(SceneBace* pScene, const std::string& name, const DirectX::Si
 
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 	pTransform->SetPosition(position);
+	pTransform->SetRotateX(DirectX::XM_PI * 0.5f);
 	pTransform->SetScaleY(1.1f);
 
 	AddComponent(std::make_unique<Renderer3D>(mp_Scene, pTransform, L"Resources\\Models\\Clinder.sdkmesh"));

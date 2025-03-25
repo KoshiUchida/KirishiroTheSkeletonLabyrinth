@@ -38,13 +38,6 @@ GameplayScene::GameplayScene
     auto device = mp_DeviceResources->GetD3DDevice();
     auto context = mp_DeviceResources->GetD3DDeviceContext();
 
-    // デバッグフォントの作成
-    m_debugFont = std::make_unique<Imase::DebugFont>(device
-        , context, L"Resources\\Font\\SegoeUI_18.spritefont");
-
-    // グリッド床の作成
-    m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States );
-
     // Skyboxの作成
 
     m_sky = GeometricPrimitive::CreateGeoSphere(context, 1.0f, 3,
@@ -60,6 +53,16 @@ GameplayScene::GameplayScene
             nullptr, m_cubemap.ReleaseAndGetAddressOf()));
 
     m_effect->SetTexture(m_cubemap.Get());
+
+#if defined(_DEBUG)
+    /*デバッグ時の追加初期化処理*/
+    // デバッグフォントの作成
+    m_debugFont = std::make_unique<Imase::DebugFont>(device
+        , context, L"Resources\\Font\\SegoeUI_18.spritefont");
+
+    // グリッド床の作成
+    m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States);
+#endif
 }
 
 /// <summary>
@@ -78,7 +81,7 @@ void GameplayScene::Initialize()
     m_effect->SetProjection(*mp_Proj);
 
 	// カメラの作成
-    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 10.f, 5.f));
+    m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(0.f, 13.f, 3.f));
 	//m_DebugCamera = std::make_unique<Imase::DebugCamera>(width, height);
 
     // プレイヤーの作成
@@ -153,12 +156,17 @@ void GameplayScene::Render()
 /// </summary>
 void GameplayScene::Finalize()
 {
-    m_debugFont.reset();
-    m_gridFloor.reset();
     m_Camera.reset();
 
     m_sky.reset();
     m_effect.reset();
     m_skyInputLayout.Reset();
     m_cubemap.Reset();
+
+
+#if defined(_DEBUG)
+    /*デバッグ時の追加終了処理*/
+    m_debugFont.reset();
+    m_gridFloor.reset();
+#endif
 }

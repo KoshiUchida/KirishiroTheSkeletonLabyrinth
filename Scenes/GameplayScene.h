@@ -13,10 +13,15 @@
 #include "GeometricPrimitive.h"
 #include "SkyboxEffect.h"
 
+#include "Camera.h"
+
+#if defined(_DEBUG)
+// デバッグ必須読み込み
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
 #include "ImaseLib/DebugCamera.h"
-#include "Camera.h"
+
+#endif
 
 /// <summary>
 /// ゲームプレイシーン
@@ -27,15 +32,6 @@ class GameplayScene final :
 private:
     DX::StepTimer* mp_timer;
 
-    // デバッグフォント
-    std::unique_ptr<Imase::DebugFont> m_debugFont;
-
-    // グリッドの床
-    std::unique_ptr<Imase::GridFloor> m_gridFloor;
-
-    // デバッグカメラ
-    std::unique_ptr<Imase::DebugCamera> m_DebugCamera;
-
 	// カメラ
     std::unique_ptr<Camera> m_Camera;
 
@@ -45,6 +41,19 @@ private:
 
     Microsoft::WRL::ComPtr<ID3D11InputLayout> m_skyInputLayout;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_cubemap;
+
+
+#if defined(_DEBUG)
+    /*デバッグ用スマートポインタ*/
+    // デバッグフォント
+    std::unique_ptr<Imase::DebugFont> m_debugFont;
+
+    // グリッドの床
+    std::unique_ptr<Imase::GridFloor> m_gridFloor;
+
+    // デバッグカメラ
+    std::unique_ptr<Imase::DebugCamera> m_DebugCamera;
+#endif
 
 public:
 	// Main System
