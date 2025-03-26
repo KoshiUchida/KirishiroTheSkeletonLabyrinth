@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/25
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -153,8 +153,6 @@ void LogoScene::Update(const float elapsedTime)
 /// </summary>
 void LogoScene::Render()
 {
-	auto context = mp_DeviceResources->GetD3DDeviceContext();
-
 	// デバッグカメラからビュー行列を取得する
 	SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
@@ -197,9 +195,13 @@ void LogoScene::Render()
 void LogoScene::Finalize()
 {
 	m_Camera     .reset();
-	m_debugFont  .reset();
 	m_SpriteBatch.reset();
 
 	m_texture_Logo.Reset();
 	m_texture_Background.Reset();
+
+#if defined(_DEBUG)
+	m_debugFont.reset();
+
+#endif
 }

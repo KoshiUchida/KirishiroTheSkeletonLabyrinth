@@ -5,17 +5,20 @@
  *
  * @author CatCode
  *
- * @date   2025/03/25
+ * @date   2025/03/26
  */
 
 #pragma once
 #include "SceneBace.h"
 
 #include "StepTimer.h"
+#include "Camera.h"
 
+#if defined(_DEBUG)
 #include "ImaseLib/DebugFont.h"
 #include "ImaseLib/GridFloor.h"
-#include "Camera.h"
+
+#endif
 
 class ResultScene final:
     public SceneBace
@@ -23,23 +26,28 @@ class ResultScene final:
 private:
     DX::StepTimer* mp_timer;
 
+    // カメラ
+    std::unique_ptr<Camera> m_Camera;
+
+    // 現在のボタンが押せるようになるまでの残り時間
+    float m_buttonEnableTime;
+
+#if defined(_DEBUG)
     // デバッグフォント
     std::unique_ptr<Imase::DebugFont> m_debugFont;
 
     // グリッドの床
     std::unique_ptr<Imase::GridFloor> m_gridFloor;
-
-    // カメラ
-    std::unique_ptr<Camera> m_Camera;
+#endif
 
 public:
     /*Main System*/
     ResultScene(
-        SceneManager* sceneManager,
-        DX::DeviceResources* pDeviceResources,
+                       SceneManager* sceneManager,
+                DX::DeviceResources* pDeviceResources,
         DirectX::SimpleMath::Matrix* pProj,
-        DirectX::CommonStates* pStates,
-        DX::StepTimer* pTimer
+              DirectX::CommonStates* pStates,
+                      DX::StepTimer* pTimer
     ) noexcept(false);
 
     ~ResultScene() noexcept;

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/25
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -28,18 +28,6 @@ TitleScene::TitleScene(SceneManager* sceneManager, DX::DeviceResources* pDeviceR
 	mp_timer{ pTimer },
 	m_buttonEnableTime{ ButtonEnableTime }
 {
-	auto device = mp_DeviceResources->GetD3DDevice();
-	auto context = mp_DeviceResources->GetD3DDeviceContext();
-
-#if defined(_DEBUG)
-	/*デバッグ時の追加初期化処理*/
-	// デバッグフォントの作成
-	m_debugFont = make_unique<Imase::DebugFont>(device
-		, context, L"Resources\\Font\\SegoeUI_18.spritefont");
-
-	// グリッド床の作成
-	m_gridFloor = make_unique<Imase::GridFloor>(device, context, mp_States);
-#endif
 }
 
 /// <summary>
@@ -53,6 +41,19 @@ TitleScene::~TitleScene() noexcept = default;
 void TitleScene::Initialize()
 {
 	m_Camera = make_unique<Camera>(SimpleMath::Vector3(3.0f, 0.0f, 0.0f));
+
+#if defined(_DEBUG)
+	auto device = mp_DeviceResources->GetD3DDevice();
+	auto context = mp_DeviceResources->GetD3DDeviceContext();
+
+	/*デバッグ時の追加初期化処理*/
+	// デバッグフォントの作成
+	m_debugFont = make_unique<Imase::DebugFont>(device
+		, context, L"Resources\\Font\\SegoeUI_18.spritefont");
+
+	// グリッド床の作成
+	m_gridFloor = make_unique<Imase::GridFloor>(device, context, mp_States);
+#endif
 }
 
 /// <summary>
@@ -87,13 +88,14 @@ void TitleScene::Update(const float elapsedTime)
 /// </summary>
 void TitleScene::Render()
 {
-	auto context = mp_DeviceResources->GetD3DDeviceContext();
-
 	// デバッグカメラからビュー行列を取得する
 	SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
-	/*デバッグ表示*/
 #if defined(_DEBUG)
+	/*デバッグ表示*/
+	// コンテキストの取得
+	auto context = mp_DeviceResources->GetD3DDeviceContext();
+
 	// グリッドの床の描画
 	m_gridFloor->Render(context, view, *mp_Proj);
 
@@ -117,4 +119,10 @@ void TitleScene::Render()
 void TitleScene::Finalize()
 {
 	m_Camera.reset();
+
+#if defined(_DEBUG)
+	/*デバッグ時の追加終了処理*/
+	m_debugFont.reset();
+	m_gridFloor.reset();
+#endif
 }

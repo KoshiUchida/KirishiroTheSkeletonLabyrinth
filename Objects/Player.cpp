@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/23
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -139,7 +139,7 @@ void Player::Attack()
 	Keyboard::State kd = Keyboard::Get().GetState();
 
 	// UŒ‚ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©
-	if (kd.Space)
+	if (kd.Z)
 	{
 		m_IsAttack = true;
 	}

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  * 
- * @date   2025/03/25
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -40,6 +40,18 @@ GameplayScene::GameplayScene
     SceneBace(sceneManager, pDeviceResources, pProj, pStates),
     mp_timer{ pTimer }
 {
+}
+
+/// <summary>
+/// Destructor
+/// </summary>
+GameplayScene::~GameplayScene() noexcept = default;
+
+/// <summary>
+/// 初期化処理
+/// </summary>
+void GameplayScene::Initialize()
+{
     auto device = mp_DeviceResources->GetD3DDevice();
     auto context = mp_DeviceResources->GetD3DDeviceContext();
 
@@ -59,27 +71,6 @@ GameplayScene::GameplayScene
 
     m_effect->SetTexture(m_cubemap.Get());
 
-#if defined(_DEBUG)
-    /*デバッグ時の追加初期化処理*/
-    // デバッグフォントの作成
-    m_debugFont = std::make_unique<Imase::DebugFont>(device
-        , context, L"Resources\\Font\\SegoeUI_18.spritefont");
-
-    // グリッド床の作成
-    m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States);
-#endif
-}
-
-/// <summary>
-/// Destructor
-/// </summary>
-GameplayScene::~GameplayScene() noexcept = default;
-
-/// <summary>
-/// 初期化処理
-/// </summary>
-void GameplayScene::Initialize()
-{
     //int width  = mp_DeviceResources->GetOutputSize().right  - mp_DeviceResources->GetOutputSize().left;
     //int height = mp_DeviceResources->GetOutputSize().bottom - mp_DeviceResources->GetOutputSize().top;
 
@@ -103,6 +94,18 @@ void GameplayScene::Initialize()
 
     // エネミーの作成
     AddObject("Enemy", std::make_unique<Enemy>(this, "Enemy", playerTransform->GetPosition() + SimpleMath::Vector3(1.f, 0.f, 0.f)));
+
+
+
+#if defined(_DEBUG)
+    /*デバッグ時の追加初期化処理*/
+    // デバッグフォントの作成
+    m_debugFont = std::make_unique<Imase::DebugFont>(device
+        , context, L"Resources\\Font\\SegoeUI_18.spritefont");
+
+    // グリッド床の作成
+    m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States);
+#endif
 }
 
 /// <summary>
@@ -122,8 +125,6 @@ void GameplayScene::Update(const float elapsedTime)
 /// </summary>
 void GameplayScene::Render()
 {
-    auto context = mp_DeviceResources->GetD3DDeviceContext();
-
     // デバッグカメラからビュー行列を取得する
     SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
@@ -136,6 +137,8 @@ void GameplayScene::Render()
 
     /*デバッグ表示*/
 #if defined(_DEBUG)
+    auto context = mp_DeviceResources->GetD3DDeviceContext();
+
     // グリッドの床の描画
     m_gridFloor->Render(context, view, *mp_Proj);
 
@@ -167,4 +170,10 @@ void GameplayScene::Finalize()
     m_effect.reset();
     m_skyInputLayout.Reset();
     m_cubemap.Reset();
+
+#if defined(_DEBUG)
+	m_DebugCamera.reset();
+	m_debugFont.reset();
+	m_gridFloor.reset();
+#endif
 }

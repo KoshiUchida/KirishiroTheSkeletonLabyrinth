@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/25
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -15,6 +15,9 @@
 
 using namespace std;
 using namespace DirectX;
+
+// ボタンが押せるようになるまでの時間
+static constexpr float ButtonEnableTime = 1.0f;
 
 /// <summary>
 /// Constructor
@@ -32,8 +35,29 @@ ResultScene::ResultScene(
 		pProj,
 		pStates
 	),
-	mp_timer{ pTimer }
+	mp_timer{ pTimer },
+	m_buttonEnableTime{ 0.f }
 {
+}
+
+/// <summary>
+/// Destructor
+/// </summary>
+ResultScene::~ResultScene() noexcept = default;
+
+/// <summary>
+/// 初期化処理
+/// </summary>
+void ResultScene::Initialize()
+{
+	// カメラの作成
+	m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(5.f, 0.f, 0.f));
+
+	// ボタンが押せるようになるまでの時間の初期化
+	m_buttonEnableTime = ButtonEnableTime;
+
+#if defined(_DEBUG)
+	// デバッグ時の追加初期化処理
 	auto device = mp_DeviceResources->GetD3DDevice();
 	auto context = mp_DeviceResources->GetD3DDeviceContext();
 
@@ -43,25 +67,7 @@ ResultScene::ResultScene(
 
 	// グリッド床の作成
 	m_gridFloor = std::make_unique<Imase::GridFloor>(device, context, mp_States);
-}
-
-/// <summary>
-/// Destructor
-/// </summary>
-ResultScene::~ResultScene() noexcept
-{
-	mp_timer = nullptr;
-
-	m_debugFont.reset();
-}
-
-/// <summary>
-/// 初期化処理
-/// </summary>
-void ResultScene::Initialize()
-{
-	// カメラの作成
-	m_Camera = std::make_unique<Camera>(SimpleMath::Vector3(5.f, 0.f, 0.f));
+#endif
 }
 
 /// <summary>
@@ -70,11 +76,25 @@ void ResultScene::Initialize()
 /// <param name="elapsedTime">経過時間[s]</param>
 void ResultScene::Update(const float elapsedTime)
 {
-	// 警告回避用
-	elapsedTime;
+	// 時間の経過
+	m_buttonEnableTime -= elapsedTime;
 
 	// カメラの更新処理
 	m_Camera->Update();
+
+	// もし、ボタンが押せるようになるまでの時間が0より大きかった際の早期リターン
+	if (m_buttonEnableTime > 0.f) return;
+
+	// ボタンが押せるようになるまでの時間を0にする
+	m_buttonEnableTime = 0.f;
+
+	// キーボードの取得
+	Keyboard::State kd = Keyboard::Get().GetState();
+
+	// もし、Zキーが押されていて、ボタンが押されるようになっていたらタイトルシーンに遷移
+	if (kd.Z && m_buttonEnableTime <= 0.f)
+		// シーンの遷移
+		ChangeScene("Title");
 }
 
 /// <summary>
@@ -82,8 +102,6 @@ void ResultScene::Update(const float elapsedTime)
 /// </summary>
 void ResultScene::Render()
 {
-	auto context = mp_DeviceResources->GetD3DDeviceContext();
-
 	// デバッグカメラからビュー行列を取得する
 	SimpleMath::Matrix view = m_Camera->GetCameraMatrix();
 
@@ -92,6 +110,8 @@ void ResultScene::Render()
 
 #if defined(_DEBUG)
 	/*デバッグ表示*/
+	// コンテキストの取得
+	auto context = mp_DeviceResources->GetD3DDeviceContext();
 
 	// グリッドの床の描画
 	m_gridFloor->Render(context, view, *mp_Proj);
@@ -116,4 +136,10 @@ void ResultScene::Render()
 void ResultScene::Finalize()
 {
 	m_Camera.reset();
+
+#if defined(_DEBUG)
+	/*デバッグ時の追加終了処理*/
+	m_debugFont.reset();
+	m_gridFloor.reset();
+#endif
 }
