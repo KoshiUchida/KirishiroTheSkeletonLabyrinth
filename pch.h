@@ -97,3 +97,6 @@ namespace DX
 #include "DirectXHelpers.h"
 #include "Model.h"
 #include "BufferHelpers.h"
+
+#include "Audio.h"
+#define _USE_MATH_DEFINES

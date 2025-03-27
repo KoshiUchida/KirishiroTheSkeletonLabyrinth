@@ -82,4 +82,7 @@ private:
 
     // シーンマネージャ
     std::unique_ptr<SceneManager> m_sceneManager;
+
+    // オーディオエンジン
+	std::unique_ptr<DirectX::AudioEngine> m_audioEngine;
  };
