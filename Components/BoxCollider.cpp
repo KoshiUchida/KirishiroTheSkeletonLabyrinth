@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/23
+ * @date   2025/03/26
  */
 
 #include "pch.h"
@@ -29,7 +29,7 @@ BoxCollider::BoxCollider(SceneBace* pScene, const std::string& name, Transform* 
 
 #if defined(_DEBUG)
 	// モデルの作成
-	m_Model = GeometricPrimitive::CreateBox(mp_DeviceResources->GetD3DDeviceContext(), siz * 5.f);
+	m_Model = GeometricPrimitive::CreateBox(mp_DeviceResources->GetD3DDeviceContext(), siz * 4.3f);
 #endif
 }
 
@@ -62,6 +62,7 @@ bool BoxCollider::IsHit(ColliderBace* other)
 				(InsertBox.min.z <= findPosiiton.z && findPosiiton.z <= InsertBox.max.z));
 		}
 	case ColliderType::Sphare:
+		//TODO : 球との重なり判定
 
 	default:
 		return false;
@@ -169,9 +170,10 @@ void BoxCollider::Collision(ColliderBace* other)
 			break;
 		}
 	case ColliderType::Sphare:
-		// ToDo : 球との押し出し処理
+		// TODO : 球との押し出し処理
 		break;
 	default:
+		// ERORR
 		break;
 	}
 

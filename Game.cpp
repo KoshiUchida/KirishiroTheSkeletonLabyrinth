@@ -38,7 +38,6 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
-    //m_gamePad = std::make_unique<GamePad>();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -250,7 +249,7 @@ void Game::CreateDeviceDependentResources()
     );
     // Å‰‚ÌƒV[ƒ“‚ðÝ’è
 #if defined(_DEBUG)
-    m_sceneManager->SetStartScene("Logo");
+    m_sceneManager->SetStartScene("Title");
 #else
     m_sceneManager->SetStartScene("Logo");
 #endif
