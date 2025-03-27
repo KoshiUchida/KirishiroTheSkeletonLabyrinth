@@ -17,12 +17,21 @@ using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
 Game::Game() noexcept(false)
+	: m_retryAudio(false)
 {
     m_deviceResources = std::make_unique<DX::DeviceResources>();
     // TODO: Provide parameters for swapchain format, depth/stencil format, and backbuffer count.
     //   Add DX::DeviceResources::c_AllowTearing to opt-in to variable rate displays.
     //   Add DX::DeviceResources::c_EnableHDR for HDR10 display.
     m_deviceResources->RegisterDeviceNotify(this);
+}
+
+Game::~Game()
+{
+    if (m_audioEngine)
+    {
+        m_audioEngine->Suspend();
+    }
 }
 
 // Initialize the Direct3D resources required to run.
@@ -38,19 +47,20 @@ void Game::Initialize(HWND window, int width, int height)
     m_deviceResources->CreateWindowSizeDependentResources();
     CreateWindowSizeDependentResources();
 
+    // TODO: Change the timer settings if you want something other than the default variable timestep mode.
+    // e.g. for 60 FPS fixed timestep update logic, call:
+    
+    m_timer.SetFixedTimeStep(true);
+    m_timer.SetTargetElapsedSeconds(1.0 / 60);
+
+	// オーディオエンジンの初期化
+
     AUDIO_ENGINE_FLAGS eflags = AudioEngine_Default;
 
 #ifdef _DEBUG
     eflags |= AudioEngine_Debug;
 #endif
     m_audioEngine = std::make_unique<AudioEngine>(eflags);
-
-    // TODO: Change the timer settings if you want something other than the default variable timestep mode.
-    // e.g. for 60 FPS fixed timestep update logic, call:
-    
-    m_timer.SetFixedTimeStep(true);
-    m_timer.SetTargetElapsedSeconds(1.0 / 60);
-    
 }
 
 #pragma region Frame Update
@@ -72,6 +82,20 @@ void Game::Update(DX::StepTimer const& timer)
 
     // シーンマネージャの更新
     m_sceneManager->Update(elapsedTime);
+    
+    if (m_retryAudio)
+    {
+        m_retryAudio = false;
+        if (m_audioEngine->Reset())
+        {
+            // TODO: restart any looped sounds here
+        }
+    }
+    else if (!m_audioEngine->Update())
+    {
+        if (m_audioEngine->IsCriticalError())
+            m_retryAudio = true;
+    }
 }
 #pragma endregion
 
@@ -135,6 +159,7 @@ void Game::OnDeactivated()
 void Game::OnSuspending()
 {
     // TODO: Game is being power-suspended (or minimized).
+    m_audioEngine->Suspend();
 }
 
 void Game::OnResuming()
@@ -142,6 +167,7 @@ void Game::OnResuming()
     m_timer.ResetElapsedTime();
 
     // TODO: Game is being power-resumed (or returning from minimize).
+    m_audioEngine->Resume();
 }
 
 void Game::OnWindowMoved()

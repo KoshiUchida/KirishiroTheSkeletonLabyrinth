@@ -16,7 +16,7 @@ class Game final : public DX::IDeviceNotify
 public:
 
     Game() noexcept(false);
-    ~Game() = default;
+    ~Game();
 
     Game(Game&&) = default;
     Game& operator= (Game&&) = default;
@@ -45,6 +45,8 @@ public:
 
     // Properties
     void GetDefaultSize( int& width, int& height ) const noexcept;
+
+    void OnNewAudioDevice() noexcept { m_retryAudio = true; }
 
 private:
 
@@ -85,4 +87,7 @@ private:
 
     // オーディオエンジン
 	std::unique_ptr<DirectX::AudioEngine> m_audioEngine;
+
+    // オーディオのリトライフラグ
+    bool m_retryAudio;
  };

@@ -142,6 +142,7 @@ void TitleScene::Update(const float elapsedTime)
 	m_animBones[m_rightSteerBone] = XMMatrixMultiply(mat,
 		m_model->boneMatrices[m_rightSteerBone]);
 
+	mat = XMMatrixRotationY(turretRotation);
 	m_animBones[m_turretBone] = XMMatrixMultiply(mat,
 		m_model->boneMatrices[m_turretBone]);
 
