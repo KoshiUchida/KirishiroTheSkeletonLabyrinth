@@ -90,4 +90,7 @@ private:
 
     // オーディオのリトライフラグ
     bool m_retryAudio;
+
+    // テストサウンドデータ
+    std::unique_ptr<DirectX::SoundEffect> m_bgm_Test;
  };

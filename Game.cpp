@@ -61,6 +61,66 @@ void Game::Initialize(HWND window, int width, int height)
     eflags |= AudioEngine_Debug;
 #endif
     m_audioEngine = std::make_unique<AudioEngine>(eflags);
+
+    // テストサウンドデータの読み込み
+    m_bgm_Test = std::make_unique<SoundEffect>(m_audioEngine.get(), L"Resources\\Sounds\\TitleBGM.wav");
+
+    // BGMの再生
+	m_bgm_Test->Play();
+
+    // シーンマネージャの作成
+    m_sceneManager = std::make_unique<SceneManager>();
+
+    // シーンの登録
+    m_sceneManager->addScene(
+        "Logo",
+        std::make_unique<LogoScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+
+    m_sceneManager->addScene(
+        "Title",
+        std::make_unique<TitleScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+
+    m_sceneManager->addScene(
+        "Gameplay",
+        std::make_unique<GameplayScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+
+    m_sceneManager->addScene(
+        "Result",
+        std::make_unique<ResultScene>(
+            m_sceneManager.get(),
+            m_deviceResources.get(),
+            &m_proj,
+            m_states.get(),
+            &m_timer
+        )
+    );
+    // 最初のシーンを設定
+#if defined(_DEBUG)
+    m_sceneManager->SetStartScene("Title");
+#else
+    m_sceneManager->SetStartScene("Logo");
+#endif
 }
 
 #pragma region Frame Update
@@ -231,60 +291,6 @@ void Game::CreateDeviceDependentResources()
 
     // プリミティブバッチの作成
     m_primitiveBatch = std::make_unique<PrimitiveBatch<VertexPositionTexture>>(context);
-
-    // シーンマネージャの作成
-    m_sceneManager = std::make_unique<SceneManager>();
-
-    // シーンの登録
-    m_sceneManager->addScene(
-        "Logo",
-        std::make_unique<LogoScene>(
-            m_sceneManager.get(),
-            m_deviceResources.get(),
-            &m_proj,
-            m_states.get(),
-            &m_timer
-        )
-    );
-
-    m_sceneManager->addScene(
-        "Title",
-        std::make_unique<TitleScene>(
-            m_sceneManager.get(),
-            m_deviceResources.get(),
-            &m_proj,
-            m_states.get(),
-            &m_timer
-        )
-    );
-
-    m_sceneManager->addScene(
-        "Gameplay",
-        std::make_unique<GameplayScene>(
-            m_sceneManager.get(),
-            m_deviceResources.get(),
-            &m_proj,
-            m_states.get(),
-            &m_timer
-        )
-    );
-
-    m_sceneManager->addScene(
-        "Result",
-        std::make_unique<ResultScene>(
-            m_sceneManager.get(),
-            m_deviceResources.get(),
-            &m_proj,
-            m_states.get(),
-            &m_timer
-        )
-    );
-    // 最初のシーンを設定
-#if defined(_DEBUG)
-    m_sceneManager->SetStartScene("Title");
-#else
-    m_sceneManager->SetStartScene("Logo");
-#endif
  }
 
 // Allocate all memory resources that change on a window SizeChanged event.
