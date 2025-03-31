@@ -66,7 +66,7 @@ void Game::Initialize(HWND window, int width, int height)
     m_bgm_Test = std::make_unique<SoundEffect>(m_audioEngine.get(), L"Resources\\Sounds\\TitleBGM.wav");
 
     // BGMの再生
-	m_bgm_Test->Play();
+	//m_bgm_Test->Play();
 
     // シーンマネージャの作成
     m_sceneManager = std::make_unique<SceneManager>();
@@ -117,7 +117,7 @@ void Game::Initialize(HWND window, int width, int height)
     );
     // 最初のシーンを設定
 #if defined(_DEBUG)
-    m_sceneManager->SetStartScene("Title");
+    m_sceneManager->SetStartScene("Gameplay");
 #else
     m_sceneManager->SetStartScene("Logo");
 #endif

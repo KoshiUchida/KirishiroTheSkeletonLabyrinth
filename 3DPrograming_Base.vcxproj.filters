@@ -126,6 +126,10 @@
     <ClInclude Include="Common\Thruster.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="Components\Sound.h" />
+    <ClInclude Include="Components\Transform2D.h" />
+    <ClInclude Include="Components\Renderer2D.h" />
+    <ClInclude Include="Objects\PlayerStatusUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -220,6 +224,10 @@
     <ClCompile Include="Common\Thruster.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="Components\Sound.cpp" />
+    <ClCompile Include="Components\Transform2D.cpp" />
+    <ClCompile Include="Components\Renderer2D.cpp" />
+    <ClCompile Include="Objects\PlayerStatusUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />

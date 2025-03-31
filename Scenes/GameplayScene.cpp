@@ -18,6 +18,7 @@
 #include "../Objects/Player.h"
 #include "../Objects/MapGenerator.h"
 #include "../Objects/Enemy.h"
+#include "../Objects/PlayerStatusUI.h"
 
 #include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
@@ -94,6 +95,9 @@ void GameplayScene::Initialize()
 
     // エネミーの作成
     AddObject("Enemy", std::make_unique<Enemy>(this, "Enemy", playerTransform->GetPosition() + SimpleMath::Vector3(1.f, 0.f, 0.f)));
+
+    // プレイヤーステータスUI
+    AddObject("PlayerStatusUI", std::make_unique<PlayerStatusUI>(this, "PlayerStatusUI"));
 
 
 

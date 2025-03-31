@@ -180,6 +180,8 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\Renderer2D.h" />
+    <ClInclude Include="Objects\PlayerStatusUI.h" />
     <ClInclude Include="Scenes\LogoScene.h" />
     <ClInclude Include="Objects\Goal.h" />
     <ClInclude Include="Objects\Floor.h" />
@@ -210,13 +212,17 @@
     <ClInclude Include="Scenes\SceneBace.h" />
     <ClInclude Include="Components\SphereCollider.h" />
     <ClInclude Include="SkyboxEffect.h" />
+    <ClInclude Include="Components\Sound.h" />
     <ClInclude Include="StepTimer.h" />
     <ClInclude Include="Components\Transform.h" />
     <ClInclude Include="Objects\Wall.h" />
     <ClInclude Include="Common\Thruster.h" />
     <ClInclude Include="Scenes\TitleScene.h" />
+    <ClInclude Include="Components\Transform2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Components\Renderer2D.cpp" />
+    <ClCompile Include="Objects\PlayerStatusUI.cpp" />
     <ClCompile Include="Scenes\LogoScene.cpp" />
     <ClCompile Include="Objects\Goal.cpp" />
     <ClCompile Include="Objects\Floor.cpp" />
@@ -256,6 +262,8 @@
     <ClCompile Include="Common\Thruster.cpp" />
     <ClCompile Include="SkyboxEffect.cpp" />
     <ClCompile Include="Scenes\TitleScene.cpp" />
+    <ClCompile Include="Components\Sound.cpp" />
+    <ClCompile Include="Components\Transform2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
