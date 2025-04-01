@@ -79,38 +79,39 @@ DirectX::SimpleMath::Vector2 Transform2D::GetPosition(DX::DeviceResources* pDevi
 	switch (m_Origin)
 	{
 	case Transform2D::ScreenOrigin::Up:
-		origin.x = screen.right / 2.f;
-		origin.y = screen.top;
+		origin.x = static_cast<float>(screen.right) / 2.f;
+		origin.y = static_cast<float>(screen.top);
 		break;
 	case Transform2D::ScreenOrigin::Down:
-		origin.x = screen.right / 2.f;
-		origin.y = screen.bottom;
+		origin.x = static_cast<float>(screen.right) / 2.f;
+		origin.y = static_cast<float>(screen.bottom);
 		break;
 	case Transform2D::ScreenOrigin::Left:
-		origin.x = screen.left;
-		origin.y = screen.bottom / 2.f;
+		origin.x = static_cast<float>(screen.left);
+		origin.y = static_cast<float>(screen.bottom) / 2.f;
 		break;
 	case Transform2D::ScreenOrigin::Right:
-		origin.x = screen.right;
-		origin.y = screen.bottom / 2.f;
+		origin.x = static_cast<float>(screen.right);
+		origin.y = static_cast<float>(screen.bottom) / 2.f;
 		break;
 	case Transform2D::ScreenOrigin::UpRight:
-		origin.x = screen.right;
-		origin.y = screen.top;
+		origin.x = static_cast<float>(screen.right);
+		origin.y = static_cast<float>(screen.top);
 		break;
 	case Transform2D::ScreenOrigin::UpLeft:
-		origin.x = screen.left;
-		origin.y = screen.top;
+		origin.x = static_cast<float>(screen.left);
+		origin.y = static_cast<float>(screen.top);
 		break;
 	case Transform2D::ScreenOrigin::DownRight:
-		origin.x = screen.right;
-		origin.y = screen.bottom;
+		origin.x = static_cast<float>(screen.right);
+		origin.y = static_cast<float>(screen.bottom);
 		break;
 	case Transform2D::ScreenOrigin::DownLeft:
-		origin.x = screen.left;
-		origin.y = screen.bottom;
+		origin.x = static_cast<float>(screen.left);
+		origin.y = static_cast<float>(screen.bottom);
 		break;
 	default:
+		// ERROR : ãNÇ±ÇËÇ¶Ç»Ç¢ñ‚ëË m_OriginÇ™ê≥ÇµÇ≠ê›íËÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒÅB
 		break;
 	}
 

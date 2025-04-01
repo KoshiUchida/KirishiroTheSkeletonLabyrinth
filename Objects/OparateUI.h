@@ -17,6 +17,17 @@
 class OparateUI :
     public ObjectBace
 {
+private:
+	int m_EffectCount;
+
+	struct KeyStatusFlag
+	{
+		bool up;
+		bool down;
+		bool left;
+		bool right;
+	} m_Key;
+
 public:
 	// Main System
 	OparateUI(SceneBace* pScene, const std::string& name) noexcept;

@@ -90,3 +90,8 @@ void Renderer2D::SetOffset(DirectX::SimpleMath::Vector2 offset)
 {
 	m_Offset = offset;
 }
+
+DX::DeviceResources* Renderer2D::GetDeviceResources()
+{
+	return mp_DeviceResources;
+}

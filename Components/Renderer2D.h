@@ -53,5 +53,8 @@ public:
     void SetOrigin(DirectX::SimpleMath::Vector2 origin);
     void SetAlpha(float alpha);
     void SetOffset(DirectX::SimpleMath::Vector2 offset);
+
+    // Getter
+    DX::DeviceResources* GetDeviceResources();
 };
 

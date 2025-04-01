@@ -141,6 +141,8 @@
     <ClInclude Include="Components\Sound.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Objects\CircleButtonEffect.h" />
+    <ClInclude Include="Common\Easing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -250,6 +252,8 @@
     <ClCompile Include="Components\Sound.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="Objects\CircleButtonEffect.cpp" />
+    <ClCompile Include="Common\Easing.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -280,6 +284,9 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Resources\Textures\StoneBrickFloor.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\CircleEffect.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

@@ -180,6 +180,8 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common\Easing.h" />
+    <ClInclude Include="Objects\CircleButtonEffect.h" />
     <ClInclude Include="Components\Renderer2D.h" />
     <ClInclude Include="Objects\PlayerStatusUI.h" />
     <ClInclude Include="Objects\OparateUI.h" />
@@ -222,6 +224,8 @@
     <ClInclude Include="Components\Transform2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Common\Easing.cpp" />
+    <ClCompile Include="Objects\CircleButtonEffect.cpp" />
     <ClCompile Include="Components\Renderer2D.cpp" />
     <ClCompile Include="Objects\PlayerStatusUI.cpp" />
     <ClCompile Include="Objects\OparateUI.cpp" />
@@ -272,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico" />
+    <Image Include="Resources\Textures\CircleEffect.dds" />
     <Image Include="Resources\Textures\KirishiroIcon.dds" />
     <Image Include="Resources\Textures\lobbycube.dds" />
     <Image Include="Resources\Textures\Logo.dds" />
