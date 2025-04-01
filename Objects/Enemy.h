@@ -11,6 +11,8 @@
 #pragma once
 #include "ObjectBace.h"
 
+#include "../Common/Thruster.h"
+
 /// <summary>
 /// エネミーオブジェクトクラス
 /// </summary>
@@ -34,6 +36,18 @@ private:
 	// スポーン座標
 	DirectX::SimpleMath::Vector3 m_SpownPosition;
 
+	// プレイヤーを見つけたか？
+	bool m_PlayerFound;
+
+	// 回転速度
+	Thruster m_RotateSpeed;
+
+	// 回転方向
+	float m_RotatePlusMinus{};
+
+	// プレイヤーが攻撃圏内にいるか
+	bool m_CanAttackPlayer;
+
 public:
 	// Main System
 	Enemy(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position = DirectX::SimpleMath::Vector3::Zero) noexcept;
@@ -44,7 +58,7 @@ public:
 
 private:
 	/*内部処理*/
-	void Move();
+	void Move(float elapsedTime);
 	void Collision();
 };
 
