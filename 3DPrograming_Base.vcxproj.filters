@@ -29,6 +29,12 @@
     <Filter Include="Baces\Components">
       <UniqueIdentifier>{c1fb7fb1-747f-4aa4-a465-32a4ff8e1859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\MapGrounds">
+      <UniqueIdentifier>{97051d80-d618-4ce4-83d6-de064a8ad033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Objects\UI">
+      <UniqueIdentifier>{db860b02-7127-4e34-9dfb-1140b912d89d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -79,9 +85,6 @@
     <ClInclude Include="Components\ComponentsBace.h">
       <Filter>Baces\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Box.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Components\BoxCollider.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -91,9 +94,6 @@
     <ClInclude Include="Components\SphereCollider.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Wall.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Components\ColliderBace.h">
       <Filter>Baces\Components</Filter>
     </ClInclude>
@@ -101,16 +101,7 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="ReadData.h" />
-    <ClInclude Include="Objects\Cylinder.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Objects\Enemy.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Floor.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\Goal.h">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="SkyboxEffect.h" />
@@ -126,12 +117,6 @@
     <ClInclude Include="Common\Thruster.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\OparateUI.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Objects\PlayerStatusUI.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Components\Renderer2D.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -146,6 +131,27 @@
     </ClInclude>
     <ClInclude Include="Objects\CircleButtonEffect.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Box.h">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Cylinder.h">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Floor.h">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Goal.h">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\Wall.h">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\PlayerStatusUI.h">
+      <Filter>Objects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\OparateUI.h">
+      <Filter>Objects\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -195,9 +201,6 @@
     <ClCompile Include="Components\ComponentsBace.cpp">
       <Filter>Baces\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Box.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Components\BoxCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -207,25 +210,13 @@
     <ClCompile Include="Components\SphereCollider.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Wall.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Components\ColliderBace.cpp">
       <Filter>Baces\Components</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\Camera.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Cylinder.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Objects\Enemy.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Floor.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\Goal.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="SkyboxEffect.cpp" />
@@ -241,12 +232,6 @@
     <ClCompile Include="Common\Thruster.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\OparateUI.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Objects\PlayerStatusUI.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Components\Renderer2D.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -261,6 +246,27 @@
     </ClCompile>
     <ClCompile Include="Objects\CircleButtonEffect.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Box.cpp">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Cylinder.cpp">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Floor.cpp">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Goal.cpp">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\Wall.cpp">
+      <Filter>Objects\MapGrounds</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\PlayerStatusUI.cpp">
+      <Filter>Objects\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\OparateUI.cpp">
+      <Filter>Objects\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

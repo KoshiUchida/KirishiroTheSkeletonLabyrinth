@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/26
+ * @date   2025/04/01
  */
 
 #include "pch.h"
@@ -46,7 +46,6 @@ bool BoxCollider::IsHit(ColliderBace* other)
 	switch (other->GetType())
 	{
 	case ColliderType::Box:
-		if (true)
 		{
 			Positions InsertBox = m_Positions;
 
@@ -70,6 +69,21 @@ bool BoxCollider::IsHit(ColliderBace* other)
 }
 
 /// <summary>
+/// 点との重なり処理
+/// </summary>
+bool BoxCollider::IsHit(const DirectX::SimpleMath::Vector3& other)
+{
+	Positions InsertBox = m_Positions;
+
+	MovePositions(&InsertBox, this->GetPosition());
+
+	return(
+		(InsertBox.min.x <= other.x && other.x <= InsertBox.max.x) &&
+		(InsertBox.min.y <= other.y && other.y <= InsertBox.max.y) &&
+		(InsertBox.min.z <= other.z && other.z <= InsertBox.max.z));
+}
+
+/// <summary>
 /// 押し出し処理関数
 /// </summary>
 /// <param name="other">加押し出し処理コライダー</param>
@@ -79,7 +93,6 @@ void BoxCollider::Collision(ColliderBace* other)
 	{
 	case ColliderType::Box:
 		// BoxCollider同士の押し出し処理
-		if (true)
 		{
 			// 重なりを調べる
 			if (!IsHit(other)) return;

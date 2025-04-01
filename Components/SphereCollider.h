@@ -31,6 +31,8 @@ public:
 
 	bool IsHit(ColliderBace* other) override final;
 
+	bool IsHit(const DirectX::SimpleMath::Vector3& other) override final;
+
 	void Collision(ColliderBace* other) override final;
 
 	/*Getter*/

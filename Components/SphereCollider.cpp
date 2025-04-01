@@ -69,6 +69,22 @@ bool SphereCollider::IsHit(ColliderBace* other)
 	}
 }
 
+/// <summary>
+/// 点との重なり処理
+/// </summary>
+bool SphereCollider::IsHit(const DirectX::SimpleMath::Vector3& other)
+{
+	// 距離を求める
+	SimpleMath::Vector3 positionA = this->GetPosition();
+	float x = other.x - positionA.x;
+	float y = other.y - positionA.y;
+	float z = other.z - positionA.z;
+	float intersect = sqrtf(x * x + y * y + z * z);
+
+	// 点との重なりを調べる
+	return intersect <= m_Radius;
+}
+
 void SphereCollider::Collision(ColliderBace* other)
 {
 	other;

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/15
+ * @date   2025/04/01
  */
 
 #pragma once
@@ -35,6 +35,8 @@ public:
 	~BoxCollider() noexcept;
 
 	bool IsHit(ColliderBace* other) override final;
+
+	bool IsHit(const DirectX::SimpleMath::Vector3& other) override final;
 
 	void Collision(ColliderBace* other) override final;
 
