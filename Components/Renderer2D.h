@@ -39,6 +39,9 @@ private:
     // テクスチャの透明度
     float m_Alpha;
 
+    // オフセット
+    DirectX::SimpleMath::Vector2 m_Offset;
+
 public:
     /*Main System*/
     Renderer2D(SceneBace* pScene, const std::string& name, Transform2D* pTransform, const wchar_t* modelPath) noexcept;
@@ -49,5 +52,6 @@ public:
     // Setter
     void SetOrigin(DirectX::SimpleMath::Vector2 origin);
     void SetAlpha(float alpha);
+    void SetOffset(DirectX::SimpleMath::Vector2 offset);
 };
 

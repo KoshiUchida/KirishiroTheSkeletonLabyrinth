@@ -126,10 +126,21 @@
     <ClInclude Include="Common\Thruster.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Components\Sound.h" />
-    <ClInclude Include="Components\Transform2D.h" />
-    <ClInclude Include="Components\Renderer2D.h" />
-    <ClInclude Include="Objects\PlayerStatusUI.h" />
+    <ClInclude Include="Objects\OparateUI.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Objects\PlayerStatusUI.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Renderer2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Transform2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Sound.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -224,10 +235,21 @@
     <ClCompile Include="Common\Thruster.cpp">
       <Filter>Common</Filter>
     </ClCompile>
-    <ClCompile Include="Components\Sound.cpp" />
-    <ClCompile Include="Components\Transform2D.cpp" />
-    <ClCompile Include="Components\Renderer2D.cpp" />
-    <ClCompile Include="Objects\PlayerStatusUI.cpp" />
+    <ClCompile Include="Objects\OparateUI.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Objects\PlayerStatusUI.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Renderer2D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Transform2D.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Sound.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -237,6 +259,27 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Resources\Textures\lobbycube.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\KirishiroIcon.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\Logo.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\LogoBackground.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\OldStoneBrickWall.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\OparationUI.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\PlayerStatusUI.dds">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Resources\Textures\StoneBrickFloor.dds">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>

@@ -182,6 +182,7 @@
   <ItemGroup>
     <ClInclude Include="Components\Renderer2D.h" />
     <ClInclude Include="Objects\PlayerStatusUI.h" />
+    <ClInclude Include="Objects\OparateUI.h" />
     <ClInclude Include="Scenes\LogoScene.h" />
     <ClInclude Include="Objects\Goal.h" />
     <ClInclude Include="Objects\Floor.h" />
@@ -223,6 +224,7 @@
   <ItemGroup>
     <ClCompile Include="Components\Renderer2D.cpp" />
     <ClCompile Include="Objects\PlayerStatusUI.cpp" />
+    <ClCompile Include="Objects\OparateUI.cpp" />
     <ClCompile Include="Scenes\LogoScene.cpp" />
     <ClCompile Include="Objects\Goal.cpp" />
     <ClCompile Include="Objects\Floor.cpp" />
@@ -270,7 +272,14 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico" />
+    <Image Include="Resources\Textures\KirishiroIcon.dds" />
     <Image Include="Resources\Textures\lobbycube.dds" />
+    <Image Include="Resources\Textures\Logo.dds" />
+    <Image Include="Resources\Textures\LogoBackground.dds" />
+    <Image Include="Resources\Textures\OldStoneBrickWall.dds" />
+    <Image Include="Resources\Textures\OparationUI.dds" />
+    <Image Include="Resources\Textures\PlayerStatusUI.dds" />
+    <Image Include="Resources\Textures\StoneBrickFloor.dds" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="settings.manifest" />

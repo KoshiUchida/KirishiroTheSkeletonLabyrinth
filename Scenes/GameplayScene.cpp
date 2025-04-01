@@ -19,6 +19,7 @@
 #include "../Objects/MapGenerator.h"
 #include "../Objects/Enemy.h"
 #include "../Objects/PlayerStatusUI.h"
+#include "../Objects/OparateUI.h"
 
 #include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
@@ -98,6 +99,9 @@ void GameplayScene::Initialize()
 
     // プレイヤーステータスUI
     AddObject("PlayerStatusUI", std::make_unique<PlayerStatusUI>(this, "PlayerStatusUI"));
+
+    // 操作UI
+    AddObject("OparateUI", std::make_unique<OparateUI>(this, "OparateUI"));
 
 
 

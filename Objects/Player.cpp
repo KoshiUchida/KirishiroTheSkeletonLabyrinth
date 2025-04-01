@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/26
+ * @date   2025/04/01
  */
 
 #include "pch.h"
@@ -75,38 +75,39 @@ void Player::Process(float elapsedTime)
 void Player::Move(float elapsedTime)
 {
 	// キーボードの入力を取得
-	Keyboard::State kd = Keyboard::Get().GetState();
+	Keyboard::State kb = Keyboard::Get().GetState();
+
+	// トランスフォームの取得
+	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
 
 	// コントローラの値
 	float cx = { 0.f };
 	float cy = { 0.f };
 
 	// 左キーが押されているか
-	if (kd.Left)
+	if (kb.Left || kb.A)
 	{
 		cx -= 1.f;
 	}
 	// 右キーが押されているか
-	if (kd.Right)
+	if (kb.Right || kb.D)
 	{
 		cx += 1.f;
 	}
 	// 上キーが押されているか  
-	if (kd.Up)
+	if (kb.Up || kb.W)
 	{
 		cy += 1.f;
 	}
 	// 下キーが押されているか
-	if (kd.Down)
+	if (kb.Down || kb.S)
 	{
 		cy -= 1.f;
 	}
 
-	// トランスフォームの取得
-	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));
-
 	// 移動時の処理
-	if (kd.Left || kd.Right || kd.Up || kd.Down)
+	if (kb.Left || kb.Right || kb.Up || kb.Down ||
+		kb.A    || kb.D     || kb.W  || kb.S)
 	{
 		m_MoveSpeed.Up(elapsedTime);
 
@@ -136,10 +137,10 @@ void Player::Move(float elapsedTime)
 void Player::Attack()
 {
 	// キーボードの入力を取得
-	Keyboard::State kd = Keyboard::Get().GetState();
+	Keyboard::State kb = Keyboard::Get().GetState();
 
 	// 攻撃キーが押されているか
-	if (kd.Z)
+	if (kb.Z || kb.J)
 	{
 		m_IsAttack = true;
 	}
