@@ -21,6 +21,8 @@
 PlayerStatusUI::PlayerStatusUI(SceneBace* pScene, const std::string& name) noexcept :
 	ObjectBace(pScene, name)
 {
+	SetLayer(1);
+
 	AddComponent(std::make_unique<Transform2D>());
 
 	Transform2D* pTransform = static_cast<Transform2D*>(GetComponentPtr("Transform"));

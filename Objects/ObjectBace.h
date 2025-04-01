@@ -38,6 +38,9 @@ protected:
 	// オブジェクトの名前
 	std::string m_Name;
 
+	// レイヤー
+	int m_Layer;
+
 public:
 	// Constructor & Destructor
 	ObjectBace(SceneBace* pScene, const std::string& name) noexcept;
@@ -51,8 +54,11 @@ public:
 
 	void AddComponent(std::unique_ptr<ComponentsBace> component);
 
+	void SetLayer(int layer);
+
 	ComponentsBace* GetComponentPtr(const std::string& name);
 	ObjectBace* GetObjectPtr(const std::string& name);
 	std::string GetName() const noexcept;
+	int GetLayer() const noexcept;
 };
 

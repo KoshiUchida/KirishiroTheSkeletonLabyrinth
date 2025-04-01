@@ -21,10 +21,11 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-ObjectBace::ObjectBace(SceneBace* pScene, const std::string& name) noexcept
-	: mp_ObjectManager{ pScene->GetSceneManagerPtr()->GetObjectManagerPtr() }
-	, mp_Scene        { pScene }
-	, m_Name          { name }
+ObjectBace::ObjectBace(SceneBace* pScene, const std::string& name) noexcept :
+	mp_ObjectManager{ pScene->GetSceneManagerPtr()->GetObjectManagerPtr() },
+	mp_Scene        { pScene },
+	m_Name          { name },
+	m_Layer         { 0 }
 {
 }
 
@@ -95,6 +96,14 @@ void ObjectBace::AddComponent(std::unique_ptr<ComponentsBace> component)
 }
 
 /// <summary>
+/// レイヤーの設定関数
+/// </summary>
+void ObjectBace::SetLayer(int layer)
+{
+	m_Layer = layer;
+}
+
+/// <summary>
 /// コンポーネントへのポインタの取得
 /// </summary>
 /// <returns>コンポーネントへのポインタまたはNULL</returns>
@@ -120,5 +129,13 @@ ObjectBace* ObjectBace::GetObjectPtr(const std::string& name)
 std::string ObjectBace::GetName() const noexcept
 {
 	return m_Name;
+}
+
+/// <summary>
+/// レイヤーの取得関数
+/// </summary>
+int ObjectBace::GetLayer() const noexcept
+{
+	return m_Layer;
 }
 

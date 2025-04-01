@@ -18,6 +18,8 @@ using namespace DirectX;
 Box::Box(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::Vector3& position) noexcept
 	: ObjectBace(pScene, name)
 {
+	SetLayer(-1);
+
 	AddComponent(std::make_unique<Transform>());
 
 	Transform* pTransform = static_cast<Transform*>(GetComponentPtr("Transform"));

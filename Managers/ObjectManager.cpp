@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/24
+ * @date   2025/04/01
  */
 
 #include "pch.h"
@@ -16,7 +16,11 @@
 /// <summary>
 /// コンストラクタ
 /// </summary>
-ObjectManager::ObjectManager() noexcept = default;
+ObjectManager::ObjectManager() noexcept :
+	m_MaxLayer{ 0 },
+	m_MinLayer{ 0 }
+{
+}
 
 /// <summary>
 /// デストラクタ
@@ -50,8 +54,10 @@ void ObjectManager::Update(float elapsedTime)
 void ObjectManager::Render(const DirectX::SimpleMath::Matrix& view)
 {
 	// オブジェクトの描画処理
-	for (auto& element : m_Objects)
-		element.second->Render(view);
+	for (int i{ m_MinLayer }; i <= m_MaxLayer; i++)
+		for (auto& element : m_Objects)
+			if (element.second->GetLayer() == i)
+				element.second->Render(view);
 }
 
 /// <summary>
@@ -63,6 +69,9 @@ void ObjectManager::Finalize()
 		element.second.reset();
 
 	m_Objects.clear();
+
+	m_MaxLayer = 0;
+	m_MinLayer = 0;
 }
 
 /// <summary>
@@ -74,6 +83,12 @@ void ObjectManager::AddObject(const std::string& objectName, std::unique_ptr<Obj
 {
 	// 新規オブジェクトの初期化処理
 	object->Initialize();
+
+	// レイヤーの最小と最大を確認
+	if (object->GetLayer() > m_MaxLayer)
+		m_MaxLayer = object->GetLayer();
+	if (object->GetLayer() < m_MinLayer)
+		m_MinLayer = object->GetLayer();
 
 	// オブジェクトの登録
 	m_Objects.emplace(objectName, std::move(object));

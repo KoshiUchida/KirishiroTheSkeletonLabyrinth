@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/24
+ * @date   2025/04/01
  */
 
 #pragma once
@@ -33,6 +33,12 @@ private:
 
 	// 削除予定のオブジェクト名前
 	std::vector<std::string> m_DeleteObjectNames;
+
+	// 最大のレイヤー
+	int m_MaxLayer;
+
+	// 最小のレイヤー
+	int m_MinLayer;
 
 public:
 	// Main System

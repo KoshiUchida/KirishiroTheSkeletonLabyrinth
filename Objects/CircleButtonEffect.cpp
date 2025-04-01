@@ -27,6 +27,8 @@ CircleButtonEffect::CircleButtonEffect(SceneBace* pScene, const std::string& nam
 	m_Limit{ limit },
 	m_Now{ 0.f }
 {
+	SetLayer(2);
+
 	AddComponent(std::make_unique<Transform2D>());
 
 	Transform2D* pTransform = static_cast<Transform2D*>(GetComponentPtr("Transform"));

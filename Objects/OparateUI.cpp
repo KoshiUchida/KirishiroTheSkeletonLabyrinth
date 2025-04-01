@@ -31,6 +31,8 @@ OparateUI::OparateUI(SceneBace* pScene, const std::string& name) noexcept :
 	m_EffectCount{ 0 },
 	m_Key{}
 {
+	SetLayer(1);
+	
 	AddComponent(std::make_unique<Transform2D>());
 
 	Transform2D* pTransform = static_cast<Transform2D*>(GetComponentPtr("Transform"));
@@ -64,13 +66,13 @@ void OparateUI::Process(float elapsedTime)
 	elapsedTime;
 
 	// エフェクトとの座標の違い
-	static constexpr float EffectOffset{ 70.f };
+	static constexpr float EffectOffset{ 71.f };
 
 	// エフェクトの表示時間[s]
-	static constexpr float EffectLimit{ 0.9f };
+	static constexpr float EffectLimit{ 0.3f };
 
 	// エフェクトの大きさ
-	static constexpr float EffectScale{ 0.4f };
+	static constexpr float EffectScale{ 0.3f };
 
 	// キーボードの状態取得
 	Keyboard::State kb = Keyboard::Get().GetState();

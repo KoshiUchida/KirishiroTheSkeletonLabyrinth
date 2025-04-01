@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/26
+ * @date   2025/04/01
  */
 
 #include "pch.h"
@@ -137,10 +137,10 @@ void LogoScene::Update(const float elapsedTime)
 	}
 
 	// キーボードの取得
-	Keyboard::State kd = Keyboard::Get().GetState();
+	Keyboard::State kb = Keyboard::Get().GetState();
 
-	// もし、Zキーが押されていたらタイトルシーンに遷移
-	if (kd.Z)
+	// もし、何かしらのアクションキーが押されていたらタイトルシーンに遷移
+	if (kb.C || kb.I || kb.X || kb.K || kb.Z || kb.J || kb.V || kb.L)
 		// シーンの遷移
 		ChangeScene("Title");
 

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/26
+ * @date   2025/04/01
  */
 
 #include "pch.h"
@@ -89,10 +89,10 @@ void ResultScene::Update(const float elapsedTime)
 	m_buttonEnableTime = 0.f;
 
 	// キーボードの取得
-	Keyboard::State kd = Keyboard::Get().GetState();
+	Keyboard::State kb = Keyboard::Get().GetState();
 
-	// もし、Zキーが押されていて、ボタンが押されるようになっていたらタイトルシーンに遷移
-	if (kd.Z && m_buttonEnableTime <= 0.f)
+	// もし、何かしらのアクションキーが押されていて、ボタンが押されるようになっていたらタイトルシーンに遷移
+	if ((kb.C || kb.I || kb.X || kb.K || kb.Z || kb.J || kb.V || kb.L) && m_buttonEnableTime <= 0.f)
 		// シーンの遷移
 		ChangeScene("Title");
 }
