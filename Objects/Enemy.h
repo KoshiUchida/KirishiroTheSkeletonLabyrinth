@@ -39,14 +39,20 @@ private:
 	// プレイヤーを見つけたか？
 	bool m_PlayerFound;
 
+	// スポーン地点から過ぎたか
+	bool m_SpawnPointFar;
+
 	// 回転速度
 	Thruster m_RotateSpeed;
 
 	// 回転方向
-	float m_RotatePlusMinus{};
+	float m_RotatePlusMinus;
 
 	// プレイヤーが攻撃圏内にいるか
 	bool m_CanAttackPlayer;
+
+	// スピード
+	Thruster m_MoveSpeed;
 
 public:
 	// Main System

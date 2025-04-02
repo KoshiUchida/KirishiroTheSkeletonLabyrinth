@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/03/06
+ * @date   2025/04/03
  */
 
 #include "pch.h"
@@ -17,6 +17,7 @@
 #include "../Components/ComponentsBace.h"
 #include "../Components/RendererBace.h"
 #include "../Components/SphereCollider.h"
+#include "../Components/Renderer3DWithAnimation.h"
 
 /// <summary>
 /// コンストラクタ
@@ -58,7 +59,12 @@ void ObjectBace::Update(float elapsedTime)
 		{
 			// TODO::タグ「Update」のコンポーネントを作成したら修正する
 		}
-		component;
+		else if (component.second->GetTag() == ComponentsBace::Tags::UAndR)
+		{
+			static_cast<Renderer3DWithAnimation*>(component.second.get())->Update(elapsedTime);
+		}
+		else
+			component;
 	}
 }
 
@@ -78,6 +84,10 @@ void ObjectBace::Render(const DirectX::SimpleMath::Matrix& view)
 			SphereCollider* sphere = static_cast<SphereCollider*>(component.second.get());
 			if (sphere)
 				sphere->Render(view);
+		}
+		else if (component.second->GetTag() == ComponentsBace::Tags::UAndR)
+		{
+			static_cast<Renderer3DWithAnimation*>(component.second.get())->Draw(view);
 		}
 		else
 			component;

@@ -93,6 +93,14 @@ void SphereCollider::Collision(ColliderBace* other)
 }
 
 /// <summary>
+/// ”¼Œa‚Ìİ’èŠÖ”
+/// </summary>
+void SphereCollider::SetRadius(float radius)
+{
+	m_Radius = radius;
+}
+
+/// <summary>
 /// ”¼Œa‚Ìæ“¾
 /// </summary>
 /// <returns>”¼Œa</returns>

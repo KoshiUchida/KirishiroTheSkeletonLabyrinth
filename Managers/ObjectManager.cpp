@@ -117,3 +117,17 @@ void ObjectManager::DeleteObject(ObjectBace* pObject)
 	// オブジェクトの名前を保存
 	m_DeleteObjectNames.push_back(pObject->GetName());
 }
+
+/// <summary>
+/// 一致する文字列群の取得関数
+/// </summary>
+std::vector<std::string> ObjectManager::FindObjects(const std::string& findName)
+{
+	std::vector<std::string> FoundNames;
+
+	for (auto& element : m_Objects)
+		if (element.second->GetName().find(findName) != std::string::npos)
+			FoundNames.push_back(element.second->GetName());
+
+	return FoundNames;
+}

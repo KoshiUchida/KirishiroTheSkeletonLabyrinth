@@ -180,11 +180,14 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Objects\CharactorIconUI.h" />
     <ClInclude Include="Common\Easing.h" />
     <ClInclude Include="Objects\CircleButtonEffect.h" />
     <ClInclude Include="Components\Renderer2D.h" />
     <ClInclude Include="Objects\PlayerStatusUI.h" />
     <ClInclude Include="Objects\OparateUI.h" />
+    <ClInclude Include="Components\Renderer3DWithAnimation.h" />
     <ClInclude Include="Scenes\LogoScene.h" />
     <ClInclude Include="Objects\Goal.h" />
     <ClInclude Include="Objects\Floor.h" />
@@ -224,11 +227,14 @@
     <ClInclude Include="Components\Transform2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Objects\CharactorIconUI.cpp" />
     <ClCompile Include="Common\Easing.cpp" />
     <ClCompile Include="Objects\CircleButtonEffect.cpp" />
     <ClCompile Include="Components\Renderer2D.cpp" />
     <ClCompile Include="Objects\PlayerStatusUI.cpp" />
     <ClCompile Include="Objects\OparateUI.cpp" />
+    <ClCompile Include="Components\Renderer3DWithAnimation.cpp" />
     <ClCompile Include="Scenes\LogoScene.cpp" />
     <ClCompile Include="Objects\Goal.cpp" />
     <ClCompile Include="Objects\Floor.cpp" />

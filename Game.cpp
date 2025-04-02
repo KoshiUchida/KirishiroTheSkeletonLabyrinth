@@ -117,7 +117,7 @@ void Game::Initialize(HWND window, int width, int height)
     );
     // Å‰‚ÌƒV[ƒ“‚ðÝ’è
 #if defined(_DEBUG)
-    m_sceneManager->SetStartScene("Gameplay");
+    m_sceneManager->SetStartScene("Title");
 #else
     m_sceneManager->SetStartScene("Logo");
 #endif

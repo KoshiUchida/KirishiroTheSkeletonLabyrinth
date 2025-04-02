@@ -21,6 +21,7 @@ public:
 		NONE,
 		Update,
 		Render,
+		UAndR,
 		Collider
 	};
 

@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/04/01
+ * @date   2025/04/02
  */
 
 #pragma once
@@ -43,14 +43,14 @@ private:
 	float m_Rotate;
 	
 	// 大きさ
-	float m_Scale;
+	DirectX::SimpleMath::Vector2 m_Scale;
 
 	// スクリーン上の中心座標
 	ScreenOrigin m_Origin;
 
 public:
 	/*Main System*/
-	Transform2D(DirectX::SimpleMath::Vector2 position = DirectX::SimpleMath::Vector2::Zero, float rotate = 0.f, float scale = 1.f, ScreenOrigin origin = ScreenOrigin::UpLeft);
+	Transform2D(DirectX::SimpleMath::Vector2 position = DirectX::SimpleMath::Vector2::Zero, float rotate = 0.f, DirectX::SimpleMath::Vector2 scale = DirectX::SimpleMath::Vector2(1.f, 1.f), ScreenOrigin origin = ScreenOrigin::UpLeft);
 	~Transform2D();
 
 	// Setter
@@ -67,7 +67,7 @@ public:
 	DirectX::SimpleMath::Vector2 GetPosition(DX::DeviceResources* pDevice);
 	
 	float GetRotate() const;
-	float GetScale () const;
+	DirectX::SimpleMath::Vector2 GetScale () const;
 
 	float GetPositionX() const;
 	float GetPositionY() const;

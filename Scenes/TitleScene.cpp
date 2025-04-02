@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/04/01
+ * @date   2025/04/02
  */
 
 #include "pch.h"
@@ -27,16 +27,7 @@ TitleScene::TitleScene(SceneManager* sceneManager, DX::DeviceResources* pDeviceR
 	SceneBace(sceneManager, pDeviceResources, pProj, pStates),
 	mp_timer{ pTimer },
 	m_buttonEnableTime{ ButtonEnableTime },
-	m_nowTime{ 0.0f },
-	m_leftBackWheelBone(ModelBone::c_Invalid),
-	m_rightBackWheelBone(ModelBone::c_Invalid),
-	m_leftFrontWheelBone(ModelBone::c_Invalid),
-	m_rightFrontWheelBone(ModelBone::c_Invalid),
-	m_leftSteerBone(ModelBone::c_Invalid),
-	m_rightSteerBone(ModelBone::c_Invalid),
-	m_turretBone(ModelBone::c_Invalid),
-	m_cannonBone(ModelBone::c_Invalid),
-	m_hatchBone(ModelBone::c_Invalid)
+	m_nowTime{ 0.0f }
 {
 }
 
@@ -58,39 +49,28 @@ void TitleScene::Initialize()
 
 	m_fxFactory = make_unique<EffectFactory>(device);
 
-	m_fxFactory->SetDirectory(L"Resources\\Textures");
-
-	m_model = Model::CreateFromSDKMESH(device, L"Resources\\Models\\Tank.sdkmesh",
+	m_model = Model::CreateFromSDKMESH(device, L"Resources\\Models\\Kirishiro.sdkmesh",
 		*m_fxFactory,
-		ModelLoader_CounterClockwise | ModelLoader_IncludeBones);
+		ModelLoader_Clockwise | ModelLoader_IncludeBones);
 
-	const size_t nbones = m_model->bones.size();
+	DX::ThrowIfFailed(
+		m_animation.Load(L"Resources\\Models\\KirishiroIdol.sdkmesh_anim")
+	);
 
-	m_drawBones = ModelBone::MakeArray(nbones);
-	m_animBones = ModelBone::MakeArray(nbones);
+	m_animation.Bind(*m_model);
 
-	m_model->CopyBoneTransformsTo(nbones, m_animBones.get());
+	m_drawBones = ModelBone::MakeArray(m_model->bones.size());
 
-	uint32_t index = 0;
-	for (const auto& it : m_model->bones)
-	{
-		if (_wcsicmp(it.name.c_str(), L"tank_geo") == 0)
+	m_model->UpdateEffects([&](IEffect* effect)
 		{
-			m_animBones[index] = XMMatrixIdentity();
+			auto skin = dynamic_cast<SkinnedEffect*>(effect);
+			if (skin)
+			{
+				skin->SetPerPixelLighting(true);
+			}
 		}
-		else if (_wcsicmp(it.name.c_str(), L"l_back_wheel_geo") == 0) { m_leftBackWheelBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"r_back_wheel_geo") == 0) { m_rightBackWheelBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"l_front_wheel_geo") == 0) { m_leftFrontWheelBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"r_front_wheel_geo") == 0) { m_rightFrontWheelBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"l_steer_geo") == 0) { m_leftSteerBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"r_steer_geo") == 0) { m_rightSteerBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"turret_geo") == 0) { m_turretBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"canon_geo") == 0) { m_cannonBone = index; }
-		else if (_wcsicmp(it.name.c_str(), L"hatch_geo") == 0) { m_hatchBone = index; }
+	);
 
-
-		++index;
-	}
 
 #if defined(_DEBUG)
 	auto context = mp_DeviceResources->GetD3DDeviceContext();
@@ -114,45 +94,11 @@ void TitleScene::Update(const float elapsedTime)
 	// カメラ更新
 	m_Camera->Update();
 
+	m_animation.Update(elapsedTime);
+
 	m_nowTime += elapsedTime;
 
-	m_world = SimpleMath::Matrix::CreateScale(0.01f);
-	m_world *= SimpleMath::Matrix::CreateRotationY(m_nowTime * 0.1f);
-	m_world *= SimpleMath::Matrix::CreateTranslation(0.0f, 0.0f, 0.0f);
-	
-	float wheelRotation = m_nowTime * 5.f;
-	float steerRotation = sinf(m_nowTime * 0.75f) * 0.5f;
-	float turretRotation = sinf(m_nowTime * 0.333f) * 1.25f;
-	float cannonRotation = sinf(m_nowTime * 0.25f) * 0.333f - 0.333f;
-	float hatchRotation = std::min(0.f, std::max(sinf(m_nowTime * 2.f) * 2.f, -1.f));
-
-	XMMATRIX mat = XMMatrixRotationX(wheelRotation);
-	m_animBones[m_leftFrontWheelBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_leftFrontWheelBone]);
-	m_animBones[m_rightFrontWheelBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_rightFrontWheelBone]);
-	m_animBones[m_leftBackWheelBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_leftBackWheelBone]);
-	m_animBones[m_rightBackWheelBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_rightBackWheelBone]);
-
-	mat = XMMatrixRotationX(steerRotation);
-	m_animBones[m_leftSteerBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_leftSteerBone]);
-	m_animBones[m_rightSteerBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_rightSteerBone]);
-
-	mat = XMMatrixRotationY(turretRotation);
-	m_animBones[m_turretBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_turretBone]);
-
-	mat = XMMatrixRotationX(cannonRotation);
-	m_animBones[m_cannonBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_cannonBone]);
-
-	mat = XMMatrixRotationX(hatchRotation);
-	m_animBones[m_hatchBone] = XMMatrixMultiply(mat,
-		m_model->boneMatrices[m_hatchBone]);
+	m_world = SimpleMath::Matrix::CreateTranslation(0.0f, 0.0f, 0.0f);
 
 	// ボタンが押せるようになるまでの時間を減らす
 	m_buttonEnableTime -= elapsedTime;
@@ -184,10 +130,9 @@ void TitleScene::Render()
 	auto context = mp_DeviceResources->GetD3DDeviceContext();
 	size_t nbones = m_model->bones.size();
 
-	m_model->CopyAbsoluteBoneTransforms(nbones,
-		m_animBones.get(), m_drawBones.get());
+	m_animation.Apply(*m_model, nbones, m_drawBones.get());
 
-	m_model->Draw(context, *mp_States, nbones, m_drawBones.get(),
+	m_model->DrawSkinned(context, *mp_States, nbones, m_drawBones.get(),
 		m_world, view, *mp_Proj);
 
 #if defined(_DEBUG)

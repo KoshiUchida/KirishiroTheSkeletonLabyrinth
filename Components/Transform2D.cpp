@@ -5,7 +5,7 @@
  *
  * @author CatCode
  *
- * @date   2025/04/01
+ * @date   2025/04/02
  */
 
 #include "pch.h"
@@ -14,7 +14,7 @@
 /// <summary>
 /// Constructor
 /// </summary>
-Transform2D::Transform2D(DirectX::SimpleMath::Vector2 position, float rotate, float scale, ScreenOrigin origin) :
+Transform2D::Transform2D(DirectX::SimpleMath::Vector2 position, float rotate, DirectX::SimpleMath::Vector2 scale, ScreenOrigin origin) :
 	ComponentsBace(Tags::NONE, "Transform"),
 	m_Position{ position },
 	m_Rotate  { rotate },
@@ -44,7 +44,7 @@ void Transform2D::SetRotate(float rotate)
 
 void Transform2D::SetScale(float scale)
 {
-	m_Scale = scale;
+	m_Scale = DirectX::SimpleMath::Vector2(scale, scale);
 }
 
 void Transform2D::SetOrigin(ScreenOrigin origin)
@@ -124,7 +124,7 @@ float Transform2D::GetRotate() const
 	return m_Rotate;
 }
 
-float Transform2D::GetScale() const
+DirectX::SimpleMath::Vector2 Transform2D::GetScale() const
 {
 	return m_Scale;
 }

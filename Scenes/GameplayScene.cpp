@@ -20,6 +20,7 @@
 #include "../Objects/Enemy.h"
 #include "../Objects/PlayerStatusUI.h"
 #include "../Objects/OparateUI.h"
+#include "../Objects/CharactorIconUI.h"
 
 #include "../Managers/SceneManager.h"
 #include "../Components/Transform.h"
@@ -102,6 +103,9 @@ void GameplayScene::Initialize()
 
     // ëÄçÏUI
     AddObject("OparateUI", std::make_unique<OparateUI>(this, "OparateUI"));
+
+    // characterÇÃUIÉAÉCÉRÉì
+    AddObject("CharactorIconUI", std::make_unique<CharactorIconUI>(this, "CharactorIconUI"));
 
 
 

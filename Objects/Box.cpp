@@ -26,7 +26,7 @@ Box::Box(SceneBace* pScene, const std::string& name, const DirectX::SimpleMath::
 
 	pTransform->SetPosition(position);
 
-	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(2.f, 2.f, 2.f)));
+	AddComponent(std::make_unique<BoxCollider>(mp_Scene, "Collider", pTransform, SimpleMath::Vector3(2.f, 2.f, 2.f), false));
 }
 
 Box::~Box() noexcept = default;
@@ -51,6 +51,19 @@ void Box::Process(float elapsedTime)
 
 	// Playerを押し出す
 	static_cast<ColliderBace*>(player->GetComponentPtr("Collider"))
+		->Collision(
+			static_cast<ColliderBace*>(GetComponentPtr("Collider"))
+		);
+
+	// Enemyのポインタを取得
+	ObjectBace* enemy = GetObjectPtr("Enemy");
+
+	// 取得失敗時の早期リターン
+	if (!enemy)
+		return;
+
+	// Enemyを押し出す
+	static_cast<ColliderBace*>(enemy->GetComponentPtr("Collider"))
 		->Collision(
 			static_cast<ColliderBace*>(GetComponentPtr("Collider"))
 		);

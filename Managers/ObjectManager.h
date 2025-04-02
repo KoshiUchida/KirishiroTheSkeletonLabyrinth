@@ -53,5 +53,7 @@ public:
 	ObjectBace* GetObjectPtr(const std::string& objectName);
 
 	void DeleteObject(ObjectBace* pObject);
+
+	std::vector<std::string> FindObjects(const std::string& findName);
 };
 

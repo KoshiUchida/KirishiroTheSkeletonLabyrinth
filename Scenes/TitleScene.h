@@ -5,13 +5,15 @@
  *
  * @author CatCode
  *
- * @date   2025/03/25
+ * @date   2025/04/02
  */
 
 #pragma once
 #include "SceneBace.h"
 #include <memory>
 #include "StepTimer.h"
+
+#include "Animation.h"
 
 #if defined(_DEBUG)
  // デバッグ必須読み込み
@@ -46,17 +48,8 @@ private:
     std::unique_ptr<DirectX::Model> m_model;
     
     DirectX::ModelBone::TransformArray m_drawBones;
-    DirectX::ModelBone::TransformArray m_animBones;
     
-    uint32_t m_leftBackWheelBone;
-    uint32_t m_rightBackWheelBone;
-    uint32_t m_leftFrontWheelBone;
-    uint32_t m_rightFrontWheelBone;
-    uint32_t m_leftSteerBone;
-    uint32_t m_rightSteerBone;
-    uint32_t m_turretBone;
-    uint32_t m_cannonBone;
-    uint32_t m_hatchBone;
+    DX::AnimationSDKMESH m_animation;
 
 #if defined(_DEBUG)
     /*デバッグ用スマートポインタ*/
